@@ -11,6 +11,7 @@ import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { useLocation } from 'react-router';
+import { Link } from 'react-router-dom';
 
 
 function NavigationBar() {
@@ -23,52 +24,82 @@ function NavigationBar() {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav>
             {/* <Nav.Item><Button variant={`${location.pathname === "/" && "danger"}`} id='home-btn'>HOME</Button></Nav.Item> */}
-            <Nav.Item><Button variant="danger" id='home-btn' className={`${location.pathname === "/" && "bg-danger"}`}>HOME</Button></Nav.Item>
+            <Nav.Item>
+              <Link to="/">
+                <Button variant="danger" id='home-btn' className={`${location.pathname === "/" && "bg-danger"}`}>HOME</Button>
+              </Link>
+            </Nav.Item>
             <Nav.Item>
               <Dropdown as={ButtonGroup}>
-                <Button variant="danger" className={`${location.pathname === "/news" && "bg-danger"}`}>NEWS</Button>
+                <Link to="/news">
+                  <Button variant="danger" className={`${location.pathname.startsWith("/news") && "bg-danger"}`}>NEWS</Button>
+                </Link>
                 <Dropdown.Toggle split variant="danger" id="dropdown-split-basic" />
                 <Dropdown.Menu>
-                  <Dropdown.Item href="#/action-1">Archivio News</Dropdown.Item>
+                  <Link to="/news/archivio-news">
+                    <Dropdown.Item href="#/action-1">Archivio News</Dropdown.Item>
+                  </Link>
                 </Dropdown.Menu>
               </Dropdown>
             </Nav.Item>
             <Nav.Item>
               <Dropdown as={ButtonGroup}>
-                <Button variant="danger" className={`${location.pathname === "/chi-siamo" && "bg-danger"}`}>CHI SIAMO</Button>
+                <Link to="/chi-siamo">
+                  <Button variant="danger" className={`${location.pathname.startsWith("/chi-siamo") && "bg-danger"}`}>CHI SIAMO</Button>
+                </Link>
                 <Dropdown.Toggle split variant="danger" id="dropdown-split-basic" />
                 <Dropdown.Menu>
-                  <Dropdown.Item href="#/action-1">Mangiacucù</Dropdown.Item>
-                  <Dropdown.Item href="#/action-2">Statuto</Dropdown.Item>
-                  <Dropdown.Item href="#/action-3">Rassegna stampa</Dropdown.Item>
+                  <Link to="/chi-siamo/mangiacucu">
+                    <Dropdown.Item href="#/action-1">Mangiacucù</Dropdown.Item>
+                  </Link>
+                  <Link to="/chi-siamo/statuto">
+                    <Dropdown.Item href="#/action-2">Statuto</Dropdown.Item>
+                  </Link>
+                  <Link to="/chi-siamo/rassegna-stampa">
+                    <Dropdown.Item href="#/action-3">Rassegna stampa</Dropdown.Item>
+                  </Link>
                 </Dropdown.Menu>
               </Dropdown>
             </Nav.Item>
             <Nav.Item>
               <Dropdown as={ButtonGroup}>
-                <Button variant="danger" className={`${location.pathname === "/dove" && "bg-danger"}`}>DOVE</Button>
+                <Link to="/dove">
+                  <Button variant="danger" className={`${location.pathname.startsWith("/dove") && "bg-danger"}`}>DOVE</Button>
+                </Link>
                 <Dropdown.Toggle split variant="danger" id="dropdown-split-basic" />
                 <Dropdown.Menu>
-                  <Dropdown.Item href="#/action-1">Come raggiungerci</Dropdown.Item>
+                  <Link to="/dove/come-raggiungerci">
+                    <Dropdown.Item href="#/action-1">Come raggiungerci</Dropdown.Item>
+                  </Link>
                 </Dropdown.Menu>
               </Dropdown>
             </Nav.Item>
             <Nav.Item>
               <Dropdown as={ButtonGroup}>
-                <Button variant="danger" className={`${location.pathname === "/contatti" && "bg-danger"}`}>CONTATTI</Button>
+                <Link to="/contatti">
+                  <Button variant="danger" className={`${location.pathname.startsWith("/contatti") && "bg-danger"}`}>CONTATTI</Button>
+                </Link>
                 <Dropdown.Toggle split variant="danger" id="dropdown-split-basic" />
                 <Dropdown.Menu>
-                  <Dropdown.Item href="#/action-1">Link</Dropdown.Item>
-                  <Dropdown.Item href="#/action-2">Crediti</Dropdown.Item>
+                  <Link to="/contatti/link">
+                    <Dropdown.Item href="#/action-1">Link</Dropdown.Item>
+                  </Link>
+                  <Link to="/contatti/crediti">
+                    <Dropdown.Item href="#/action-2">Crediti</Dropdown.Item>
+                  </Link>
                 </Dropdown.Menu>
               </Dropdown>
             </Nav.Item>
             <Nav.Item>
               <Dropdown as={ButtonGroup}>
-                <Button variant="danger" className={`${location.pathname === "/info-privacy" && "bg-danger"}`}>INFO PRIVACY</Button>
+                <Link to="/info-privacy">
+                  <Button variant="danger" className={`${location.pathname.startsWith("/info-privacy") && "bg-danger"}`}>INFO PRIVACY</Button>
+                </Link>
                 <Dropdown.Toggle split variant="danger" id="dropdown-split-basic" />
                 <Dropdown.Menu>
-                  <Dropdown.Item href="#/action-1">Info cookies</Dropdown.Item>
+                  <Link to="/info-cookies">
+                    <Dropdown.Item href="#/action-1">Info cookies</Dropdown.Item>
+                  </Link>
                 </Dropdown.Menu>
               </Dropdown>
             </Nav.Item>

@@ -17,13 +17,14 @@ import { Link } from 'react-router-dom';
 function NavigationBar() {
   const location = useLocation();
   return (
-    <Navbar expand="sm" bg="dark" data-bs-theme="dark" sticky="top">
+    <Navbar expand="md" bg="dark" data-bs-theme="dark" sticky="top">
       <Container fluid>
-        <Navbar.Brand href="#home"><img src={logo} alt="Logo" style={{ height: '30px' }}/></Navbar.Brand>
+        <Link to="/">
+          <Navbar.Brand><img src={logo} alt="Logo" style={{ height: '30px' }}/></Navbar.Brand>
+        </ Link>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav>
-            {/* <Nav.Item><Button variant={`${location.pathname === "/" && "danger"}`} id='home-btn'>HOME</Button></Nav.Item> */}
             <Nav.Item>
               <Link to="/">
                 <Button variant="danger" id='home-btn' className={`${location.pathname === "/" && "bg-danger"}`}>HOME</Button>

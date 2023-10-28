@@ -25,7 +25,7 @@ function App() {
       <BrowserRouter>
         <NavigationBar />
         <Routes>
-          <Route path="/" element={<RouteWrapper element={<Home />} />} />
+          <Route path="/" element={<Home />} />
           <Route path="/news" element={<RouteWrapper element={<News />} />} />
           <Route path="/news/archivio-news" element={<RouteWrapper element={<ArchivioNews />} />} />
           <Route path="/chi-siamo" element={<RouteWrapper element={<ChiSiamo />} />} />

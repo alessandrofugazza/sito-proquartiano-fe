@@ -14,7 +14,7 @@ function Home() {
     return (
         <>
             <header>
-                <div className="mb-5" id="hero">
+                <div id="hero">
                     <Container className='py-5'>
                         <h1 className="mb-0">Associazione Proquartiano</h1>
                         <span >mangiacucù</span>

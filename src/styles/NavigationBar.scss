@@ -2,12 +2,10 @@
     button {
         border-radius: 0;
 
-        // &.btn {
-        //     padding-right: 3px;
-        // }
+        &:not(:hover) {
+            background-color: transparent;
+            border-color: transparent;
+        }
 
-        // &.dropdown-toggle {
-        //     padding-left: 3px;
-        // }
     }
 }

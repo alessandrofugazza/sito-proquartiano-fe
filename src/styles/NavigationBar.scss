@@ -1,6 +1,18 @@
 .navbar-nav {
+    .dropdown {
+        padding-inline: 3px;
+    }
+
     button {
         border-radius: 0;
+
+        &.dropdown-toggle {
+            padding-inline: 4px;
+        }
+
+        &.btn {
+            padding-inline: 7px;
+        }
 
         &:not(:hover) {
             background-color: transparent;

@@ -70,21 +70,22 @@ function NavigationBar() {
               </Dropdown>
             </Nav.Item>
           </Nav>
+          <Form className='ms-auto'>
+            <Row>
+              <Col xs="auto">
+                <Form.Control
+                  type="text"
+                  placeholder="Cerca qualcosa ..."
+                  className=" mr-sm-2"
+                />
+              </Col>
+              <Col xs="auto">
+                <Button type="submit" variant='danger'>Cerca</Button>
+              </Col>
+            </Row>
+          </Form>
         </Navbar.Collapse>
-        <Form>
-          <Row>
-            <Col xs="auto">
-              <Form.Control
-                type="text"
-                placeholder="Cerca qualcosa ..."
-                className=" mr-sm-2"
-              />
-            </Col>
-            <Col xs="auto">
-              <Button type="submit" variant='danger'>Cerca</Button>
-            </Col>
-          </Row>
-        </Form>
+        
       </Container>
     </Navbar>
   );

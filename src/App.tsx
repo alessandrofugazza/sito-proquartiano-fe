@@ -3,6 +3,7 @@ import NavigationBar from './components/NavigationBar';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from './components/Home';
 import NotFound from './components/NotFound';
+import RouteWrapper from './components/RouteWrapper';
 
 function App() {
   return (
@@ -10,11 +11,8 @@ function App() {
       <BrowserRouter>
         <NavigationBar />
         <Routes>
-          <Route path="/" element={<Home />}></Route>
-          <Route
-            path="*"
-            element={<NotFound />}
-          />
+          <Route path="/" element={<RouteWrapper element={<Home />} />} />
+        <Route path="*" element={<RouteWrapper element={<NotFound />} />} />
         </Routes>
       </BrowserRouter>
     </div>

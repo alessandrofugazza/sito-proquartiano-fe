@@ -14,7 +14,7 @@ import Col from 'react-bootstrap/Col';
 
 function NavigationBar() {
   return (
-    <Navbar expand="sm" bg="dark" data-bs-theme="dark">
+    <Navbar expand="sm" bg="dark" data-bs-theme="dark" sticky="top">
       <Container fluid>
         <Navbar.Brand href="#home"><img src={logo} alt="Logo" style={{ height: '30px' }}/></Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />

@@ -1,4 +1,9 @@
 .navbar-nav {
+
+    #home-btn {
+        padding-inline: 9px;
+    }
+
     .dropdown {
         padding-inline: 3px;
     }
@@ -7,11 +12,11 @@
         border-radius: 0;
 
         &.dropdown-toggle {
-            padding-inline: 4px;
+            padding-inline: 3px;
         }
 
         &.btn {
-            padding-inline: 7px;
+            padding-inline: 5px;
         }
 
         &:not(:hover) {

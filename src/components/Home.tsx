@@ -17,7 +17,7 @@ function Home() {
                 <div className="mb-5" id="hero">
                     <Container className='py-5'>
                         <h1 className="mb-0">Associazione Proquartiano</h1>
-                        <span>mangiacucù</span>
+                        <span >mangiacucù</span>
                     </Container>
                 </div>
             </header>

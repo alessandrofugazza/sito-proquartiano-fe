@@ -10,9 +10,11 @@ import '../styles/NavigationBar.scss';
 import Form from 'react-bootstrap/Form';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import { useLocation } from 'react-router';
 
 
 function NavigationBar() {
+  const location = useLocation();
   return (
     <Navbar expand="sm" bg="dark" data-bs-theme="dark" sticky="top">
       <Container fluid>
@@ -20,10 +22,11 @@ function NavigationBar() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav>
-            <Nav.Item><Button variant="danger" id='home-btn'>HOME</Button></Nav.Item>
+            {/* <Nav.Item><Button variant={`${location.pathname === "/" && "danger"}`} id='home-btn'>HOME</Button></Nav.Item> */}
+            <Nav.Item><Button variant="danger" id='home-btn' className={`${location.pathname === "/" && "bg-danger"}`}>HOME</Button></Nav.Item>
             <Nav.Item>
               <Dropdown as={ButtonGroup}>
-                <Button variant="danger">NEWS</Button>
+                <Button variant="danger" className={`${location.pathname === "/news" && "bg-danger"}`}>NEWS</Button>
                 <Dropdown.Toggle split variant="danger" id="dropdown-split-basic" />
                 <Dropdown.Menu>
                   <Dropdown.Item href="#/action-1">Archivio News</Dropdown.Item>
@@ -32,7 +35,7 @@ function NavigationBar() {
             </Nav.Item>
             <Nav.Item>
               <Dropdown as={ButtonGroup}>
-                <Button variant="danger">CHI SIAMO</Button>
+                <Button variant="danger" className={`${location.pathname === "/chi-siamo" && "bg-danger"}`}>CHI SIAMO</Button>
                 <Dropdown.Toggle split variant="danger" id="dropdown-split-basic" />
                 <Dropdown.Menu>
                   <Dropdown.Item href="#/action-1">Mangiacucù</Dropdown.Item>
@@ -43,7 +46,7 @@ function NavigationBar() {
             </Nav.Item>
             <Nav.Item>
               <Dropdown as={ButtonGroup}>
-                <Button variant="danger">DOVE</Button>
+                <Button variant="danger" className={`${location.pathname === "/dove" && "bg-danger"}`}>DOVE</Button>
                 <Dropdown.Toggle split variant="danger" id="dropdown-split-basic" />
                 <Dropdown.Menu>
                   <Dropdown.Item href="#/action-1">Come raggiungerci</Dropdown.Item>
@@ -52,7 +55,7 @@ function NavigationBar() {
             </Nav.Item>
             <Nav.Item>
               <Dropdown as={ButtonGroup}>
-                <Button variant="danger">CONTATTI</Button>
+                <Button variant="danger" className={`${location.pathname === "/contatti" && "bg-danger"}`}>CONTATTI</Button>
                 <Dropdown.Toggle split variant="danger" id="dropdown-split-basic" />
                 <Dropdown.Menu>
                   <Dropdown.Item href="#/action-1">Link</Dropdown.Item>
@@ -62,7 +65,7 @@ function NavigationBar() {
             </Nav.Item>
             <Nav.Item>
               <Dropdown as={ButtonGroup}>
-                <Button variant="danger">INFO PRIVACY</Button>
+                <Button variant="danger" className={`${location.pathname === "/info-privacy" && "bg-danger"}`}>INFO PRIVACY</Button>
                 <Dropdown.Toggle split variant="danger" id="dropdown-split-basic" />
                 <Dropdown.Menu>
                   <Dropdown.Item href="#/action-1">Info cookies</Dropdown.Item>

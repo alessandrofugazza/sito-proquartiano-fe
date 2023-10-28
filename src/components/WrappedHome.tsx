@@ -5,7 +5,7 @@ import HomeCard from "./HomeCard";
 function WrappedHome() {
   return(
     <main>
-        <Row xs={1} md={2} lg={3} className="gy-4">
+        <Row xs={1} md={2} lg={3} xl={4} className="gy-4">
             <Col>
                 <HomeCard 
                     imgSrc={img1} 

@@ -12,11 +12,12 @@
         border-radius: 0;
 
         &.dropdown-toggle {
-            padding-inline: 3px;
+            padding-inline: 4px;
         }
 
         &.btn {
             padding-inline: 5px;
+            font-weight: 600;
         }
 
         &:not(:hover) {

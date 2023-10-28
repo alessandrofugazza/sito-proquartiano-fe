@@ -76,12 +76,12 @@ function NavigationBar() {
             <Col xs="auto">
               <Form.Control
                 type="text"
-                placeholder="Cerca"
+                placeholder="Cerca qualcosa ..."
                 className=" mr-sm-2"
               />
             </Col>
             <Col xs="auto">
-              <Button type="submit" variant='danger'>Submit</Button>
+              <Button type="submit" variant='danger'>Cerca</Button>
             </Col>
           </Row>
         </Form>

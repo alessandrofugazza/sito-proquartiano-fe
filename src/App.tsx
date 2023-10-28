@@ -4,6 +4,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from './components/Home';
 import NotFound from './components/NotFound';
 import RouteWrapper from './components/RouteWrapper';
+import Footer from './components/Footer';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <Route path="/" element={<RouteWrapper element={<Home />} />} />
           <Route path="*" element={<RouteWrapper element={<NotFound />} />} />
         </Routes>
+        <Footer />
       </BrowserRouter>
     </div>
   );

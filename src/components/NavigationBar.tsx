@@ -97,7 +97,7 @@ function NavigationBar() {
                 </Link>
                 <Dropdown.Toggle split variant="danger" id="dropdown-split-basic" />
                 <Dropdown.Menu>
-                  <Link to="/info-cookies">
+                  <Link to="/info-privacy/info-cookies">
                     <Dropdown.Item href="#/action-1">Info cookies</Dropdown.Item>
                   </Link>
                 </Dropdown.Menu>

@@ -6,10 +6,12 @@ function Footer() {
         <footer>
             <div className="py-3">
                 <Container   >
-                    <p className='my-0'>via IV Novembre 69<br />
-                    26837 - Quartiano di Mulazzano (LO)<br />
-                    Italia<br />
-                    Iscritta al registro provinciale delle associazioni</p>
+                    <p className='my-0'>
+                        Via IV Novembre 69<br />
+                        26837 - Quartiano di Mulazzano (LO)<br />
+                        Italia<br />
+                        Iscritta al registro provinciale delle associazioni
+                    </p>
                 </ Container>
             </div>
             <div  className="py-3">

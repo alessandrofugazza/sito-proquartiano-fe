@@ -1,5 +1,9 @@
 function ArchivioNews() {
-  return(<></>)
+  return(
+    <header>
+      <h1>Archivio news</h1>
+    </header>
+  )
 }
 
 export default ArchivioNews;

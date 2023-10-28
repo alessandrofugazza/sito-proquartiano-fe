@@ -12,9 +12,9 @@ import '../styles/NavigationBar.scss';
 
 function NavigationBar() {
   return (
-    <Navbar expand="lg" className="bg-body-tertiary">
-      <Container>
-        <Navbar.Brand href="#home"><img src={logo} alt="Logo"/></Navbar.Brand>
+    <Navbar expand="lg" bg="dark" data-bs-theme="dark">
+      <Container fluid>
+        <Navbar.Brand href="#home"><img src={logo} alt="Logo" style={{ height: '30px' }}/></Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav>

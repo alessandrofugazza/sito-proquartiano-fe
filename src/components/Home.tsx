@@ -5,16 +5,17 @@ import img1 from "../assets/img/PQ_sagraW2023.jpg"
 import img2 from "../assets/img/image.png"
 import img3 from "../assets/img/PQ_aprile2023.png"
 import img4 from "../assets/img/PROQUARTIANO-libri-2023.png"
+import "../styles/Home.scss"
 
 function Home() {
     return (
         <>
             <header>
-                <div className="mb-5">
+                <div className="mb-5" id="hero">
                     <h1 className="mb-0">Associazione Proquartiano</h1>
                     <span>mangiacucù</span>
                 </div>
-                <img src={banner} alt="Proquartiano ponte Muzza" className="img-fluid"/>
+                {/* <img src={banner} alt="Proquartiano ponte Muzza" className="img-fluid"/> */}
             </header>
             <main className="my-5">
                 <Row xs={1} md={2} lg={3} className="gy-4">

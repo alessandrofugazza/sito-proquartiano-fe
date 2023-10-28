@@ -39,6 +39,7 @@ function App() {
           <Route path="/contatti/crediti" element={<RouteWrapper element={<Crediti />} />} />
           <Route path="/info-privacy" element={<RouteWrapper element={<InfoPrivacy />} />} />
           <Route path="/info-privacy/info-cookies" element={<RouteWrapper element={<InfoCookies />} />} />
+          <Route path="*" element={<RouteWrapper element={<NotFound />} />} />
         </Routes>
         <Footer />
       </BrowserRouter>

@@ -1,17 +1,36 @@
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
-import cardImg from '../assets/img/PQ_sagraW2023.jpg';
+import "../styles/HomeCard.scss"
+import { Calendar } from 'react-bootstrap-icons';
 
-function HomeCard() {
+interface HomeCardProps {
+  imgSrc: string;
+  tags: string[];
+  title: string;
+  date: string;
+  author: string;
+  description: string;
+}
+
+function HomeCard({imgSrc, tags, title, date, author, description}: HomeCardProps) {
     return (
         <Card>
-            <Card.Img variant="top" src={cardImg} />
+            <Card.Img variant="top" src={imgSrc} />
             <Card.Body>
-                <Card.Title>SAGRA DI QUARTIANO 2023</Card.Title>
-                <Card.Text>
-                    Ecco il programma delle iniziative promosse da Proquartiano in occasione ella Sagra 2023. Siamo pronti ad accogliervi!
+                {tags.map(tag => (
+                    <Button key={tag} variant='danger' size="sm" className='tag me-1 mb-2 py-0'>{tag}</Button>
+                ))}
+                <Card.Title className='my-2'>{title}</Card.Title>
+                <div className='d-flex date-author'>
+                    <i className="bi bi-calendar-event"></i>
+                    <span className='me-3'>{date}</span>
+                    <i className="bi bi-person-fill"></i>
+                    <span>{author}</span>
+                </div>
+                <Card.Text className='my-4'>
+                    {description}
                 </Card.Text>
-                <Button variant="danger">Leggi tutto</Button>
+                <Button variant="danger" size="sm">Leggi tutto</Button>
             </Card.Body>
         </Card>
     );

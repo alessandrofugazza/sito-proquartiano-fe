@@ -12,7 +12,7 @@ function App() {
         <NavigationBar />
         <Routes>
           <Route path="/" element={<RouteWrapper element={<Home />} />} />
-        <Route path="*" element={<RouteWrapper element={<NotFound />} />} />
+          <Route path="*" element={<RouteWrapper element={<NotFound />} />} />
         </Routes>
       </BrowserRouter>
     </div>

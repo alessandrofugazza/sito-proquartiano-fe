@@ -6,13 +6,13 @@ function Home() {
     return (
         <>
             <header>
-                <div>
-                    <h1>Associazione Proquartiano</h1>
+                <div className="mb-5">
+                    <h1 className="mb-0">Associazione Proquartiano</h1>
                     <span>mangiacucù</span>
                 </div>
                 <img src={banner} alt="Proquartiano ponte Muzza" className="img-fluid"/>
             </header>
-            <main>
+            <main className="my-5">
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Recusandae quisquam quia, eveniet, nam maxime tempore facere at laborum iste, cumque architecto facilis voluptatibus. Magni harum dolorem explicabo quisquam molestiae reprehenderit!
                 Ex nesciunt, vero dolorum magni beatae fugiat labore maiores, explicabo quo odio aut perspiciatis quasi ab voluptatum fugit cum assumenda nemo doloribus. Facilis eligendi enim quisquam illum, voluptatum eum amet.
                 Enim voluptatibus voluptatum ipsum quaerat cum aliquam ipsam incidunt. Explicabo vitae, fugiat quaerat optio suscipit quam. Fugiat quas possimus cum. At nam nisi recusandae mollitia! Officiis sit ex odit obcaecati.

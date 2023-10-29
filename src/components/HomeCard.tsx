@@ -15,7 +15,7 @@ interface HomeCardProps {
 function HomeCard({imgSrc, tags, title, date, author, description}: HomeCardProps) {
     return (
         <Card>
-            <Card.Img variant="top" src={imgSrc} />
+            <Card.Img variant="top" src={imgSrc} className='img-fluid' style={{maxHeight: '400px', objectFit: 'contain'}}/>
             <Card.Body>
                 {tags.map(tag => (
                     <Button key={tag} variant='danger' size="sm" className='tag me-1 mb-2 py-0'>{tag}</Button>

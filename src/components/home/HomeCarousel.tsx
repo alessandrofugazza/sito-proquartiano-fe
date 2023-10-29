@@ -1,8 +1,8 @@
 import Carousel from 'react-bootstrap/Carousel';
-import img1 from '../assets/img/PQ_aprile2023.png';
-import img2 from '../assets/img/PQ_sagraW2023.jpg';
-import img3 from '../assets/img/PROQUARTIANO-libri-2023.png';
-import HomeCarouselSlide from './home-carousel/HomeCarouselSlide';
+import img1 from '../../assets/img/PQ_aprile2023.png';
+import img2 from '../../assets/img/PQ_sagraW2023.jpg';
+import img3 from '../../assets/img/PROQUARTIANO-libri-2023.png';
+import HomeCarouselSlide from './HomeCarouselSlide';
 
 function HomeCarousel() {
   return (

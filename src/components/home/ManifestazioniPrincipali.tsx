@@ -1,14 +1,13 @@
 import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
+import '../../styles/ManifestazioniPrincipali.scss'
 
 function ManifestazioniPrincipali() {
   return(
-    <div style={{marginTop: '3em'}}>
-      <h2 className="text-center">Manifestazioni principali</h2>
-      
-
+    <div style={{marginBlock: '5em'}} className='manifestazioni-principali'>
+      <h2 className="text-center mb-4">Manifestazioni principali</h2>
       <Tabs
-        defaultActiveKey="profile"
+        defaultActiveKey="mercatino-dei-libri"
         id="fill-tab-example"
         className="mb-3"
         fill

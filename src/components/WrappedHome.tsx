@@ -10,6 +10,7 @@ function WrappedHome() {
     <main>
         <HomeCarousel />
         <ManifestazioniPrincipali />
+        <hr />
         <UltimiEventi />
     </main>
   )

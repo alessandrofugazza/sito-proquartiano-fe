@@ -1,0 +1,9 @@
+.manifestazioni-principali {
+    button {
+        font-weight: 700;
+
+        &:not(.active) {
+            color: #DC3545;
+        }
+    }
+}

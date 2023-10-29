@@ -1,5 +1,8 @@
 import React from 'react';
-import { Container } from 'react-bootstrap';
+import { Button, Container } from 'react-bootstrap';
+import MyBreadcrumb from './MyBreadcrumb';
+import { Link } from 'react-router-dom';
+import NavigationButtons from './NavigationButtons';
 
 interface RouteWrapperProps {
   title: string;
@@ -12,6 +15,7 @@ function RouteWrapper({ title, description, content }: RouteWrapperProps) {
     <Container className='py-5'>
       {title && (
         <>
+          <MyBreadcrumb />
           <header>
             <h1>{title}</h1>
             {description && <p>{description}</p>}
@@ -20,6 +24,7 @@ function RouteWrapper({ title, description, content }: RouteWrapperProps) {
         </>
       )}
       {content}
+      <NavigationButtons />
     </Container>
   );
 }

@@ -12,6 +12,12 @@
         }
     }
 
+    .dropdown-menu {
+        a:active {
+            background-color: #DC3545;
+        }
+    }
+
     button {
         border-radius: 0;
 

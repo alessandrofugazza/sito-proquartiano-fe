@@ -13,7 +13,7 @@ import { Container } from 'react-bootstrap';
 function Home() {
     return (
         <>
-            <header className='mb-0'>
+            <header>
                 <div id="hero">
                     <Container className='py-5'>
                         <h1 className="mb-0">Associazione Proquartiano</h1>
@@ -21,7 +21,7 @@ function Home() {
                     </Container>
                 </div>
             </header>
-            <RouteWrapper element={<WrappedHome />} />
+            <RouteWrapper elementTitle="" elementContent={<WrappedHome />} />
         </>
     );
 }

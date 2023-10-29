@@ -26,20 +26,20 @@ function App() {
         <NavigationBar />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/news" element={<RouteWrapper elementTitle="News" elementContent={<News />} />} />
-          <Route path="/news/archivio-news" element={<RouteWrapper elementTitle="Archivio news" elementContent={<ArchivioNews />} />} />
-          <Route path="/chi-siamo" element={<RouteWrapper elementTitle="Chi siamo" elementContent={<ChiSiamo />} />} />
-          <Route path="/chi-siamo/mangiacucu" element={<RouteWrapper elementTitle="Mangiacucù" elementContent={<Mangiacucu />} />} />
-          <Route path="/chi-siamo/statuto" element={<RouteWrapper elementTitle="Statuto" elementContent={<Statuto />} />} />
-          <Route path="/chi-siamo/rassegna-stampa" element={<RouteWrapper elementTitle="Rassegna stampa" elementContent={<RassegnaStampa />} />} />
-          <Route path="/dove" element={<RouteWrapper elementTitle="Dove" elementContent={<Dove />} />} />
-          <Route path="/dove/come-raggiungerci" element={<RouteWrapper elementTitle="Come raggiungerci" elementContent={<ComeRaggiungerci />} />} />
-          <Route path="/contatti" element={<RouteWrapper elementTitle="Contatti" elementContent={<Contatti />} />} />
-          <Route path="/contatti/link" element={<RouteWrapper elementTitle="Link" elementContent={<Link />} />} />
-          <Route path="/contatti/crediti" element={<RouteWrapper elementTitle="Crediti" elementContent={<Crediti />} />} />
-          <Route path="/info-privacy" element={<RouteWrapper elementTitle="Info privacy" elementContent={<InfoPrivacy />} />} />
-          <Route path="/info-privacy/info-cookies" element={<RouteWrapper elementTitle="Info cookies" elementContent={<InfoCookies />} />} />
-          <Route path="*" element={<RouteWrapper elementTitle="Pagina non trovata" elementContent={<NotFound />} />} />
+          <Route path="/news" element={<RouteWrapper title="News" description="" content={<News />} />} />
+          <Route path="/news/archivio-news" element={<RouteWrapper title="Archivio news" description="In questa pagina potete cercare le notizie in base a mese ed anno di pubblicazione." content={<ArchivioNews />} />} />
+          <Route path="/chi-siamo" element={<RouteWrapper title="Chi siamo" description="placeholder" content={<ChiSiamo />} />} />
+          <Route path="/chi-siamo/mangiacucu" element={<RouteWrapper title="Mangiacucù" description="placeholder" content={<Mangiacucu />} />} />
+          <Route path="/chi-siamo/statuto" element={<RouteWrapper title="Statuto" description="placeholder" content={<Statuto />} />} />
+          <Route path="/chi-siamo/rassegna-stampa" element={<RouteWrapper title="Rassegna stampa" description="placeholder" content={<RassegnaStampa />} />} />
+          <Route path="/dove" element={<RouteWrapper title="Dove" description="placeholder" content={<Dove />} />} />
+          <Route path="/dove/come-raggiungerci" element={<RouteWrapper title="Come raggiungerci" description="placeholder" content={<ComeRaggiungerci />} />} />
+          <Route path="/contatti" element={<RouteWrapper title="Contatti" description="placeholder" content={<Contatti />} />} />
+          <Route path="/contatti/link" element={<RouteWrapper title="Link" description="placeholder" content={<Link />} />} />
+          <Route path="/contatti/crediti" element={<RouteWrapper title="Crediti" description="placeholder" content={<Crediti />} />} />
+          <Route path="/info-privacy" element={<RouteWrapper title="Info privacy" description="placeholder" content={<InfoPrivacy />} />} />
+          <Route path="/info-privacy/info-cookies" element={<RouteWrapper title="Info cookies" description="placeholder" content={<InfoCookies />} />} />
+          <Route path="*" element={<RouteWrapper title="Pagina non trovata" description="placeholder" content={<NotFound />} />} />
         </Routes>
         <Footer />
       </BrowserRouter>

@@ -21,7 +21,7 @@ function Home() {
                     </Container>
                 </div>
             </header>
-            <RouteWrapper elementTitle="" elementContent={<WrappedHome />} />
+            <RouteWrapper title="" description='' content={<WrappedHome />} />
         </>
     );
 }

@@ -2,23 +2,24 @@ import React from 'react';
 import { Container } from 'react-bootstrap';
 
 interface RouteWrapperProps {
-  elementTitle: string;
-  elementContent: React.ReactNode;
+  title: string;
+  description: string;
+  content: React.ReactNode;
 }
 
-function RouteWrapper({ elementTitle, elementContent }: RouteWrapperProps) {
+function RouteWrapper({ title, description, content }: RouteWrapperProps) {
   return (
     <Container className='py-5'>
-      
-      {elementTitle && (
+      {title && (
         <>
           <header>
-            <h1>{elementTitle}</h1>
+            <h1>{title}</h1>
+            {description && <p>{description}</p>}
           </header>
           <hr className="mt-5 mb-4"/>
         </>
       )}
-      {elementContent}
+      {content}
     </Container>
   );
 }

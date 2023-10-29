@@ -4,10 +4,6 @@ import YearArchive from "./YearArchive";
 function ArchivioNews() {
   return(
     <>
-      <header>
-        <h1>Archivio news</h1>
-        <p>In questa pagina potete cercare le notizie in base a mese ed anno di pubblicazione</p>
-      </header>
       <main>
         <Accordion>
           <Accordion.Item eventKey="0">

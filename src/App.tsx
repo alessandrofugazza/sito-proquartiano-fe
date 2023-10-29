@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import NavigationBar from './components/NavigationBar';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from './components/Home';
@@ -20,6 +20,7 @@ import Link from './components/contatti/Link';
 import InfoCookies from './components/info-privacy/InfoCookies';
 
 function App() {
+
   return (
     <div className="App">
       <BrowserRouter>

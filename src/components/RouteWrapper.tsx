@@ -1,5 +1,6 @@
 import React from 'react';
 import { Container } from 'react-bootstrap';
+import MyBreadcrumb from './MyBreadcrumb';
 
 interface RouteWrapperProps {
   title: string;
@@ -12,6 +13,7 @@ function RouteWrapper({ title, description, content }: RouteWrapperProps) {
     <Container className='py-5'>
       {title && (
         <>
+          <MyBreadcrumb />
           <header>
             <h1>{title}</h1>
             {description && <p>{description}</p>}

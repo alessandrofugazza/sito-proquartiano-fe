@@ -26,7 +26,7 @@ function App() {
         <NavigationBar />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/news" element={<RouteWrapper title="News" description="" content={<News />} />} />
+          <Route path="/news" element={<RouteWrapper title="News" description="In questa pagina potete vedere gli ultimi aggiornamenti del sito." content={<News />} />} />
           <Route path="/news/archivio-news" element={<RouteWrapper title="Archivio news" description="In questa pagina potete cercare le notizie in base a mese ed anno di pubblicazione." content={<ArchivioNews />} />} />
           <Route path="/chi-siamo" element={<RouteWrapper title="Chi siamo" description="placeholder" content={<ChiSiamo />} />} />
           <Route path="/chi-siamo/mangiacucu" element={<RouteWrapper title="Mangiacucù" description="placeholder" content={<Mangiacucu />} />} />

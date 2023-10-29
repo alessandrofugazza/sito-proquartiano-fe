@@ -13,7 +13,7 @@ import { Container } from 'react-bootstrap';
 function Home() {
     return (
         <>
-            <header>
+            <header className='mb-0'>
                 <div id="hero">
                     <Container className='py-5'>
                         <h1 className="mb-0">Associazione Proquartiano</h1>

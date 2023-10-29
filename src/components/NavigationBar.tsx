@@ -19,9 +19,7 @@ function NavigationBar() {
   return (
     <Navbar expand="md" bg="dark" data-bs-theme="dark" sticky="top">
       <Container fluid>
-        <Link to="/">
-          <Navbar.Brand><img src={logo} alt="Logo" style={{ height: '30px' }}/></Navbar.Brand>
-        </ Link>
+        <Navbar.Brand as={Link} to="/"><img src={logo} alt="Logo" style={{ height: '30px' }}/></Navbar.Brand>
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav>
@@ -37,9 +35,7 @@ function NavigationBar() {
                 </Link>
                 <Dropdown.Toggle split variant="danger" id="dropdown-split-basic" />
                 <Dropdown.Menu>
-                  <Link to="/news/archivio-news">
-                    <Dropdown.Item href="#/action-1">Archivio News</Dropdown.Item>
-                  </Link>
+                    <Dropdown.Item as={Link} to="/news/archivio-news">Archivio News</Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
             </Nav.Item>
@@ -50,15 +46,9 @@ function NavigationBar() {
                 </Link>
                 <Dropdown.Toggle split variant="danger" id="dropdown-split-basic" />
                 <Dropdown.Menu>
-                  <Link to="/chi-siamo/mangiacucu">
-                    <Dropdown.Item href="#/action-1">Mangiacucù</Dropdown.Item>
-                  </Link>
-                  <Link to="/chi-siamo/statuto">
-                    <Dropdown.Item href="#/action-2">Statuto</Dropdown.Item>
-                  </Link>
-                  <Link to="/chi-siamo/rassegna-stampa">
-                    <Dropdown.Item href="#/action-3">Rassegna stampa</Dropdown.Item>
-                  </Link>
+                  <Dropdown.Item as={Link} to="/chi-siamo/mangiacucu">Mangiacucù</Dropdown.Item>
+                  <Dropdown.Item as={Link} to="/chi-siamo/statuto">Statuto</Dropdown.Item>
+                  <Dropdown.Item as={Link} to="/chi-siamo/rassegna-stampa">Rassegna stampa</Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
             </Nav.Item>
@@ -69,9 +59,7 @@ function NavigationBar() {
                 </Link>
                 <Dropdown.Toggle split variant="danger" id="dropdown-split-basic" />
                 <Dropdown.Menu>
-                  <Link to="/dove/come-raggiungerci">
-                    <Dropdown.Item href="#/action-1">Come raggiungerci</Dropdown.Item>
-                  </Link>
+                    <Dropdown.Item as={Link} to="/dove/come-raggiungerci">Come raggiungerci</Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
             </Nav.Item>
@@ -82,12 +70,8 @@ function NavigationBar() {
                 </Link>
                 <Dropdown.Toggle split variant="danger" id="dropdown-split-basic" />
                 <Dropdown.Menu>
-                  <Link to="/contatti/link">
-                    <Dropdown.Item href="#/action-1">Link</Dropdown.Item>
-                  </Link>
-                  <Link to="/contatti/crediti">
-                    <Dropdown.Item href="#/action-2">Crediti</Dropdown.Item>
-                  </Link>
+                  <Dropdown.Item as={Link} to="/contatti/link">Link</Dropdown.Item>
+                  <Dropdown.Item as={Link} to="/contatti/crediti">Crediti</Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
             </Nav.Item>
@@ -98,9 +82,7 @@ function NavigationBar() {
                 </Link>
                 <Dropdown.Toggle split variant="danger" id="dropdown-split-basic" />
                 <Dropdown.Menu>
-                  <Link to="/info-privacy/info-cookies">
-                    <Dropdown.Item href="#/action-1">Info cookies</Dropdown.Item>
-                  </Link>
+                  <Dropdown.Item as={Link} to="/info-privacy/info-cookies">Info cookies</Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
             </Nav.Item>

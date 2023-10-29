@@ -1,7 +1,6 @@
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 import "../styles/HomeCard.scss"
-import { Calendar } from 'react-bootstrap-icons';
 
 interface HomeCardProps {
   imgSrc: string;

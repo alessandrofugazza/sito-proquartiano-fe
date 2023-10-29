@@ -20,7 +20,6 @@ import Link from './components/contatti/Link';
 import InfoCookies from './components/info-privacy/InfoCookies';
 
 function App() {
-
   return (
     <div className="App">
       <BrowserRouter>

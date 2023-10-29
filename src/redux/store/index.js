@@ -1,8 +1,8 @@
 import { encryptTransform } from "redux-persist-transform-encrypt";
 import storage from "redux-persist/lib/storage";
-import switchReducer from "../reducers/switchReducer";
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { persistStore, persistReducer } from "redux-persist";
+import updatePreviousUrlReducer from "../reducers/previousUrlReducer";
 
 const persistConfig = {
   key: "root",
@@ -15,7 +15,7 @@ const persistConfig = {
 };
 
 const rootReducer = combineReducers({
-  switch: switchReducer,
+  previousUrl: updatePreviousUrlReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

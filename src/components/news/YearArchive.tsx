@@ -35,7 +35,7 @@ function YearArchive({year}: YearArchiveProps) {
   return(
     <ListGroup >
       {months.map((month, index) => (
-        <Link to={`news/${year}/${monthsNumber[index]}`} key={monthsNumber[index]} style={{textDecoration: "none"}}>
+        <Link to={`${year}/${monthsNumber[index]}`} key={monthsNumber[index]} style={{textDecoration: "none"}}>
           <ListGroup.Item>{month} {year}</ListGroup.Item>
         </Link>
       ))}

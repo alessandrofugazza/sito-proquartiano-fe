@@ -1,9 +1,5 @@
 import { Button } from "react-bootstrap";
 import { Link, useLocation } from "react-router-dom";
-import { IRootState } from "../interfaces/IRootState";
-import { useDispatch, useSelector } from "react-redux";
-import { updatePreviousUrlAction } from "../redux/actions";
-import { useEffect, useState } from "react";
 
 
 function NavigationButtons() {

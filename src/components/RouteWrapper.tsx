@@ -24,7 +24,7 @@ function RouteWrapper({ title, description, content }: RouteWrapperProps) {
         </>
       )}
       {content}
-      <NavigationButtons />
+      {title && <NavigationButtons />}
     </Container>
   );
 }

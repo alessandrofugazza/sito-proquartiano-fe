@@ -1,11 +1,13 @@
 import { Col, Container, Row } from "react-bootstrap";
 import img1 from "../assets/img/PQ_sagraW2023.jpg"
 import HomeCard from "./HomeCard";
+import HomeCarousel from "./HomeCarousel";
 
 function WrappedHome() {
   return(
     <main>
-        <Row className="mb-4">
+        <HomeCarousel />
+        <Row className="mt-5 mb-4">
             <Col>
                 <HomeCard 
                     imgSrc={img1} 

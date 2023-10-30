@@ -21,7 +21,7 @@ function RouteWrapper({ title, description, content }: RouteWrapperProps) {
               <h1>{title}</h1>
               {description && <p>{description}</p>}
             </header>
-            <hr className="mt-5 mb-4"/>
+            <hr className="my-4"/>
           </>
         )}
         {content}

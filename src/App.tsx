@@ -29,7 +29,7 @@ function App() {
           <Route path="/news" element={<RouteWrapper title="News" description="In questa pagina potete vedere gli ultimi aggiornamenti del sito." content={<News />} />} />
           <Route path="/news/archivio-news" element={<RouteWrapper title="Archivio news" description="In questa pagina potete cercare le notizie in base a mese ed anno di pubblicazione." content={<ArchivioNews />} />} />
           <Route path="/chi-siamo" element={<RouteWrapper title="Chi siamo" description="" content={<ChiSiamo />} />} />
-          <Route path="/chi-siamo/mangiacucu" element={<RouteWrapper title="Mangiacucù" description="placeholder" content={<Mangiacucu />} />} />
+          <Route path="/chi-siamo/mangiacucu" element={<RouteWrapper title="Mangiacucù" description="" content={<Mangiacucu />} />} />
           <Route path="/chi-siamo/statuto" element={<RouteWrapper title="Statuto" description="placeholder" content={<Statuto />} />} />
           <Route path="/chi-siamo/rassegna-stampa" element={<RouteWrapper title="Rassegna stampa" description="placeholder" content={<RassegnaStampa />} />} />
           <Route path="/dove" element={<RouteWrapper title="Dove" description="placeholder" content={<Dove />} />} />

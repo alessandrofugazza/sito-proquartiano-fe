@@ -5,9 +5,11 @@ import { Link, useLocation, useNavigate } from "react-router-dom";
 function NavigationButtons() {
   
   const previousUrl = sessionStorage.getItem('previousUrl');
-  sessionStorage.setItem("previousUrl", useLocation().pathname)
+  if (!previousUrl) {
+    sessionStorage.setItem("previousUrl", window.location.href)
+  }
 
-const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const handleGoBack = () => {
     navigate(-1);

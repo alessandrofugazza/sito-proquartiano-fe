@@ -12,6 +12,10 @@ function Mangiacucu() {
         </div>
         <img src={logo} alt="Logo Proquartiano" className='w-auto h-100' />
       </div>
+      <div style={{height: '100px', background: 'linear-gradient(45deg, #A30000 50%, #FCB900 50%)'}} className='d-flex flex-column justify-content-center mb-3 mt-4'>
+        <p className='ms-5 h3' style={{color: '#FCB900'}}>Giallo e Rosso</p>
+      </div>
+      <p>Sono i colori del paese</p>
     </>
   )
 }

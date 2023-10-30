@@ -12,7 +12,7 @@ interface RouteWrapperProps {
 
 function RouteWrapper({ title, description, content }: RouteWrapperProps) {
   return (
-    <main>
+    <main className='flex-grow-1'>
       <Container className='py-5'>
         {title && (
           <>

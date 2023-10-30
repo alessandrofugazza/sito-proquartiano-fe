@@ -1,5 +1,6 @@
 import Breadcrumb from 'react-bootstrap/Breadcrumb';
 import { Link, useLocation } from 'react-router-dom';
+import '../styles/MyBreadcrumb.scss'
 
 function MyBreadcrumb() {
   const location = useLocation();
@@ -26,7 +27,6 @@ function MyBreadcrumb() {
       })}
       <Breadcrumb.Item active>{page.charAt(0).toUpperCase() + page.slice(1)}</Breadcrumb.Item>
     </Breadcrumb>
-
   );
 }
 

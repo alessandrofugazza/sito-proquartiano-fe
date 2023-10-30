@@ -12,10 +12,17 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { useLocation } from 'react-router';
 import { Link } from 'react-router-dom';
+import { useState } from 'react';
 
 
 function NavigationBar() {
   const location = useLocation();
+  const [query, setQuery] = useState("");
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setQuery(e.target.value);
+  };
+
   return (
     <Navbar expand="md" bg="dark" data-bs-theme="dark" sticky="top">
       <Container fluid>
@@ -91,7 +98,9 @@ function NavigationBar() {
             <Row>
               <Col xs="auto">
                 <Form.Control
-                  type="text"
+                  type="search"
+                  value={query}
+                  onChange={handleChange}
                   placeholder="Cerca qualcosa ..."
                   className=" mr-sm-2"
                 />

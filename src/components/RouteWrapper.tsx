@@ -12,20 +12,22 @@ interface RouteWrapperProps {
 
 function RouteWrapper({ title, description, content }: RouteWrapperProps) {
   return (
-    <Container className='py-5'>
-      {title && (
-        <>
-          <MyBreadcrumb />
-          <header>
-            <h1>{title}</h1>
-            {description && <p>{description}</p>}
-          </header>
-          <hr className="mt-5 mb-4"/>
-        </>
-      )}
-      {content}
-      <NavigationButtons />
-    </Container>
+    <main className='flex-grow-1'>
+      <Container className='py-5'>
+        {title && (
+          <>
+            <MyBreadcrumb />
+            <header>
+              <h1>{title}</h1>
+              {description && <p>{description}</p>}
+            </header>
+            <hr className="my-4"/>
+          </>
+        )}
+        {content}
+        {title && <NavigationButtons />}
+      </Container>
+    </main>
   );
 }
 

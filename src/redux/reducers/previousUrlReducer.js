@@ -1,7 +1,7 @@
 import { UPDATE_PREVIOUS_URL } from "../actions";
 
 const initialState = {
-  previousUrl: "",
+  content: "",
 };
 
 const updatePreviousUrlReducer = (state = initialState, action) => {
@@ -9,7 +9,7 @@ const updatePreviousUrlReducer = (state = initialState, action) => {
     case UPDATE_PREVIOUS_URL:
       return {
         ...state,
-        previousUrl: window.location.href,
+        content: window.location.href,
       };
 
     default:

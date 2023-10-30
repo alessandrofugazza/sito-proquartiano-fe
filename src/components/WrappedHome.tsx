@@ -7,12 +7,12 @@ import ManifestazioniPrincipali from "./home/ManifestazioniPrincipali";
 
 function WrappedHome() {
   return(
-    <main>
-        <HomeCarousel />
-        <ManifestazioniPrincipali />
-        <hr />
-        <UltimiEventi />
-    </main>
+    <>
+      <HomeCarousel />
+      <ManifestazioniPrincipali />
+      <hr />
+      <UltimiEventi />
+    </>
   )
 }
 

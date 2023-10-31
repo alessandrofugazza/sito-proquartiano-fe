@@ -37,6 +37,21 @@ function NavigationBar() {
             </Nav.Item>
             <Nav.Item>
               <Dropdown as={ButtonGroup}>
+                <Link to="/manifestazioni">
+                  <Button variant="danger" className={`${location.pathname.startsWith("manifestazioni") && "bg-danger"}`}>MANIFESTAZIONI</Button>
+                </Link>
+                <Dropdown.Toggle split variant="danger" id="dropdown-split-basic" />
+                <Dropdown.Menu>
+                  <Dropdown.Item as={Link} to="manifestazioni/mercatino-dei-libri">Mercatino dei libri</Dropdown.Item>
+                  <Dropdown.Item as={Link} to="manifestazioni/sagra">Sagra di Quartiano</Dropdown.Item>
+                  <Dropdown.Item as={Link} to="manifestazioni/concorso-corale">Concorso corale</Dropdown.Item>
+                  <NavDropdown.Divider />
+                  <Dropdown.Item as={Link} to="manifestazioni/">Altro</Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
+            </Nav.Item>
+            <Nav.Item>
+              <Dropdown as={ButtonGroup}>
                 <Link to="/news">
                   <Button variant="danger" className={`${location.pathname.startsWith("/news") && "bg-danger"}`}>NEWS</Button>
                 </Link>

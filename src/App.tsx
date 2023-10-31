@@ -18,6 +18,7 @@ import ComeRaggiungerci from './components/dove/ComeRaggiungerci';
 import Crediti from './components/contatti/Crediti';
 import Link from './components/contatti/Link';
 import InfoCookies from './components/info-privacy/InfoCookies';
+import Manifestazioni from './components/Manifestazioni';
 
 function App() {
   return (
@@ -26,6 +27,7 @@ function App() {
         <NavigationBar />
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/manifestazioni" element={<RouteWrapper title="Manifestazioni" description="In questa pagina potete visualizzare le manifestazioni offerte dalla Proquartiano." content={<Manifestazioni />} />} />
           <Route path="/news" element={<RouteWrapper title="News" description="In questa pagina potete vedere gli ultimi aggiornamenti del sito." content={<News />} />} />
           <Route path="/news/archivio-news" element={<RouteWrapper title="Archivio news" description="In questa pagina potete cercare le notizie in base a mese ed anno di pubblicazione." content={<ArchivioNews />} />} />
           <Route path="/chi-siamo" element={<RouteWrapper title="Chi siamo" description="" content={<ChiSiamo />} />} />

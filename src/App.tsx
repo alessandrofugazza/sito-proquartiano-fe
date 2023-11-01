@@ -34,7 +34,7 @@ function App() {
           <Route path="/chi-siamo/mangiacucu" element={<RouteWrapper title="Mangiacucù" description="" content={<Mangiacucu />} />} />
           <Route path="/chi-siamo/statuto" element={<RouteWrapper title="Statuto" description="placeholder" content={<Statuto />} />} />
           <Route path="/chi-siamo/rassegna-stampa" element={<RouteWrapper title="Rassegna stampa" description="placeholder" content={<RassegnaStampa />} />} />
-          <Route path="/dove" element={<RouteWrapper title="Dove" description="placeholder" content={<Dove />} />} />
+          <Route path="/dove" element={<RouteWrapper title="Dove" description="" content={<Dove />} />} />
           <Route path="/dove/come-raggiungerci" element={<RouteWrapper title="Come raggiungerci" description="placeholder" content={<ComeRaggiungerci />} />} />
           <Route path="/contatti" element={<RouteWrapper title="Contatti" description="" content={<Contatti />} />} />
           <Route path="/contatti/link" element={<RouteWrapper title="Link" description="placeholder" content={<Link />} />} />

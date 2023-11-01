@@ -39,7 +39,7 @@ function App() {
           <Route path="/contatti" element={<RouteWrapper title="Contatti" description="" content={<Contatti />} />} />
           <Route path="/contatti/link" element={<RouteWrapper title="Link" description="placeholder" content={<Link />} />} />
           <Route path="/contatti/crediti" element={<RouteWrapper title="Crediti" description="placeholder" content={<Crediti />} />} />
-          <Route path="/info-privacy" element={<RouteWrapper title="Info privacy" description="placeholder" content={<InfoPrivacy />} />} />
+          <Route path="/info-privacy" element={<RouteWrapper title="Info privacy" description="" content={<InfoPrivacy />} />} />
           <Route path="/info-privacy/info-cookies" element={<RouteWrapper title="Info cookies" description="placeholder" content={<InfoCookies />} />} />
           <Route path="*" element={<RouteWrapper title="Pagina non trovata" description="placeholder" content={<NotFound />} />} />
         </Routes>

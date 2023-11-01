@@ -38,7 +38,7 @@ function NavigationBar() {
             <Nav.Item>
               <Dropdown as={ButtonGroup}>
                 <Link to="/manifestazioni">
-                  <Button variant="danger" className={`${location.pathname.startsWith("manifestazioni") && "bg-danger"}`}>MANIFESTAZIONI</Button>
+                  <Button variant="danger" className={`${location.pathname.startsWith("/manifestazioni") && "bg-danger"}`}>MANIFESTAZIONI</Button>
                 </Link>
                 <Dropdown.Toggle split variant="danger" id="dropdown-split-basic" />
                 <Dropdown.Menu>

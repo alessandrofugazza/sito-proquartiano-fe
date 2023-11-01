@@ -5,7 +5,7 @@ import '../../styles/ManifestazioniPrincipali.scss'
 function HomeManifestazioniPrincipali() {
   return(
     <div style={{marginBlock: '5em'}} className='manifestazioni-principali'>
-      <h2 className="text-center mb-4">Manifestazioni principali</h2>
+      <h3 className="text-center mb-4">Manifestazioni principali</h3>
       <Tabs
         defaultActiveKey="mercatino-dei-libri"
         id="fill-tab-example"

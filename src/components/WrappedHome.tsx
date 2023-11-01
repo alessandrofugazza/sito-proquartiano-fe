@@ -4,11 +4,13 @@ import HomeCard from "./home/HomeCard";
 import HomeCarousel from "./home/HomeCarousel";
 import UltimiEventi from "./home/UltimiEventi";
 import ManifestazioniPrincipali from "./home/HomeManifestazioniPrincipali";
+import ArgomentiInPrimoPiano from "./home/ArgomentiInPrimoPiano";
 
 function WrappedHome() {
   return(
     <>
-      <HomeCarousel />
+      {/* <HomeCarousel /> */}
+      <ArgomentiInPrimoPiano />
       <ManifestazioniPrincipali />
       <hr />
       <UltimiEventi />

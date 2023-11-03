@@ -7,7 +7,7 @@ function ArgomentiInPrimoPiano() {
   return(
     <div className="argomenti-in-primo-piano">
       <h2 className="text-center mb-4">Argomenti in primo piano</h2>
-      <Row xs="2" md="4">
+      <Row xs="2" lg="4" className="gy-4">
         <Col>
           <Link to={'/'}>
             <ArgomentiInPrimoPianoCard title="Associazione" description="placeholderplaceholderplaceholderplaceholderplaceholderplaceholderplaceholderplaceholderplaceholderplaceholder" />

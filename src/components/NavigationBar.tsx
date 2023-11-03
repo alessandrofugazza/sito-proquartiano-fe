@@ -120,9 +120,9 @@ function NavigationBar() {
                   className=" mr-sm-2"
                 />
               </Col>
-              <Col xs="auto">
+              {/* <Col xs="auto">
                 <Button type="submit" variant='danger'>Cerca</Button>
-              </Col>
+              </Col> */}
             </Row>
           </Form>
         </Navbar.Collapse>

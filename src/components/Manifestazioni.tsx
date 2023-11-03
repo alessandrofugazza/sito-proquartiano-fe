@@ -5,6 +5,7 @@ function Manifestazioni() {
   return(
     <>
       <ManifestazioniPrincipali/>
+      <hr />
       <AltreManifestazioni/>
     </>
   )

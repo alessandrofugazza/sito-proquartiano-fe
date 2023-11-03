@@ -1,1 +1,12 @@
+$pqRed: #dc3545;
+$pqRedSecondary: #b82e3c;
+
+$accordion-button-color: white;
+$accordion-button-bg: $pqRed;
+$accordion-button-active-bg: $pqRed;
+$accordion-button-active-color: white;
+$accordion-icon-color: white;
+$accordion-icon-active-color: white;
+$accordion-button-focus-box-shadow: none;
+
 @import '~bootstrap/scss/bootstrap';

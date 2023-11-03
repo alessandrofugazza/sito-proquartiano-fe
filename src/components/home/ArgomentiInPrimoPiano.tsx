@@ -7,16 +7,16 @@ function ArgomentiInPrimoPiano() {
       <h2 className="text-center mb-4">Argomenti in primo piano</h2>
       <Row xs="4">
         <Col>
-          <ArgomentiInPrimoPianoCard title="placeholder" description="placeholderplaceholderplaceholderplaceholderplaceholderplaceholderplaceholderplaceholderplaceholderplaceholder" />
+          <ArgomentiInPrimoPianoCard title="Associazione" description="placeholderplaceholderplaceholderplaceholderplaceholderplaceholderplaceholderplaceholderplaceholderplaceholder" />
         </Col>
         <Col>
-          <ArgomentiInPrimoPianoCard title="placeholder" description="placeholderplaceholderplaceholderplaceholderplaceholderplaceholderplaceholderplaceholderplaceholderplaceholder" />
+          <ArgomentiInPrimoPianoCard title="Concorso cori" description="placeholderplaceholderplaceholderplaceholderplaceholderplaceholderplaceholderplaceholderplaceholderplaceholder" />
         </Col>
         <Col>
-          <ArgomentiInPrimoPianoCard title="placeholder" description="placeholderplaceholderplaceholderplaceholderplaceholderplaceholderplaceholderplaceholderplaceholderplaceholder" />
+          <ArgomentiInPrimoPianoCard title="Manifestazioni" description="placeholderplaceholderplaceholderplaceholderplaceholderplaceholderplaceholderplaceholderplaceholderplaceholder" />
         </Col>
         <Col>
-          <ArgomentiInPrimoPianoCard title="placeholder" description="placeholderplaceholderplaceholderplaceholderplaceholderplaceholderplaceholderplaceholderplaceholderplaceholder" />
+          <ArgomentiInPrimoPianoCard title="Rassegna stampa" description="placeholderplaceholderplaceholderplaceholderplaceholderplaceholderplaceholderplaceholderplaceholderplaceholder" />
         </Col>
       </Row>
     </>

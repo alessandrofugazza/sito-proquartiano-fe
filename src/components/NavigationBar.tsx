@@ -56,9 +56,9 @@ function NavigationBar() {
                 </Link>
                 <Dropdown.Toggle split variant="danger" id="dropdown-split-basic" />
                 <Dropdown.Menu>
-                  <Dropdown.Item as={Link} to="manifestazioni/mercatino-dei-libri" className={`${location.pathname.startsWith("/manifestazioni/mercatino-dei-libri") && "bg-danger"}`}>Mercatino dei libri</Dropdown.Item>
-                  <Dropdown.Item as={Link} to="manifestazioni/sagra" className={`${location.pathname.startsWith("/manifestazioni/sagra") && "bg-danger"}`}>Sagra di Quartiano</Dropdown.Item>
-                  <Dropdown.Item as={Link} to="manifestazioni/concorso-corale" className={`${location.pathname.startsWith("/manifestazioni/concorso-corale") && "bg-danger"}`}>Concorso corale</Dropdown.Item>
+                  <Dropdown.Item as={Link} to="manifestazioni/mercatino-dei-libri" className={`${location.pathname.startsWith("/manifestazioni/mercatino-dei-libri") && "bg-danger fw-semibold"}`}>Mercatino dei libri</Dropdown.Item>
+                  <Dropdown.Item as={Link} to="manifestazioni/sagra" className={`${location.pathname.startsWith("/manifestazioni/sagra") && "bg-danger fw-semibold"}`}>Sagra di Quartiano</Dropdown.Item>
+                  <Dropdown.Item as={Link} to="manifestazioni/concorso-corale" className={`${location.pathname.startsWith("/manifestazioni/concorso-corale") && "bg-danger fw-semibold"}`}>Concorso corale</Dropdown.Item>
                   <NavDropdown.Divider />
                   <Dropdown.Item as={Link} to="manifestazioni/">Altro</Dropdown.Item>
                 </Dropdown.Menu>
@@ -71,7 +71,7 @@ function NavigationBar() {
                 </Link>
                 <Dropdown.Toggle split variant="danger" id="dropdown-split-basic" />
                 <Dropdown.Menu>
-                    <Dropdown.Item as={Link} to="/news/archivio-news" className={`${location.pathname.startsWith("/news/archivio-news") && "bg-danger"}`}>Archivio News</Dropdown.Item>
+                    <Dropdown.Item as={Link} to="/news/archivio-news" className={`${location.pathname.startsWith("/news/archivio-news") && "bg-danger fw-semibold"}`}>Archivio News</Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
             </Nav.Item>
@@ -83,9 +83,9 @@ function NavigationBar() {
                 </Link>
                 <Dropdown.Toggle split variant="danger" id="dropdown-split-basic" />
                 <Dropdown.Menu>
-                  <Dropdown.Item as={Link} to="/chi-siamo/mangiacucu" className={`${location.pathname.startsWith("/chi-siamo/mangiacucu") && "bg-danger"}`}>Mangiacucù</Dropdown.Item>
-                  <Dropdown.Item as={Link} to="/chi-siamo/statuto" className={`${location.pathname.startsWith("/chi-siamo/statuto") && "bg-danger"}`}>Statuto</Dropdown.Item>
-                  <Dropdown.Item as={Link} to="/chi-siamo/rassegna-stampa" className={`${location.pathname.startsWith("/chi-siamo/rassegna-stampa") && "bg-danger"}`}>Rassegna stampa</Dropdown.Item>
+                  <Dropdown.Item as={Link} to="/chi-siamo/mangiacucu" className={`${location.pathname.startsWith("/chi-siamo/mangiacucu") && "bg-danger fw-semibold"}`}>Mangiacucù</Dropdown.Item>
+                  <Dropdown.Item as={Link} to="/chi-siamo/statuto" className={`${location.pathname.startsWith("/chi-siamo/statuto") && "bg-danger fw-semibold"}`}>Statuto</Dropdown.Item>
+                  <Dropdown.Item as={Link} to="/chi-siamo/rassegna-stampa" className={`${location.pathname.startsWith("/chi-siamo/rassegna-stampa") && "bg-danger fw-semibold"}`}>Rassegna stampa</Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
             </Nav.Item>}
@@ -97,7 +97,7 @@ function NavigationBar() {
                 </Link>
                 <Dropdown.Toggle split variant="danger" id="dropdown-split-basic" />
                 <Dropdown.Menu>
-                    <Dropdown.Item as={Link} to="/dove/come-raggiungerci" className={`${location.pathname.startsWith("/dove/come-raggiungerci") && "bg-danger"}`}>Come raggiungerci</Dropdown.Item>
+                    <Dropdown.Item as={Link} to="/dove/come-raggiungerci" className={`${location.pathname.startsWith("/dove/come-raggiungerci") && "bg-danger fw-semibold"}`}>Come raggiungerci</Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
             </Nav.Item>}
@@ -109,8 +109,8 @@ function NavigationBar() {
                 </Link>
                 <Dropdown.Toggle split variant="danger" id="dropdown-split-basic" />
                 <Dropdown.Menu>
-                  <Dropdown.Item as={Link} to="/contatti/link" className={`${location.pathname.startsWith("/contatti/link") && "bg-danger"}`}>Link</Dropdown.Item>
-                  <Dropdown.Item as={Link} to="/contatti/crediti" className={`${location.pathname.startsWith("/contatti/crediti") && "bg-danger"}`}>Crediti</Dropdown.Item>
+                  <Dropdown.Item as={Link} to="/contatti/link" className={`${location.pathname.startsWith("/contatti/link") && "bg-danger fw-semibold"}`}>Link</Dropdown.Item>
+                  <Dropdown.Item as={Link} to="/contatti/crediti" className={`${location.pathname.startsWith("/contatti/crediti") && "bg-danger fw-semibold"}`}>Crediti</Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
             </Nav.Item>}
@@ -122,7 +122,7 @@ function NavigationBar() {
                   </Link>
                   <Dropdown.Toggle split variant="danger" id="dropdown-split-basic" />
                   <Dropdown.Menu>
-                    <Dropdown.Item as={Link} to="/info-privacy/info-cookies" className={`${location.pathname.startsWith("/info-privacy/info-cookies") && "bg-danger"}`}>Info cookies</Dropdown.Item>
+                    <Dropdown.Item as={Link} to="/info-privacy/info-cookies" className={`${location.pathname.startsWith("/info-privacy/info-cookies") && "bg-danger fw-semibold"}`}>Info cookies</Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>
               </Nav.Item>}

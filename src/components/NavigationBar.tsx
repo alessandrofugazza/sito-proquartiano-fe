@@ -126,7 +126,7 @@ function NavigationBar() {
                   </Dropdown.Menu>
                 </Dropdown>
               </Nav.Item>}
-            {(viewportWidth <= widthBreakpoint1 &&  viewportWidth >= 768) && 
+            {(viewportWidth >= 768 && viewportWidth <= widthBreakpoint1) && 
               <Nav.Item>
                 <Dropdown>
                   <Dropdown.Toggle variant="danger" id="navbar-altro">
@@ -137,30 +137,37 @@ function NavigationBar() {
                   </Link> */}
                   {/* <Dropdown.Toggle split variant="danger" id="dropdown-split-basic" /> */}
                   <Dropdown.Menu>
-                    <Dropdown.Item as={Link} to="/info-privacy" className='fw-semibold'>Info privacy</Dropdown.Item>
-                    <Dropdown.Item as={Link} to="/info-privacy/info-cookies">Info cookies</Dropdown.Item>
+                  {(viewportWidth <= widthBreakpoint4) && 
+                    <>
+                      <Dropdown.Item as={Link} to="/chi-siamo" className='fw-semibold'>Chi siamo</Dropdown.Item>
+                      <Dropdown.Item as={Link} to="/chi-siamo/mangiacucu">Mangiacucù</Dropdown.Item>
+                      <Dropdown.Item as={Link} to="/chi-siamo/statuto">Statuto</Dropdown.Item>
+                      <Dropdown.Item as={Link} to="/chi-siamo/rassegna-stampa">Rassegna stampa</Dropdown.Item>
+                      <NavDropdown.Divider />
+                    </>
+                  }
+                  {(viewportWidth <= widthBreakpoint3) && 
+                    <>
+                      <Dropdown.Item as={Link} to="/dove" className='fw-semibold'>Dove</Dropdown.Item>
+                      <Dropdown.Item as={Link} to="/dove/come-raggiungerci">Come raggiungerci</Dropdown.Item>
+                      <NavDropdown.Divider />
+                      
+                    </>
+                  }
+                    
                     {(viewportWidth <= widthBreakpoint2) && 
                       <>
-                        <NavDropdown.Divider />
                         <Dropdown.Item as={Link} to="/contatti" className='fw-semibold'>Contatti</Dropdown.Item>
                         <Dropdown.Item as={Link} to="/contatti/link">Link</Dropdown.Item>
                         <Dropdown.Item as={Link} to="/contatti/crediti">Crediti</Dropdown.Item>
-                        {(viewportWidth <= widthBreakpoint3) && 
-                          <>
-                            <NavDropdown.Divider />
-                            <Dropdown.Item as={Link} to="/dove" className='fw-semibold'>Dove</Dropdown.Item>
-                            <Dropdown.Item as={Link} to="/dove/come-raggiungerci">Come raggiungerci</Dropdown.Item>
-                            {(viewportWidth <= widthBreakpoint4) && 
-                              <>
-                                <NavDropdown.Divider />
-                                <Dropdown.Item as={Link} to="/chi-siamo" className='fw-semibold'>Chi siamo</Dropdown.Item>
-                                <Dropdown.Item as={Link} to="/chi-siamo/mangiacucu">Mangiacucù</Dropdown.Item>
-                                <Dropdown.Item as={Link} to="/chi-siamo/statuto">Statuto</Dropdown.Item>
-                                <Dropdown.Item as={Link} to="/chi-siamo/rassegna-stampa">Rassegna stampa</Dropdown.Item>
-                              </>
-                            }
-                          </>
-                        }
+                        <NavDropdown.Divider />
+                        
+                      </>
+                    }
+                    {(viewportWidth <= widthBreakpoint1) &&
+                      <>
+                        <Dropdown.Item as={Link} to="/info-privacy" className='fw-semibold'>Info privacy</Dropdown.Item>
+                        <Dropdown.Item as={Link} to="/info-privacy/info-cookies">Info cookies</Dropdown.Item>
                       </>
                     }
                   </Dropdown.Menu>

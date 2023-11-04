@@ -142,21 +142,21 @@ function NavigationBar() {
                     {(viewportWidth <= widthBreakpoint2) && 
                       <>
                         <NavDropdown.Divider />
-                        <Dropdown.Item as={Link} to="/info-privacy" className='fw-semibold'>Contatti</Dropdown.Item>
-                        <Dropdown.Item as={Link} to="/info-privacy/info-cookies">Link</Dropdown.Item>
-                        <Dropdown.Item as={Link} to="/info-privacy/info-cookies">Crediti</Dropdown.Item>
+                        <Dropdown.Item as={Link} to="/contatti" className='fw-semibold'>Contatti</Dropdown.Item>
+                        <Dropdown.Item as={Link} to="/contatti/link">Link</Dropdown.Item>
+                        <Dropdown.Item as={Link} to="/contatti/crediti">Crediti</Dropdown.Item>
                         {(viewportWidth <= widthBreakpoint3) && 
                           <>
                             <NavDropdown.Divider />
-                            <Dropdown.Item as={Link} to="/info-privacy" className='fw-semibold'>Dove</Dropdown.Item>
-                            <Dropdown.Item as={Link} to="/info-privacy/info-cookies">Come raggiungerci</Dropdown.Item>
+                            <Dropdown.Item as={Link} to="/dove" className='fw-semibold'>Dove</Dropdown.Item>
+                            <Dropdown.Item as={Link} to="/dove/come-raggiungerci">Come raggiungerci</Dropdown.Item>
                             {(viewportWidth <= widthBreakpoint4) && 
                               <>
                                 <NavDropdown.Divider />
-                                <Dropdown.Item as={Link} to="/info-privacy" className='fw-semibold'>Chi siamo</Dropdown.Item>
-                                <Dropdown.Item as={Link} to="/info-privacy/info-cookies">Mangiacucù</Dropdown.Item>
-                                <Dropdown.Item as={Link} to="/info-privacy/info-cookies">Statuto</Dropdown.Item>
-                                <Dropdown.Item as={Link} to="/info-privacy/info-cookies">Rassegna stampa</Dropdown.Item>
+                                <Dropdown.Item as={Link} to="/chi-siamo" className='fw-semibold'>Chi siamo</Dropdown.Item>
+                                <Dropdown.Item as={Link} to="/chi-siamo/mangiacucu">Mangiacucù</Dropdown.Item>
+                                <Dropdown.Item as={Link} to="/chi-siamo/statuto">Statuto</Dropdown.Item>
+                                <Dropdown.Item as={Link} to="/chi-siamo/rassegna-stampa">Rassegna stampa</Dropdown.Item>
                               </>
                             }
                           </>

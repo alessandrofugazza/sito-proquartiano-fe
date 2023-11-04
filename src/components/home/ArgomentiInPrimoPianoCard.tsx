@@ -9,7 +9,7 @@ interface ArgomentiInPrimoPianoCardProps {
 
 function ArgomentiInPrimoPianoCard({title, description}: ArgomentiInPrimoPianoCardProps) {
   return(
-    <Card className='shadow'>
+    <Card className='shadow argomenti-in-primo-piano-card'>
       <Card.Img variant="top" src={img} />
       <Card.Body>
         <Card.Title className="text-center">{title}</Card.Title>

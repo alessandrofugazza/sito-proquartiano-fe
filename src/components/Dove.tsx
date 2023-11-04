@@ -4,8 +4,8 @@ import sede from "../assets/img/sede.jpg"
 function Dove() {
   return(
     <>
-      <p>Siamo a Quartiano, frazione di Mulazzano in provincia di Lodi.</p>
-      <p>La sede e luogo ove si svolgono numerose manifestazioni è in via IV novembre 69 presso le ex scuole elementari.</p>
+      <p>Siamo a <strong className="fw-semibold">Quartiano, frazione di Mulazzano</strong> in provincia di Lodi.</p>
+      <p>La sede e luogo ove si svolgono numerose manifestazioni è in <strong className="fw-semibold">via IV novembre 69</strong> presso le ex scuole elementari.</p>
       <div className="my-5 d-flex justify-content-center">
         <iframe 
           title="Quartiano Google Maps" 
@@ -17,6 +17,19 @@ function Dove() {
           loading="lazy" 
           referrerPolicy="no-referrer-when-downgrade">
         </iframe>
+      </div>
+      <div className="d-flex justify-content-center">
+        <Figure>
+          <Figure.Image
+            width={600}
+            // height={180}
+            alt="171x180"
+            src={sede}
+          />
+          <Figure.Caption>
+            ex scuole elementari di Quartiano
+          </Figure.Caption>
+        </Figure>
       </div>
     </>
   )

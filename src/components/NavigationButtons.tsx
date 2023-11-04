@@ -16,7 +16,7 @@ function NavigationButtons() {
   }
 
   return(
-    <div className="d-flex justify-content-end gap-4 mt-5">
+    <div className="d-flex justify-content-center justify-content-md-end gap-4 mt-5">
       {previousUrl && 
         <Button variant="danger" onClick={handleGoBack} className="fw-semibold">Torna indietro</Button>
       }

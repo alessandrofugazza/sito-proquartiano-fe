@@ -5,6 +5,7 @@ import HomeCarousel from "./home/HomeCarousel";
 import UltimiEventi from "./home/UltimiEventi";
 import ManifestazioniPrincipali from "./home/HomeManifestazioniPrincipali";
 import ArgomentiInPrimoPiano from "./home/ArgomentiInPrimoPiano";
+import HomeManifestazioniPrincipali from "./home/HomeManifestazioniPrincipali";
 
 function WrappedHome() {
   return(
@@ -12,7 +13,7 @@ function WrappedHome() {
       {/* <HomeCarousel /> */}
       <ArgomentiInPrimoPiano />
       <hr className="my-5"/>
-      <ManifestazioniPrincipali />
+      <HomeManifestazioniPrincipali />
       <hr />
       <UltimiEventi />
     </>

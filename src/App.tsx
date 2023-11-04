@@ -1,4 +1,3 @@
-import React, { useState } from 'react';
 import NavigationBar from './components/NavigationBar';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Home from './components/Home';
@@ -19,11 +18,13 @@ import Crediti from './components/contatti/Crediti';
 import Link from './components/contatti/Link';
 import InfoCookies from './components/info-privacy/InfoCookies';
 import Manifestazioni from './components/Manifestazioni';
+import ScrollToTop from './components/ScrollToTop';
 
 function App() {
   return (
     <div className="App">
       <BrowserRouter>
+        <ScrollToTop/>
         <NavigationBar />
         <Routes>
           <Route path="/" element={<Home />} />

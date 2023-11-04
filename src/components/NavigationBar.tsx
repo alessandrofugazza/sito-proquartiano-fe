@@ -75,7 +75,7 @@ function NavigationBar() {
                 </Dropdown.Menu>
               </Dropdown>
             </Nav.Item>
-            {(viewportWidth > widthBreakpoint4) &&
+            {(viewportWidth > widthBreakpoint4 || viewportWidth < 768) &&
             <Nav.Item>
               <Dropdown as={ButtonGroup}>
                 <Link to="/chi-siamo">
@@ -89,7 +89,7 @@ function NavigationBar() {
                 </Dropdown.Menu>
               </Dropdown>
             </Nav.Item>}
-            {(viewportWidth > widthBreakpoint3) && 
+            {(viewportWidth > widthBreakpoint3 || viewportWidth < 768) && 
             <Nav.Item>
               <Dropdown as={ButtonGroup}>
                 <Link to="/dove">
@@ -101,7 +101,7 @@ function NavigationBar() {
                 </Dropdown.Menu>
               </Dropdown>
             </Nav.Item>}
-            {(viewportWidth > widthBreakpoint2) && 
+            {(viewportWidth > widthBreakpoint2 || viewportWidth < 768) && 
             <Nav.Item>
               <Dropdown as={ButtonGroup}>
                 <Link to="/contatti">
@@ -114,7 +114,7 @@ function NavigationBar() {
                 </Dropdown.Menu>
               </Dropdown>
             </Nav.Item>}
-            {(viewportWidth > widthBreakpoint1) && 
+            {(viewportWidth > widthBreakpoint1 || viewportWidth < 768) && 
               <Nav.Item>
                 <Dropdown as={ButtonGroup}>
                   <Link to="/info-privacy">
@@ -126,7 +126,7 @@ function NavigationBar() {
                   </Dropdown.Menu>
                 </Dropdown>
               </Nav.Item>}
-            {(viewportWidth <= widthBreakpoint1) && 
+            {(viewportWidth <= widthBreakpoint1 &&  viewportWidth >= 768) && 
               <Nav.Item>
                 <Dropdown>
                   <Dropdown.Toggle variant="danger" id="navbar-altro">

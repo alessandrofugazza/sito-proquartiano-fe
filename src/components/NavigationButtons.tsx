@@ -18,10 +18,10 @@ function NavigationButtons() {
   return(
     <div className="d-flex justify-content-center justify-content-md-end gap-4 mt-5">
       {previousUrl && 
-        <Button variant="danger" onClick={handleGoBack} className="fw-semibold">Torna indietro</Button>
+        <Button variant="danger" onClick={handleGoBack} className="fw-semibold shadow border border-dark">Torna indietro</Button>
       }
       <Link to="/">
-        <Button variant="danger" className="fw-semibold">Torna alla pagina principale</Button>
+        <Button variant="danger" className="fw-semibold shadow border border-dark">Torna alla pagina principale</Button>
       </Link>
     </div>
   )

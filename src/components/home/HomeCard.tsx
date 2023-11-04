@@ -13,7 +13,7 @@ interface HomeCardProps {
 
 function HomeCard({imgSrc, tags, title, date, author, description}: HomeCardProps) {
     return (
-        <Card>
+        <Card className='shadow'>
             <Card.Img variant="top" src={imgSrc} className='img-fluid' style={{maxHeight: '400px', objectFit: 'contain'}}/>
             <Card.Body>
                 {tags.map(tag => (
@@ -29,7 +29,9 @@ function HomeCard({imgSrc, tags, title, date, author, description}: HomeCardProp
                 <Card.Text className='my-4'>
                     {description}
                 </Card.Text>
-                <Button variant="danger" size="sm">Leggi tutto</Button>
+                <div className="text-end">
+                <Button variant="danger" size="sm" >Leggi tutto</Button>
+                </div>
             </Card.Body>
         </Card>
     );

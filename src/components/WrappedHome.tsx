@@ -11,7 +11,7 @@ function WrappedHome() {
     <>
       {/* <HomeCarousel /> */}
       <ArgomentiInPrimoPiano />
-      <hr />
+      <hr className="my-5"/>
       <ManifestazioniPrincipali />
       <hr />
       <UltimiEventi />

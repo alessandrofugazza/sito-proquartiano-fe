@@ -1,6 +1,7 @@
 import Breadcrumb from 'react-bootstrap/Breadcrumb';
 import { Link, useLocation } from 'react-router-dom';
 import '../styles/MyBreadcrumb.scss'
+import BreadcrumbLink from './BreadcrumbLink';
 
 function MyBreadcrumb() {
   const location = useLocation();
@@ -14,15 +15,15 @@ function MyBreadcrumb() {
   
   return (
     <Breadcrumb>
-      <Breadcrumb.Item>
+      <div className='breadcrumb-item'>
         <Link to="/">Home</Link>
-      </Breadcrumb.Item>
+      </div>
       {pathnames.map((value, index) => {
         const to = `/${pathnames.slice(0, index + 1).join('/')}`;
         return (
-          <Breadcrumb.Item key={to}>
+          <div className='breadcrumb-item' key={to}>
             <Link to={to}>{(value.charAt(0).toUpperCase() + value.slice(1)).replace('-', ' ')}</Link>
-          </Breadcrumb.Item>
+          </div>
         );
       })}
       <Breadcrumb.Item active>{page.charAt(0).toUpperCase() + page.slice(1)}</Breadcrumb.Item>

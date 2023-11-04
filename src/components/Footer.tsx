@@ -15,7 +15,7 @@ function Footer() {
             </div>
             <div  className="py-3">
                 <Container   >
-                    <p className='my-0'>Copyright © 2023 Associazione Proquartiano. Tutti i diritti riservati.</p>
+                    <p className='my-0'>Copyright &copy; 2023 Associazione Proquartiano. Tutti i diritti riservati.</p>
                 </Container>
             </div>
         </footer>

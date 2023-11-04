@@ -1,25 +1,27 @@
 import { Button } from "react-bootstrap";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 
 function NavigationButtons() {
   
   const previousUrl = sessionStorage.getItem('previousUrl');
-  sessionStorage.setItem("previousUrl", useLocation().pathname)
+  if (!previousUrl) {
+    sessionStorage.setItem("previousUrl", window.location.href)
+  }
 
-const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const handleGoBack = () => {
     navigate(-1);
   }
 
   return(
-    <div className="d-flex justify-content-end gap-4 mt-5">
+    <div className="d-flex justify-content-center justify-content-md-end gap-4 mt-5">
       {previousUrl && 
-        <Button variant="danger" onClick={handleGoBack} className="fw-semibold">Torna indietro</Button>
+        <Button variant="danger" onClick={handleGoBack} className="fw-semibold shadow border border-dark">Torna indietro</Button>
       }
       <Link to="/">
-        <Button variant="danger" className="fw-semibold">Torna alla pagina principale</Button>
+        <Button variant="danger" className="fw-semibold shadow border border-dark">Torna alla pagina principale</Button>
       </Link>
     </div>
   )

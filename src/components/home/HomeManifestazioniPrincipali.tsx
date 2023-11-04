@@ -2,10 +2,10 @@ import Tab from 'react-bootstrap/Tab';
 import Tabs from 'react-bootstrap/Tabs';
 import '../../styles/ManifestazioniPrincipali.scss'
 
-function ManifestazioniPrincipali() {
+function HomeManifestazioniPrincipali() {
   return(
     <div style={{marginBlock: '5em'}} className='manifestazioni-principali'>
-      <h2 className="text-center mb-4">Manifestazioni principali</h2>
+      <h3 className="text-center mb-4">Manifestazioni principali</h3>
       <Tabs
         defaultActiveKey="mercatino-dei-libri"
         id="fill-tab-example"
@@ -17,7 +17,7 @@ function ManifestazioniPrincipali() {
           Dolore exercitationem aliquam rerum veniam eum dignissimos hic eius assumenda optio, quasi saepe incidunt explicabo doloribus odit beatae, repellat adipisci deleniti ut! Vero reiciendis facilis optio harum aliquam. Dolorum, perferendis?
           Officia velit illo consectetur iste animi porro facilis aperiam modi nulla. Architecto fugit blanditiis repellendus. Itaque alias minus, necessitatibus, nesciunt provident ad harum, animi temporibus eveniet pariatur similique laboriosam natus?
         </Tab>
-        <Tab eventKey="sagra" title="Sagra">
+        <Tab eventKey="sagra-di-quartiano" title="Sagra di Quartiano">
           Lorem ipsum dolor, sit amet consectetur adipisicing elit. Blanditiis nihil vitae optio magni. Ad saepe amet perspiciatis voluptatibus tempora sit consequatur sunt id tenetur illo? Deserunt unde culpa pariatur eius.
           Autem, repellendus! Consectetur, ipsum. Accusantium soluta iusto, nesciunt voluptates qui illo similique sunt molestias optio eum harum maxime quibusdam, iste, libero nihil et. Minus voluptas labore aperiam animi velit odio?
           Placeat alias assumenda eius laudantium libero pariatur corrupti laboriosam ea doloribus, nulla cum ut rerum obcaecati. Aliquam, laborum, repellat facere cupiditate incidunt, at quas officia pariatur dicta illum necessitatibus architecto.
@@ -32,4 +32,4 @@ function ManifestazioniPrincipali() {
   )
 }
 
-export default ManifestazioniPrincipali;
+export default HomeManifestazioniPrincipali;

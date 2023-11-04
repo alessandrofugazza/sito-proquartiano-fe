@@ -13,7 +13,7 @@ interface RouteWrapperProps {
 function RouteWrapper({ title, description, content }: RouteWrapperProps) {
   return (
     <main className='flex-grow-1'>
-      <Container className='py-5'>
+      <Container className='py-4 my-5 border shadow' style={{backgroundColor: 'white'}}>
         {title && (
           <>
             <MyBreadcrumb />

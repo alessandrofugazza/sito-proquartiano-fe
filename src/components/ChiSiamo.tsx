@@ -1,7 +1,7 @@
 function ChiSiamo() {
   return(
     <>
-      <div className="text-center mb-5">
+      <div className="text-center my-5">
         <h2 className="mb-3">Associazione Proquartiano</h2>
         <p className="mb-3 fs-5">via IV novembre 69</p>
         <p className="mb-3 fs-5">I-26837  Quartiano di Mulazzano LO</p>

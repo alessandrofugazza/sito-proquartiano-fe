@@ -1,5 +1,11 @@
 .navbar-nav {
 
+    // &[style*="flex-direction: column"] {
+    //     .dropdown-menu {
+    //         padding-block: 0;
+    //     }
+    // }
+
     #home-btn {
         padding-inline: 9px;
     }
@@ -10,6 +16,10 @@
         a {
             text-decoration: none;
         }
+    }
+
+    #navbar-altro::after {
+        margin-left: 10px;
     }
 
     .dropdown-menu {
@@ -32,6 +42,10 @@
         &.btn {
             padding-inline: 5px;
             font-weight: 600;
+
+            @media (max-width: 768px) {
+                padding-inline: 8px;
+            }
         }
 
         &:not(:hover) {
@@ -40,6 +54,17 @@
         }
 
     }
+
+    // @media (max-width: 768px) {
+
+    //     // .dropdown-menu {
+    //     // padding-block: 0;
+    //     // border: 0;
+    //     // }
+    //     .dropdown-toggle {
+    //         padding-inline: 10px;
+    //     }
+    // }
 }
 
 form {

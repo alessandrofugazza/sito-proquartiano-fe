@@ -12,16 +12,30 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { useLocation } from 'react-router';
 import { Link } from 'react-router-dom';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 
 function NavigationBar() {
+  const [viewportWidth, setViewportWidth] = useState(window.innerWidth);
   const location = useLocation();
   const [query, setQuery] = useState("");
+
+  const widthBreakpoint1: number = 1070;
+  const widthBreakpoint2: number = 1014;
+  const widthBreakpoint3: number = 905;
+  const widthBreakpoint4: number = 825;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(e.target.value);
   };
+
+  useEffect(() => {
+    const handleResize = () => {
+      setViewportWidth(window.innerWidth);
+    };
+
+    window.addEventListener('resize', handleResize);
+  }, []);
 
   return (
     <Navbar expand="md" bg="dark" data-bs-theme="dark" sticky="top">
@@ -61,6 +75,7 @@ function NavigationBar() {
                 </Dropdown.Menu>
               </Dropdown>
             </Nav.Item>
+            {(viewportWidth > widthBreakpoint4) &&
             <Nav.Item>
               <Dropdown as={ButtonGroup}>
                 <Link to="/chi-siamo">
@@ -73,7 +88,8 @@ function NavigationBar() {
                   <Dropdown.Item as={Link} to="/chi-siamo/rassegna-stampa">Rassegna stampa</Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
-            </Nav.Item>
+            </Nav.Item>}
+            {(viewportWidth > widthBreakpoint3) && 
             <Nav.Item>
               <Dropdown as={ButtonGroup}>
                 <Link to="/dove">
@@ -84,7 +100,8 @@ function NavigationBar() {
                     <Dropdown.Item as={Link} to="/dove/come-raggiungerci">Come raggiungerci</Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
-            </Nav.Item>
+            </Nav.Item>}
+            {(viewportWidth > widthBreakpoint2) && 
             <Nav.Item>
               <Dropdown as={ButtonGroup}>
                 <Link to="/contatti">
@@ -96,18 +113,62 @@ function NavigationBar() {
                   <Dropdown.Item as={Link} to="/contatti/crediti">Crediti</Dropdown.Item>
                 </Dropdown.Menu>
               </Dropdown>
-            </Nav.Item>
-            <Nav.Item>
-              <Dropdown as={ButtonGroup}>
-                <Link to="/info-privacy">
-                  <Button variant="danger" className={`${location.pathname.startsWith("/info-privacy") && "bg-danger"}`}>INFO PRIVACY</Button>
-                </Link>
-                <Dropdown.Toggle split variant="danger" id="dropdown-split-basic" />
-                <Dropdown.Menu>
-                  <Dropdown.Item as={Link} to="/info-privacy/info-cookies">Info cookies</Dropdown.Item>
-                </Dropdown.Menu>
-              </Dropdown>
-            </Nav.Item>
+            </Nav.Item>}
+            {(viewportWidth > widthBreakpoint1) && 
+              <Nav.Item>
+                <Dropdown as={ButtonGroup}>
+                  <Link to="/info-privacy">
+                    <Button variant="danger" className={`${location.pathname.startsWith("/info-privacy") && "bg-danger"}`}>INFO PRIVACY</Button>
+                  </Link>
+                  <Dropdown.Toggle split variant="danger" id="dropdown-split-basic" />
+                  <Dropdown.Menu>
+                    <Dropdown.Item as={Link} to="/info-privacy/info-cookies">Info cookies</Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown>
+              </Nav.Item>}
+            {(viewportWidth <= widthBreakpoint1) && 
+              <Nav.Item>
+                <Dropdown>
+                  <Dropdown.Toggle variant="danger" id="navbar-altro">
+                    ALTRO
+                  </Dropdown.Toggle>
+                  {/* <Link to="/info-privacy">
+                    <Button variant="danger" className={`${location.pathname.startsWith("/info-privacy") && "bg-danger"}`}>ALTRO</Button>
+                  </Link> */}
+                  {/* <Dropdown.Toggle split variant="danger" id="dropdown-split-basic" /> */}
+                  <Dropdown.Menu>
+                    <Dropdown.Item as={Link} to="/info-privacy" className='fw-semibold'>Info privacy</Dropdown.Item>
+                    <Dropdown.Item as={Link} to="/info-privacy/info-cookies">Info cookies</Dropdown.Item>
+                    {(viewportWidth <= widthBreakpoint2) && 
+                      <>
+                        <NavDropdown.Divider />
+                        <Dropdown.Item as={Link} to="/info-privacy" className='fw-semibold'>Contatti</Dropdown.Item>
+                        <Dropdown.Item as={Link} to="/info-privacy/info-cookies">Link</Dropdown.Item>
+                        <Dropdown.Item as={Link} to="/info-privacy/info-cookies">Crediti</Dropdown.Item>
+                        {(viewportWidth <= widthBreakpoint3) && 
+                          <>
+                            <NavDropdown.Divider />
+                            <Dropdown.Item as={Link} to="/info-privacy" className='fw-semibold'>Dove</Dropdown.Item>
+                            <Dropdown.Item as={Link} to="/info-privacy/info-cookies">Come raggiungerci</Dropdown.Item>
+                            {(viewportWidth <= widthBreakpoint4) && 
+                              <>
+                                <NavDropdown.Divider />
+                                <Dropdown.Item as={Link} to="/info-privacy" className='fw-semibold'>Chi siamo</Dropdown.Item>
+                                <Dropdown.Item as={Link} to="/info-privacy/info-cookies">Mangiacucù</Dropdown.Item>
+                                <Dropdown.Item as={Link} to="/info-privacy/info-cookies">Statuto</Dropdown.Item>
+                                <Dropdown.Item as={Link} to="/info-privacy/info-cookies">Rassegna stampa</Dropdown.Item>
+                              </>
+                            }
+                          </>
+                        }
+                      </>
+                    }
+                  </Dropdown.Menu>
+                  {/* <Dropdown.Menu>
+                  </Dropdown.Menu> */}
+                </Dropdown>
+              </Nav.Item>
+            }
           </Nav>
           <Form className='ms-auto'>
             <Row>

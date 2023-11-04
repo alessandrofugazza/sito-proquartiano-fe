@@ -1,7 +1,7 @@
 import { Col, Row } from "react-bootstrap";
 import ArgomentiInPrimoPianoCard from "./ArgomentiInPrimoPianoCard";
 import { Link } from "react-router-dom";
-import '../../styles/ArgomentiInPrimoPiano.scss'
+import '../../styles/ArgomentiInPrimoPiano.scss';
 
 function ArgomentiInPrimoPiano() {
   return(

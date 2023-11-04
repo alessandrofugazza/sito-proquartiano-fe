@@ -12,6 +12,10 @@
         }
     }
 
+    #navbar-altro::after {
+        margin-left: 10px;
+    }
+
     .dropdown-menu {
         a:active {
             background-color: #DC3545;

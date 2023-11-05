@@ -1,9 +1,10 @@
-// .navigation-buttons {
-//     button {
-//         transition: transform 0.2s linear;
+.navigation-buttons {
+    button {
+        // transition: transform 0.2s linear;
 
-//         &:hover {
-//             transform: scale(1.02);
-//         }
-//     }
-// }
+        // &:hover {
+        //     transform: scale(1.02);
+        // }
+        border: 1px solid rgba(0, 0, 0, 0.281);
+    }
+}

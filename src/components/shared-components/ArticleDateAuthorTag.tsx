@@ -1,4 +1,4 @@
-import '../../styles/ArticleDateAuthorTag.scss'
+import "../../styles/ArticleDateAuthorTag.scss";
 
 interface ArticleDateAuthorTagProps {
   date: string;
@@ -6,9 +6,9 @@ interface ArticleDateAuthorTagProps {
   tags: string[];
 }
 
-function ArticleDateAuthorTag({date, author, tags}: ArticleDateAuthorTagProps) {
-  return(
-    <div className='d-flex gap-2 date-author-tags'>
+function ArticleDateAuthorTag({ date, author, tags }: ArticleDateAuthorTagProps) {
+  return (
+    <div className="d-flex gap-2 date-author-tags">
       <div>
         <i className="bi bi-calendar-event"></i>
         <span>{date}</span>
@@ -20,14 +20,14 @@ function ArticleDateAuthorTag({date, author, tags}: ArticleDateAuthorTagProps) {
       <div>
         <i className="bi bi-tags-fill"></i>
         {tags.map((tag, index) => (
-          <>
-            <span key={tag} className='tag'>{tag}</span>
-            {index < tags.length - 1 && ', '}
-          </>
+          <span key={tag}>
+            <span className="tag">{tag}</span>
+            {index < tags.length - 1 && ", "}
+          </span>
         ))}
       </div>
     </div>
-  )
+  );
 }
 
 export default ArticleDateAuthorTag;

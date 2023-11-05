@@ -74,9 +74,7 @@ function App() {
           <Route path="/dove" element={<RouteWrapper title="Dove" description="" content={<Dove />} />} />
           <Route
             path="/dove/come-raggiungerci"
-            element={
-              <RouteWrapper title="Come raggiungerci" description="placeholder" content={<ComeRaggiungerci />} />
-            }
+            element={<RouteWrapper title="Come raggiungerci" description="" content={<ComeRaggiungerci />} />}
           />
           <Route path="/contatti" element={<RouteWrapper title="Contatti" description="" content={<Contatti />} />} />
           <Route path="/contatti/link" element={<RouteWrapper title="Link" description="" content={<Link />} />} />

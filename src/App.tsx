@@ -79,10 +79,7 @@ function App() {
             }
           />
           <Route path="/contatti" element={<RouteWrapper title="Contatti" description="" content={<Contatti />} />} />
-          <Route
-            path="/contatti/link"
-            element={<RouteWrapper title="Link" description="placeholder" content={<Link />} />}
-          />
+          <Route path="/contatti/link" element={<RouteWrapper title="Link" description="" content={<Link />} />} />
           <Route
             path="/contatti/crediti"
             element={<RouteWrapper title="Crediti" description="placeholder" content={<Crediti />} />}

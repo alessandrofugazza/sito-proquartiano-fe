@@ -10,6 +10,8 @@ function ScrollToTop() {
   useEffect(() => {
     // window.moveTo(0, 0);
     window.scrollTo(0, 0);
+    const h1Element = document.querySelector('h1');
+    document.title = (pathname !== "/" && h1Element && h1Element.textContent) ? h1Element.textContent.concat(" - Associazione Proquartiano") : 'Associazione Proquartiano';
   }, [pathname]);
 
   return null;

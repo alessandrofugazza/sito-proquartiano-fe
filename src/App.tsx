@@ -93,7 +93,7 @@ function App() {
           />
           <Route
             path="/info-privacy/info-cookies"
-            element={<RouteWrapper title="Info cookies" description="placeholder" content={<InfoCookies />} />}
+            element={<RouteWrapper title="Info cookies" description="" content={<InfoCookies />} />}
           />
           <Route
             path="*"

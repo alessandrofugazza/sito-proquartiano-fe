@@ -19,7 +19,7 @@ function ComeRaggiungerci() {
       </p>
       <div className="d-flex flex-column align-items-center gap-3 my-4">
         <img src={map} alt="Mappa località" className="img-fluid" />
-        <span>
+        <span style={{ fontSize: "0.8rem" }}>
           - <a href="https://www.openstreetmap.org/copyright">openstreetmap&copy;</a>
         </span>
       </div>

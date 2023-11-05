@@ -1,7 +1,6 @@
 import Breadcrumb from 'react-bootstrap/Breadcrumb';
 import { Link, useLocation } from 'react-router-dom';
 import '../styles/MyBreadcrumb.scss'
-import BreadcrumbLink from './BreadcrumbLink';
 
 function MyBreadcrumb() {
   const location = useLocation();

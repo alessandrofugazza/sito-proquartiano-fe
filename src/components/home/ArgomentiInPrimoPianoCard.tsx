@@ -1,6 +1,5 @@
-import { Button, Card } from "react-bootstrap";
+import { Card } from "react-bootstrap";
 import img from '../../assets/img/PQ_aprile2023.png'
-import { Link } from "react-router-dom";
 
 interface ArgomentiInPrimoPianoCardProps {
   title: string;

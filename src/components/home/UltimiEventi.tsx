@@ -12,7 +12,8 @@ function UltimiEventi() {
                     imgSrc={img1} 
                     date="29 Agosto 2023"
                     author="DC"
-                    tags={["associazione"]}
+                    tags={["testtag1", "testtag2"]}
+                    categories={["associazione"]}
                     title="SAGRA DI QUARTIANO 2023" 
                     description="Ecco il programma delle iniziative promosse da Proquartiano in occasione ella Sagra 2023. Siamo pronti ad accogliervi!"
                 />
@@ -24,7 +25,8 @@ function UltimiEventi() {
                     imgSrc={img1} 
                     date="29 Agosto 2023"
                     author="DC"
-                    tags={["associazione"]}
+                    tags={["testtag1", "testtag2"]}
+                    categories={["associazione"]}
                     title="SAGRA DI QUARTIANO 2023" 
                     description="Ecco il programma delle iniziative promosse da Proquartiano in occasione ella Sagra 2023. Siamo pronti ad accogliervi!"
                 />
@@ -34,7 +36,8 @@ function UltimiEventi() {
                     imgSrc={img1} 
                     date="29 Agosto 2023"
                     author="DC"
-                    tags={["associazione"]}
+                    tags={["testtag1", "testtag2"]}
+                    categories={["associazione"]}
                     title="SAGRA DI QUARTIANO 2023" 
                     description="Ecco il programma delle iniziative promosse da Proquartiano in occasione ella Sagra 2023. Siamo pronti ad accogliervi!"
                 />
@@ -44,7 +47,8 @@ function UltimiEventi() {
                     imgSrc={img1} 
                     date="29 Agosto 2023"
                     author="DC"
-                    tags={["associazione"]}
+                    tags={["testtag1", "testtag2"]}
+                    categories={["associazione"]}
                     title="SAGRA DI QUARTIANO 2023" 
                     description="Ecco il programma delle iniziative promosse da Proquartiano in occasione ella Sagra 2023. Siamo pronti ad accogliervi!"
                 />
@@ -54,7 +58,8 @@ function UltimiEventi() {
                     imgSrc={img1} 
                     date="29 Agosto 2023"
                     author="DC"
-                    tags={["associazione"]}
+                    tags={["testtag1", "testtag2"]}
+                    categories={["associazione"]}
                     title="SAGRA DI QUARTIANO 2023" 
                     description="Ecco il programma delle iniziative promosse da Proquartiano in occasione ella Sagra 2023. Siamo pronti ad accogliervi!"
                 />
@@ -64,7 +69,8 @@ function UltimiEventi() {
                     imgSrc={img1} 
                     date="29 Agosto 2023"
                     author="DC"
-                    tags={["associazione"]}
+                    tags={["testtag1", "testtag2"]}
+                    categories={["associazione"]}
                     title="SAGRA DI QUARTIANO 2023" 
                     description="Ecco il programma delle iniziative promosse da Proquartiano in occasione ella Sagra 2023. Siamo pronti ad accogliervi!"
                 />
@@ -74,7 +80,8 @@ function UltimiEventi() {
                     imgSrc={img1} 
                     date="29 Agosto 2023"
                     author="DC"
-                    tags={["associazione"]}
+                    tags={["testtag1", "testtag2"]}
+                    categories={["associazione"]}
                     title="SAGRA DI QUARTIANO 2023" 
                     description="Ecco il programma delle iniziative promosse da Proquartiano in occasione ella Sagra 2023. Siamo pronti ad accogliervi!"
                 />
@@ -84,7 +91,8 @@ function UltimiEventi() {
                     imgSrc={img1} 
                     date="29 Agosto 2023"
                     author="DC"
-                    tags={["associazione"]}
+                    tags={["testtag1", "testtag2"]}
+                    categories={["associazione"]}
                     title="SAGRA DI QUARTIANO 2023" 
                     description="Ecco il programma delle iniziative promosse da Proquartiano in occasione ella Sagra 2023. Siamo pronti ad accogliervi!"
                 />
@@ -94,7 +102,8 @@ function UltimiEventi() {
                     imgSrc={img1} 
                     date="29 Agosto 2023"
                     author="DC"
-                    tags={["associazione"]}
+                    tags={["testtag1", "testtag2"]}
+                    categories={["associazione"]}
                     title="SAGRA DI QUARTIANO 2023" 
                     description="Ecco il programma delle iniziative promosse da Proquartiano in occasione ella Sagra 2023. Siamo pronti ad accogliervi!"
                 />

@@ -1,7 +1,7 @@
-import React from 'react';
-import { Container } from 'react-bootstrap';
-import MyBreadcrumb from './MyBreadcrumb';
-import NavigationButtons from './NavigationButtons';
+import React from "react";
+import { Container } from "react-bootstrap";
+import MyBreadcrumb from "./MyBreadcrumb";
+import NavigationButtons from "./NavigationButtons";
 
 interface RouteWrapperProps {
   title: string;
@@ -11,16 +11,16 @@ interface RouteWrapperProps {
 
 function RouteWrapper({ title, description, content }: RouteWrapperProps) {
   return (
-    <main className='flex-grow-1'>
-      <Container className='py-4 my-5 border shadow' style={{backgroundColor: 'white'}}>
+    <main className="flex-grow-1">
+      <Container className="py-4 my-5 border shadow" style={{ backgroundColor: "white" }}>
         {title && (
           <>
-            <MyBreadcrumb />
+            {title !== "Pagina non trovata" && <MyBreadcrumb />}
             <header>
               <h1>{title}</h1>
               {description && <p>{description}</p>}
             </header>
-            <hr className="my-4"/>
+            <hr className="my-4" />
           </>
         )}
         {content}

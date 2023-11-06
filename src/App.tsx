@@ -19,6 +19,7 @@ import Link from "./components/contatti/Link";
 import InfoCookies from "./components/info-privacy/InfoCookies";
 import Manifestazioni from "./components/Manifestazioni";
 import ScrollToTop from "./components/ScrollToTop";
+import AddArticle from "./components/admin/AddArticle";
 
 function App() {
   return (
@@ -65,7 +66,7 @@ function App() {
           />
           <Route
             path="/chi-siamo/statuto"
-            element={<RouteWrapper title="Statuto" description="placeholder" content={<Statuto />} />}
+            element={<RouteWrapper title="Statuto" description="" content={<Statuto />} />}
           />
           <Route
             path="/chi-siamo/rassegna-stampa"
@@ -89,6 +90,10 @@ function App() {
           <Route
             path="/info-privacy/info-cookies"
             element={<RouteWrapper title="Info cookies" description="" content={<InfoCookies />} />}
+          />
+          <Route
+            path="/admin/add-article"
+            element={<RouteWrapper title="Aggiungi articolo" description="" content={<AddArticle />} />}
           />
           <Route
             path="*"

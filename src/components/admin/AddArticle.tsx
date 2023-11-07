@@ -24,10 +24,9 @@ export default function AddArticle() {
     e.preventDefault();
     setNewTag("");
     setTags([...tags, newTag]);
-    // alert("hi");
   };
 
-  const handleRemoveTag = (tagToRemove: String, e: React.MouseEvent<HTMLButtonElement>) => {
+  const handleRemoveTag = (tagToRemove: String) => {
     // e.stopPropagation();
 
     const newTags = tags.filter(tag => tag !== tagToRemove);
@@ -86,7 +85,7 @@ export default function AddArticle() {
                 key={tag}
               >
                 {tag}
-                <CloseButton onClick={e => handleRemoveTag(tag, e)} />
+                <CloseButton onClick={() => handleRemoveTag(tag)} />
               </Button>
             ))}
           </div>

@@ -11,7 +11,7 @@ function Dove() {
       </p>
       <p>
         La sede e luogo ove si svolgono numerose manifestazioni è in{" "}
-        <strong className="fw-semibold">via IV novembre 69</strong> presso le ex scuole elementari.
+        <strong className="fw-semibold">via IV novembre 65</strong> presso le ex scuole elementari.
       </p>
       <div className="my-5 d-flex flex-column align-items-center">
         {!isIframeLoaded && (

@@ -110,7 +110,7 @@ function InfoCookies() {
         <h3>Titolare del Trattamento dei Dati</h3>
         <div className="my-4 d-flex flex-column align-items-center">
           <p className="m-0">Associazione Proquartiano</p>
-          <p className="m-0">via IV Novembre, 69 – 26837 Quartiano di Mulazzano (LO)</p>
+          <p className="m-0">via IV Novembre, 65 – 26837 Quartiano di Mulazzano (LO)</p>
         </div>
         <p>
           Dal momento che l’installazione di Cookie e di eventuali altri sistemi di tracciamento operata da terze parti

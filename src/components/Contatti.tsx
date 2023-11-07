@@ -6,7 +6,7 @@ function Contatti() {
       </p>
       <p>
         📧 <strong>Email (per concorso canto Corale):</strong>{" "}
-        <a href="mailto:proquartiano@gmail.com">segreteria@gmail.com</a>
+        <a href="mailto:proquartiano@gmail.com">proquartiano@gmail.com</a>
       </p>
     </>
   );

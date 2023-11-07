@@ -92,7 +92,7 @@ function App() {
             element={<RouteWrapper title="Info cookies" description="" content={<InfoCookies />} />}
           />
           <Route
-            path="/admin/add-article"
+            path="/admin/aggiungi-articolo"
             element={<RouteWrapper title="Aggiungi articolo" description="" content={<AddArticle />} />}
           />
           <Route

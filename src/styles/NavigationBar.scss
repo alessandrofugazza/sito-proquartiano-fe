@@ -6,7 +6,7 @@
     //     }
     // }
 
-    #home-btn {
+    .no-dropdown {
         padding-inline: 9px;
     }
 
@@ -32,17 +32,21 @@
     button {
         border-radius: 0;
 
-        .active {
-            background-color: initial;
-        }
-
-        &.dropdown-toggle {
-            padding-inline: 4px;
-        }
+        // .active {
+        //     background-color: initial;
+        // }
 
         &.btn {
             padding-inline: 5px;
             font-weight: 600;
+
+            @media (max-width: 768px) {
+                padding-inline: 8px;
+            }
+        }
+
+        &.dropdown-toggle {
+            padding-inline: 4px;
 
             @media (max-width: 768px) {
                 padding-inline: 8px;

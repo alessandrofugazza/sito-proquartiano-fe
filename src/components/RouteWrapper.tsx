@@ -5,17 +5,18 @@ import NavigationButtons from "./NavigationButtons";
 
 interface RouteWrapperProps {
   title: string;
-  description: string;
+  description?: string;
   content: React.ReactNode;
+  breadcrumb?: boolean;
 }
 
-function RouteWrapper({ title, description, content }: RouteWrapperProps) {
+function RouteWrapper({ title, description = "", content, breadcrumb = true }: RouteWrapperProps) {
   return (
     <main className="flex-grow-1">
       <Container className="py-4 my-5 border shadow" style={{ backgroundColor: "white" }}>
         {title && (
           <>
-            {title !== "Pagina non trovata" && <MyBreadcrumb />}
+            {breadcrumb && <MyBreadcrumb />}
             <header>
               <h1>{title}</h1>
               {description && <p>{description}</p>}

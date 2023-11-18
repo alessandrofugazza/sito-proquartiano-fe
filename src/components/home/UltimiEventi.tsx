@@ -48,94 +48,21 @@ function UltimiEventi() {
             </Col>
           </Row>
           <Row xs={1} md={2} className="gy-4">
-            <Col>
-              <HomeCard
-                imgSrc={img1}
-                date="29 Agosto 2023"
-                author="DC"
-                tags={["testtag1", "testtag2"]}
-                categories={["associazione"]}
-                title="SAGRA DI QUARTIANO 2023"
-                description="Ecco il programma delle iniziative promosse da Proquartiano in occasione ella Sagra 2023. Siamo pronti ad accogliervi!"
-              />
-            </Col>
-            <Col>
-              <HomeCard
-                imgSrc={img1}
-                date="29 Agosto 2023"
-                author="DC"
-                tags={["testtag1", "testtag2"]}
-                categories={["associazione"]}
-                title="SAGRA DI QUARTIANO 2023"
-                description="Ecco il programma delle iniziative promosse da Proquartiano in occasione ella Sagra 2023. Siamo pronti ad accogliervi!"
-              />
-            </Col>
-            <Col>
-              <HomeCard
-                imgSrc={img1}
-                date="29 Agosto 2023"
-                author="DC"
-                tags={["testtag1", "testtag2"]}
-                categories={["associazione"]}
-                title="SAGRA DI QUARTIANO 2023"
-                description="Ecco il programma delle iniziative promosse da Proquartiano in occasione ella Sagra 2023. Siamo pronti ad accogliervi!"
-              />
-            </Col>
-            <Col>
-              <HomeCard
-                imgSrc={img1}
-                date="29 Agosto 2023"
-                author="DC"
-                tags={["testtag1", "testtag2"]}
-                categories={["associazione"]}
-                title="SAGRA DI QUARTIANO 2023"
-                description="Ecco il programma delle iniziative promosse da Proquartiano in occasione ella Sagra 2023. Siamo pronti ad accogliervi!"
-              />
-            </Col>
-            <Col>
-              <HomeCard
-                imgSrc={img1}
-                date="29 Agosto 2023"
-                author="DC"
-                tags={["testtag1", "testtag2"]}
-                categories={["associazione"]}
-                title="SAGRA DI QUARTIANO 2023"
-                description="Ecco il programma delle iniziative promosse da Proquartiano in occasione ella Sagra 2023. Siamo pronti ad accogliervi!"
-              />
-            </Col>
-            <Col>
-              <HomeCard
-                imgSrc={img1}
-                date="29 Agosto 2023"
-                author="DC"
-                tags={["testtag1", "testtag2"]}
-                categories={["associazione"]}
-                title="SAGRA DI QUARTIANO 2023"
-                description="Ecco il programma delle iniziative promosse da Proquartiano in occasione ella Sagra 2023. Siamo pronti ad accogliervi!"
-              />
-            </Col>
-            <Col>
-              <HomeCard
-                imgSrc={img1}
-                date="29 Agosto 2023"
-                author="DC"
-                tags={["testtag1", "testtag2"]}
-                categories={["associazione"]}
-                title="SAGRA DI QUARTIANO 2023"
-                description="Ecco il programma delle iniziative promosse da Proquartiano in occasione ella Sagra 2023. Siamo pronti ad accogliervi!"
-              />
-            </Col>
-            <Col>
-              <HomeCard
-                imgSrc={img1}
-                date="29 Agosto 2023"
-                author="DC"
-                tags={["testtag1", "testtag2"]}
-                categories={["associazione"]}
-                title="SAGRA DI QUARTIANO 2023"
-                description="Ecco il programma delle iniziative promosse da Proquartiano in occasione ella Sagra 2023. Siamo pronti ad accogliervi!"
-              />
-            </Col>
+            {articlesData.content.slice(1).map(article => {
+              return (
+                <Col key={article.id}>
+                  <HomeCard
+                    imgSrc={img1}
+                    date={article.date}
+                    author={article.author.username}
+                    tags={article.tags.map(tag => tag.name)}
+                    categories={article.categories.map(category => category.name)}
+                    title={article.title}
+                    description={article.content}
+                  />
+                </Col>
+              );
+            })}
           </Row>
         </>
       )}

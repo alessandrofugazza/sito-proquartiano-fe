@@ -7,26 +7,19 @@ import ButtonGroup from "react-bootstrap/ButtonGroup";
 import Dropdown from "react-bootstrap/Dropdown";
 import logo from "../logo.png";
 import "../styles/NavigationBar.scss";
-import Form from "react-bootstrap/Form";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
 import { useLocation } from "react-router";
 import { Link } from "react-router-dom";
 import { useEffect, useState } from "react";
+import Search from "./sub-components/Search";
 
 function NavigationBar() {
   const [viewportWidth, setViewportWidth] = useState(window.innerWidth);
   const location = useLocation();
-  const [query, setQuery] = useState("");
 
   const widthBreakpoint1: number = 1070;
   const widthBreakpoint2: number = 1014;
   const widthBreakpoint3: number = 905;
   const widthBreakpoint4: number = 825;
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setQuery(e.target.value);
-  };
 
   useEffect(() => {
     const handleResize = () => {
@@ -310,22 +303,7 @@ function NavigationBar() {
               </Nav.Item>
             )}
           </Nav>
-          <Form className="ms-auto">
-            <Row>
-              <Col xs="auto">
-                <Form.Control
-                  type="search"
-                  value={query}
-                  onChange={handleChange}
-                  placeholder="Cerca qualcosa ..."
-                  className=" mr-sm-2"
-                />
-              </Col>
-              {/* <Col xs="auto">
-                <Button type="submit" variant='danger'>Cerca</Button>
-              </Col> */}
-            </Row>
-          </Form>
+          <Search />
         </Navbar.Collapse>
       </Container>
     </Navbar>

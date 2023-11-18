@@ -20,6 +20,7 @@ import InfoCookies from "./components/info-privacy/InfoCookies";
 import Manifestazioni from "./components/Manifestazioni";
 import ScrollToTop from "./components/ScrollToTop";
 import AddArticle from "./components/admin/AddArticle";
+import Article from "./components/Article";
 
 function App() {
   return (
@@ -86,6 +87,7 @@ function App() {
             path="/admin/aggiungi-articolo"
             element={<RouteWrapper title="Aggiungi articolo" content={<AddArticle />} />}
           />
+          <Route path="/articles/:id" element={<Article />} />
           <Route
             path="*"
             element={

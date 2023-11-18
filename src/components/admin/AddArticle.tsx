@@ -22,8 +22,8 @@ export default function AddArticle() {
 
   const addNewTag = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setNewTag("");
     setTags([...tags, newTag]);
+    setNewTag("");
   };
 
   const handleRemoveTag = (tagToRemove: String) => {

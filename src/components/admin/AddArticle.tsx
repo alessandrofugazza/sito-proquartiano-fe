@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { useState } from "react";
 import { CloseButton, Col, InputGroup, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
@@ -7,6 +7,20 @@ export default function AddArticle() {
   const [selectedDate, setSelectedDate] = useState("");
   const [newTag, setNewTag] = useState("");
   const [tags, setTags] = useState<string[]>([]);
+  const [content, setContent] = useState("");
+  const [categories, setCategories] = useState({
+    associazione: false,
+    concorsoCori: false,
+    manifestazioni: false,
+    rassegnaStampa: false,
+  });
+
+  const handleCategoriesChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setCategories({
+      ...categories,
+      [e.target.id]: e.target.checked,
+    });
+  };
 
   const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedDate(e.target.value);
@@ -18,6 +32,10 @@ export default function AddArticle() {
 
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+  };
+
+  const handleContentChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setContent(e.target.value);
   };
 
   const addNewTag = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -51,10 +69,34 @@ export default function AddArticle() {
         <Col lg="3">
           <Form.Group className="mb-3" controlId="categories">
             <Form.Label>Categorie</Form.Label>
-            <Form.Check type="checkbox" id="associazione" label="Associazione" />
-            <Form.Check type="checkbox" label="Concorso cori" id="concorso-cori" />
-            <Form.Check type="checkbox" label="Manifestazioni" id="manifestazioni" />
-            <Form.Check type="checkbox" label="Rassegna stampa" id="rassegna-stampa" />
+            <Form.Check
+              type="checkbox"
+              label="Associazione"
+              id="associazione"
+              checked={categories.associazione}
+              onChange={handleCategoriesChange}
+            />
+            <Form.Check
+              type="checkbox"
+              label="Concorso cori"
+              id="concorsoCori"
+              checked={categories.concorsoCori}
+              onChange={handleCategoriesChange}
+            />
+            <Form.Check
+              type="checkbox"
+              label="Manifestazioni"
+              id="manifestazioni"
+              checked={categories.manifestazioni}
+              onChange={handleCategoriesChange}
+            />
+            <Form.Check
+              type="checkbox"
+              label="Rassegna stampa"
+              id="rassegnaStampa"
+              checked={categories.rassegnaStampa}
+              onChange={handleCategoriesChange}
+            />
           </Form.Group>
         </Col>
         <Col lg="3">
@@ -90,10 +132,13 @@ export default function AddArticle() {
         <Col xs={12}>
           <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
             <Form.Label>Contenuto</Form.Label>
-            <Form.Control className="w-100" as="textarea" rows={10} />
+            <Form.Control className="w-100" as="textarea" rows={10} value={content} onChange={handleContentChange} />
           </Form.Group>
         </Col>
       </Row>
+      <Button variant="danger" type="submit">
+        Aggiungi articolo
+      </Button>
     </Form>
   );
 }

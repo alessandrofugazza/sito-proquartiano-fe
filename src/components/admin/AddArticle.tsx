@@ -3,54 +3,100 @@ import { CloseButton, Col, InputGroup, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 
-export default function AddArticle() {
-  const [selectedDate, setSelectedDate] = useState("");
-  const [newTag, setNewTag] = useState("");
-  const [tags, setTags] = useState<string[]>([]);
-  const [content, setContent] = useState("");
-  const [categories, setCategories] = useState({
-    associazione: false,
-    concorsoCori: false,
-    manifestazioni: false,
-    rassegnaStampa: false,
-  });
+interface Article {
+  title: string;
+  date: string;
+  content: string;
+  categories: {
+    associazione: boolean;
+    concorsoCori: boolean;
+    manifestazioni: boolean;
+    rassegnaStampa: boolean;
+  };
+  tags: string[];
+  img: File | null;
+  pdf: File | null;
+}
 
-  const handleCategoriesChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setCategories({
-      ...categories,
-      [e.target.id]: e.target.checked,
-    });
+export default function AddArticle() {
+  const [hasAlert, setHasAlert] = useState(false);
+  const [alert, setAlert] = useState({ message: "", status: "", variant: "success" });
+  const [article, setArticle] = useState<Article>({
+    title: "",
+    date: "",
+    content: "",
+    categories: {
+      associazione: false,
+      concorsoCori: false,
+      manifestazioni: false,
+      rassegnaStampa: false,
+    },
+    tags: [],
+    img: null,
+    pdf: null,
+  });
+  // const [selectedDate, setSelectedDate] = useState("");
+  const [newTag, setNewTag] = useState("");
+  // const [tags, setTags] = useState<string[]>([]);
+  // const [content, setContent] = useState("");
+  // const [categories, setCategories] = useState({
+  //   associazione: false,
+  //   concorsoCori: false,
+  //   manifestazioni: false,
+  //   rassegnaStampa: false,
+  // });
+
+  const handleInputChange = (propertyName: string, propertyValue: string | string[]) => {
+    setArticle({ ...article, [propertyName]: propertyValue });
   };
 
-  const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setSelectedDate(e.target.value);
+  const handleCategoriesChange = (propertyName: string, propertyValue: boolean) => {
+    setArticle({
+      ...article,
+      categories: {
+        ...article.categories,
+        [propertyName]: propertyValue,
+      },
+    });
   };
 
   const handleNewTagChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNewTag(e.target.value);
   };
 
+  // const handleDateChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   setSelectedDate(e.target.value);
+  // };
+
   const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    console.log(article);
   };
 
-  const handleContentChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setContent(e.target.value);
-  };
+  // const handleContentChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   setContent(e.target.value);
+  // };
 
   const addNewTag = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       e.preventDefault();
-      setTags([...tags, newTag]);
+      setArticle({
+        ...article,
+        tags: [...article.tags, newTag],
+      });
+      // setTags([...tags, newTag]);
       setNewTag("");
     }
   };
 
   const handleRemoveTag = (tagToRemove: String) => {
     // e.stopPropagation();
-
-    const newTags = tags.filter(tag => tag !== tagToRemove);
-    setTags(newTags);
+    setArticle({
+      ...article,
+      tags: article.tags.filter(tag => tag !== tagToRemove),
+    });
+    // const newTags = tags.filter(tag => tag !== tagToRemove);
+    // setTags(newTags);
   };
 
   return (
@@ -59,11 +105,18 @@ export default function AddArticle() {
         <Col lg="6">
           <InputGroup className="mb-3">
             <InputGroup.Text id="title">Titolo</InputGroup.Text>
-            <Form.Control placeholder="Inserisci un titolo" type="text" aria-label="Titolo" aria-describedby="title" />
+            <Form.Control
+              placeholder="Inserisci un titolo"
+              type="text"
+              aria-label="Titolo"
+              aria-describedby="title"
+              value={article.title}
+              onChange={e => handleInputChange("title", e.target.value)}
+            />
           </InputGroup>
           <Form.Group className="mb-3 d-flex flex-column" controlId="title">
             <Form.Label>Data dell'evento</Form.Label>
-            <input type="date" value={selectedDate} onChange={handleDateChange} />
+            <input type="date" value={article.date} onChange={e => handleInputChange("date", e.target.value)} />
           </Form.Group>
         </Col>
         <Col lg="3">
@@ -73,29 +126,29 @@ export default function AddArticle() {
               type="checkbox"
               label="Associazione"
               id="associazione"
-              checked={categories.associazione}
-              onChange={handleCategoriesChange}
+              checked={article.categories.associazione}
+              onChange={e => handleCategoriesChange("associazione", e.target.checked)}
             />
             <Form.Check
               type="checkbox"
               label="Concorso cori"
               id="concorsoCori"
-              checked={categories.concorsoCori}
-              onChange={handleCategoriesChange}
+              checked={article.categories.concorsoCori}
+              onChange={e => handleCategoriesChange("concorsoCori", e.target.checked)}
             />
             <Form.Check
               type="checkbox"
               label="Manifestazioni"
               id="manifestazioni"
-              checked={categories.manifestazioni}
-              onChange={handleCategoriesChange}
+              checked={article.categories.manifestazioni}
+              onChange={e => handleCategoriesChange("manifestazioni", e.target.checked)}
             />
             <Form.Check
               type="checkbox"
               label="Rassegna stampa"
               id="rassegnaStampa"
-              checked={categories.rassegnaStampa}
-              onChange={handleCategoriesChange}
+              checked={article.categories.rassegnaStampa}
+              onChange={e => handleCategoriesChange("rassegnaStampa", e.target.checked)}
             />
           </Form.Group>
         </Col>
@@ -113,7 +166,7 @@ export default function AddArticle() {
             />
           </Form.Group>
           <div className="d-flex gap-2 flex-wrap">
-            {tags.map(tag => (
+            {article.tags.map(tag => (
               <Button
                 as="div"
                 variant="light"
@@ -132,18 +185,32 @@ export default function AddArticle() {
         <Col>
           <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
             <Form.Label>Contenuto</Form.Label>
-            <Form.Control className="w-100" as="textarea" rows={10} value={content} onChange={handleContentChange} />
+            <Form.Control
+              className="w-100"
+              as="textarea"
+              rows={10}
+              value={article.content}
+              onChange={e => handleInputChange("content", e.target.value)}
+            />
           </Form.Group>
         </Col>
       </Row>
       <Row>
         <Form.Group controlId="formFile" className="mb-3">
           <Form.Label>Aggiungi un'immagine</Form.Label>
-          <Form.Control type="file" style={{ width: "auto" }} />
+          <Form.Control
+            type="file"
+            style={{ width: "auto" }}
+            onChange={e => handleInputChange("img", e.target.value)}
+          />
         </Form.Group>
         <Form.Group controlId="formFile" className="mb-3">
           <Form.Label>Aggiungi un file pdf</Form.Label>
-          <Form.Control type="file" style={{ width: "auto" }} />
+          <Form.Control
+            type="file"
+            style={{ width: "auto" }}
+            onChange={e => handleInputChange("pdf", e.target.value)}
+          />
         </Form.Group>
       </Row>
       <Button variant="danger" type="submit">

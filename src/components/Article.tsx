@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { IArticleApiResponse } from "../interfaces/IArticleApi";
 import RouteWrapper from "./RouteWrapper";
 import { Spinner } from "react-bootstrap";
+import ArticleContent from "./ArticleContent";
 
 export default function Article() {
   const params = useParams();
@@ -31,7 +32,23 @@ export default function Article() {
   return (
     <>
       {isLoading && <Spinner variant="danger" />}
-      {articleData && <RouteWrapper title={articleData.title} content={articleData.content} breadcrumb={false} />}
+      {articleData && (
+        <RouteWrapper
+          title={articleData.title}
+          content={
+            <ArticleContent
+              author={articleData.author.username}
+              date={articleData.date}
+              content={articleData.content}
+              categories={articleData.categories.map(category => category.name)}
+              tags={articleData.tags.map(tag => tag.name)}
+              img={articleData.img}
+              pdf={articleData.pdf}
+            />
+          }
+          breadcrumb={false}
+        />
+      )}
     </>
   );
 }

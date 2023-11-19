@@ -2,6 +2,7 @@ import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import "../../styles/HomeCard.scss";
 import ArticleDateAuthorTag from "../shared-components/ArticleDateAuthorTag";
+import ArticleCategories from "../shared-components/ArticleCategories";
 
 interface HomeCardProps {
   imgSrc: string;
@@ -18,11 +19,7 @@ function HomeCard({ imgSrc, categories, title, date, author, tags, description }
     <Card className="shadow">
       <Card.Img variant="top" src={imgSrc} className="img-fluid" style={{ maxHeight: "400px", objectFit: "contain" }} />
       <Card.Body>
-        {categories.map(category => (
-          <Button key={category} variant="danger" size="sm" className="category me-1 mb-2 py-0">
-            {category}
-          </Button>
-        ))}
+        <ArticleCategories categories={categories} />
         <Card.Title className="my-2">{title}</Card.Title>
         <ArticleDateAuthorTag date={date} author={author} tags={tags} />
         <Card.Text className="my-4">{description}</Card.Text>

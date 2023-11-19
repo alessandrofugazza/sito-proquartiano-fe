@@ -10,6 +10,8 @@ export interface IArticleApiResponse {
     content: string;
     categories: ICategory[];
     tags: ITag[];
+    img: string,
+    pdf: string
 }
 
 export interface IAuthor {

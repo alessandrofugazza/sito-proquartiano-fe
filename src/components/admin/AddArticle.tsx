@@ -20,10 +20,12 @@ export default function AddArticle() {
     e.preventDefault();
   };
 
-  const addNewTag = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setTags([...tags, newTag]);
-    setNewTag("");
+  const addNewTag = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      setTags([...tags, newTag]);
+      setNewTag("");
+    }
   };
 
   const handleRemoveTag = (tagToRemove: String) => {
@@ -34,25 +36,19 @@ export default function AddArticle() {
   };
 
   return (
-    <Row>
-      <Col lg="6">
-        <Form onSubmit={handleFormSubmit} className="">
-          {/* <Form.Group className="mb-3" controlId="title">
-            <Form.Label>Titolo</Form.Label>
-            <Form.Control type="text" placeholder="Inserisci un titolo" />
-          </Form.Group> */}
+    <Form onSubmit={handleFormSubmit} className="">
+      <Row>
+        <Col lg="6">
           <InputGroup className="mb-3">
             <InputGroup.Text id="title">Titolo</InputGroup.Text>
             <Form.Control placeholder="Inserisci un titolo" type="text" aria-label="Titolo" aria-describedby="title" />
           </InputGroup>
           <Form.Group className="mb-3 d-flex flex-column" controlId="title">
-            <Form.Label>Data e ora</Form.Label>
-            <input type="datetime-local" value={selectedDate} onChange={handleDateChange} />
+            <Form.Label>Data dell'evento</Form.Label>
+            <input type="date" value={selectedDate} onChange={handleDateChange} />
           </Form.Group>
-        </Form>
-      </Col>
-      <Col lg="3">
-        <Form>
+        </Col>
+        <Col lg="3">
           <Form.Group className="mb-3" controlId="categories">
             <Form.Label>Categorie</Form.Label>
             <Form.Check type="checkbox" id="associazione" label="Associazione" />
@@ -60,10 +56,8 @@ export default function AddArticle() {
             <Form.Check type="checkbox" label="Manifestazioni" id="manifestazioni" />
             <Form.Check type="checkbox" label="Rassegna stampa" id="rassegna-stampa" />
           </Form.Group>
-        </Form>
-      </Col>
-      <Col lg="3">
-        <Form onSubmit={addNewTag}>
+        </Col>
+        <Col lg="3">
           <Form.Group className="mb-3" controlId="tags">
             <Form.Label>Tags</Form.Label>
             <Form.Control
@@ -73,6 +67,7 @@ export default function AddArticle() {
               aria-describedby="tag"
               value={newTag}
               onChange={handleNewTagChange}
+              onKeyDown={addNewTag}
             />
           </Form.Group>
           <div className="d-flex gap-2 flex-wrap">
@@ -89,14 +84,16 @@ export default function AddArticle() {
               </Button>
             ))}
           </div>
-        </Form>
-      </Col>
-      <Col>
-        <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-          <Form.Label>Example textarea</Form.Label>
-          <Form.Control as="textarea" rows={10} />
-        </Form.Group>
-      </Col>
-    </Row>
+        </Col>
+      </Row>
+      <Row>
+        <Col xs={12}>
+          <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+            <Form.Label>Contenuto</Form.Label>
+            <Form.Control className="w-100" as="textarea" rows={10} />
+          </Form.Group>
+        </Col>
+      </Row>
+    </Form>
   );
 }

@@ -91,6 +91,12 @@ export default function AddArticle() {
           </div>
         </Form>
       </Col>
+      <Col>
+        <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
+          <Form.Label>Example textarea</Form.Label>
+          <Form.Control as="textarea" rows={10} />
+        </Form.Group>
+      </Col>
     </Row>
   );
 }

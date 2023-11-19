@@ -129,12 +129,22 @@ export default function AddArticle() {
         </Col>
       </Row>
       <Row>
-        <Col xs={12}>
+        <Col>
           <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
             <Form.Label>Contenuto</Form.Label>
             <Form.Control className="w-100" as="textarea" rows={10} value={content} onChange={handleContentChange} />
           </Form.Group>
         </Col>
+      </Row>
+      <Row>
+        <Form.Group controlId="formFile" className="mb-3">
+          <Form.Label>Aggiungi un'immagine</Form.Label>
+          <Form.Control type="file" style={{ width: "auto" }} />
+        </Form.Group>
+        <Form.Group controlId="formFile" className="mb-3">
+          <Form.Label>Aggiungi un file pdf</Form.Label>
+          <Form.Control type="file" style={{ width: "auto" }} />
+        </Form.Group>
       </Row>
       <Button variant="danger" type="submit">
         Aggiungi articolo

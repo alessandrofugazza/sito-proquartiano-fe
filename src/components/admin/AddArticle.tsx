@@ -16,7 +16,7 @@ interface Article {
   };
   tags: string[];
   img: File | null;
-  pdf: File | null;
+  // pdf: File | null;
 }
 
 export default function AddArticle() {
@@ -35,7 +35,7 @@ export default function AddArticle() {
     },
     tags: [],
     img: null,
-    pdf: null,
+    // pdf: null,
   });
   const [newTag, setNewTag] = useState("");
   const [validated, setValidated] = useState(false);
@@ -58,15 +58,50 @@ export default function AddArticle() {
     setNewTag(e.target.value);
   };
 
-  const handleFormSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
     const form = e.currentTarget;
     if (form.checkValidity() === false) {
-      e.preventDefault();
-      e.stopPropagation();
+      // e.stopPropagation();
+      console.log("invalid");
+      return;
     }
 
-    console.log(article);
+    console.log("saved");
     setValidated(true);
+    const uploadData = new FormData();
+    uploadData.append("title", article.title);
+    uploadData.append("date", article.date);
+    uploadData.append("content", article.content);
+    Object.entries(article.categories).forEach(([category, isSelected]) => {
+      if (isSelected) {
+        uploadData.append("categories", category);
+      }
+    });
+    article.tags.forEach(tag => {
+      uploadData.append("tags", tag);
+    });
+    if (article.img) {
+      uploadData.append("img", article.img);
+    }
+    // if (article.pdf) {
+    //   uploadData.append("pdf", article.pdf);
+    // }
+    // console.log(uploadData.get("img"));
+
+    try {
+      const re = await fetch("http://localhost:3001/articles", {
+        method: "POST",
+        body: uploadData,
+      });
+      if (re.ok) {
+        console.log("done");
+      } else {
+        console.log("error");
+      }
+    } catch (error) {
+      console.log("error");
+    }
   };
 
   const addNewTag = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -105,7 +140,7 @@ export default function AddArticle() {
               />
             </InputGroup>
             <Form.Group className="mb-3 d-flex flex-column" controlId="title">
-              <Form.Label>Data dell'evento</Form.Label>
+              <Form.Label>uploadData dell'evento (opzionale)</Form.Label>
               <input type="date" value={article.date} onChange={e => handleInputChange("date", e.target.value)} />
             </Form.Group>
           </Col>
@@ -194,14 +229,14 @@ export default function AddArticle() {
               onChange={e => handleInputChange("img", e.target.value)}
             />
           </Form.Group>
-          <Form.Group controlId="formFile" className="mb-3">
+          {/* <Form.Group controlId="formFile" className="mb-3">
             <Form.Label>Aggiungi un file pdf</Form.Label>
             <Form.Control
               type="file"
               style={{ width: "auto" }}
               onChange={e => handleInputChange("pdf", e.target.value)}
             />
-          </Form.Group>
+          </Form.Group> */}
         </Row>
         {/* <Button variant="danger" type="button" onClick={() => setShowPreview(true)}>
           Anteprima

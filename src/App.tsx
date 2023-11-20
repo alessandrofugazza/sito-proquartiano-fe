@@ -21,6 +21,7 @@ import Manifestazioni from "./components/Manifestazioni";
 import ScrollToTop from "./components/ScrollToTop";
 import AddArticle from "./components/admin/AddArticle";
 import Article from "./components/Article";
+import AdminLogin from "./components/AdminLogin";
 
 function App() {
   return (
@@ -83,6 +84,7 @@ function App() {
             path="/info-privacy/info-cookies"
             element={<RouteWrapper title="Info cookies" content={<InfoCookies />} />}
           />
+          <Route path="admin/login" element={<RouteWrapper title="Login" content={<AdminLogin />} />} />
           <Route
             path="/admin/aggiungi-articolo"
             element={<RouteWrapper title="Aggiungi articolo" content={<AddArticle />} />}

@@ -5,17 +5,13 @@ import Form from "react-bootstrap/Form";
 import Article from "../Article";
 
 interface Article {
+  authorId: string;
   title: string;
-  date: string;
+  // date: string;
   content: string;
-  categories: {
-    associazione: boolean;
-    concorsoCori: boolean;
-    manifestazioni: boolean;
-    rassegnaStampa: boolean;
-  };
+  categories: string[];
   tags: string[];
-  img: File | null;
+  // img: File | null;
   // pdf: File | null;
 }
 
@@ -24,19 +20,14 @@ export default function AddArticle() {
   const [alert, setAlert] = useState({ message: "", status: "", variant: "success" });
   const [showPreview, setShowPreview] = useState(false);
   const [article, setArticle] = useState<Article>({
+    authorId: "",
     title: "",
-    date: "",
+    // date: "",
     content: "",
-    categories: {
-      associazione: false,
-      concorsoCori: false,
-      manifestazioni: false,
-      rassegnaStampa: false,
-    },
+    categories: [],
     tags: [],
-    img: null,
-    // pdf: null,
   });
+  const [img, setImg] = useState<File | null>(null);
   const [newTag, setNewTag] = useState("");
   const [validated, setValidated] = useState(false);
 
@@ -45,17 +36,29 @@ export default function AddArticle() {
   };
 
   const handleCategoriesChange = (propertyName: string, propertyValue: boolean) => {
-    setArticle({
-      ...article,
-      categories: {
-        ...article.categories,
-        [propertyName]: propertyValue,
-      },
-    });
+    if (propertyValue === true) {
+      setArticle({
+        ...article,
+        categories: [...article.categories, propertyName],
+      });
+    } else {
+      setArticle({
+        ...article,
+        categories: [...article.categories.filter(category => category !== propertyName)],
+      });
+    }
   };
 
   const handleNewTagChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setNewTag(e.target.value);
+  };
+
+  const handleImgChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
+      setImg(e.target.files[0]);
+    } else {
+      setImg(null);
+    }
   };
 
   const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
@@ -69,30 +72,19 @@ export default function AddArticle() {
 
     console.log("saved");
     setValidated(true);
-    const uploadData = new FormData();
-    uploadData.append("title", article.title);
-    uploadData.append("date", article.date);
-    uploadData.append("content", article.content);
-    Object.entries(article.categories).forEach(([category, isSelected]) => {
-      if (isSelected) {
-        uploadData.append("categories", category);
-      }
-    });
-    article.tags.forEach(tag => {
-      uploadData.append("tags", tag);
-    });
-    if (article.img) {
-      uploadData.append("img", article.img);
+    const formData = new FormData();
+    formData.append("article", JSON.stringify(article));
+    if (img) {
+      formData.append("img", img);
     }
-    // if (article.pdf) {
-    //   uploadData.append("pdf", article.pdf);
-    // }
-    // console.log(uploadData.get("img"));
 
     try {
       const re = await fetch("http://localhost:3001/articles", {
         method: "POST",
-        body: uploadData,
+        headers: {
+          Authorization: "",
+        },
+        body: formData,
       });
       if (re.ok) {
         console.log("done");
@@ -139,41 +131,42 @@ export default function AddArticle() {
                 required
               />
             </InputGroup>
-            <Form.Group className="mb-3 d-flex flex-column" controlId="title">
-              <Form.Label>uploadData dell'evento (opzionale)</Form.Label>
+            {/* <Form.Group className="mb-3 d-flex flex-column" controlId="title">
+              <Form.Label>formData dell'evento (opzionale)</Form.Label>
               <input type="date" value={article.date} onChange={e => handleInputChange("date", e.target.value)} />
-            </Form.Group>
+            </Form.Group> */}
           </Col>
           <Col lg="3">
             <Form.Group className="mb-3" controlId="categories">
               <Form.Label>Categorie</Form.Label>
+              {/* TODO: get these from backend */}
               <Form.Check
                 type="checkbox"
                 label="Associazione"
                 id="associazione"
-                checked={article.categories.associazione}
+                checked={article.categories.includes("associazione")}
                 onChange={e => handleCategoriesChange("associazione", e.target.checked)}
               />
               <Form.Check
                 type="checkbox"
                 label="Concorso cori"
                 id="concorsoCori"
-                checked={article.categories.concorsoCori}
-                onChange={e => handleCategoriesChange("concorsoCori", e.target.checked)}
+                checked={article.categories.includes("concorso cori")}
+                onChange={e => handleCategoriesChange("concorso cori", e.target.checked)}
               />
               <Form.Check
                 type="checkbox"
                 label="Manifestazioni"
                 id="manifestazioni"
-                checked={article.categories.manifestazioni}
+                checked={article.categories.includes("manifestazioni")}
                 onChange={e => handleCategoriesChange("manifestazioni", e.target.checked)}
               />
               <Form.Check
                 type="checkbox"
                 label="Rassegna stampa"
                 id="rassegnaStampa"
-                checked={article.categories.rassegnaStampa}
-                onChange={e => handleCategoriesChange("rassegnaStampa", e.target.checked)}
+                checked={article.categories.includes("rassegna stampa")}
+                onChange={e => handleCategoriesChange("rassegna stampa", e.target.checked)}
               />
             </Form.Group>
           </Col>
@@ -223,11 +216,7 @@ export default function AddArticle() {
         <Row>
           <Form.Group controlId="formFile" className="mb-3">
             <Form.Label>Aggiungi un'immagine</Form.Label>
-            <Form.Control
-              type="file"
-              style={{ width: "auto" }}
-              onChange={e => handleInputChange("img", e.target.value)}
-            />
+            <Form.Control type="file" style={{ width: "auto" }} onChange={handleImgChange} />
           </Form.Group>
           {/* <Form.Group controlId="formFile" className="mb-3">
             <Form.Label>Aggiungi un file pdf</Form.Label>

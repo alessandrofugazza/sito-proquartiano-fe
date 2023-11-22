@@ -11,7 +11,9 @@
     }
 
     .dropdown {
-        padding-inline: 3px;
+        @media (min-width: 768px) {
+            padding-inline: 6px;
+        }
 
         a {
             text-decoration: none;
@@ -37,7 +39,7 @@
         // }
 
         &.btn {
-            padding-inline: 5px;
+            padding-inline: 7px;
             font-weight: 600;
 
             @media (max-width: 768px) {

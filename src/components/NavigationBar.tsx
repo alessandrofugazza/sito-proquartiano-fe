@@ -16,10 +16,13 @@ function NavigationBar() {
   const [viewportWidth, setViewportWidth] = useState(window.innerWidth);
   const location = useLocation();
 
-  const widthBreakpoint1: number = 1070;
-  const widthBreakpoint2: number = 1014;
-  const widthBreakpoint3: number = 905;
-  const widthBreakpoint4: number = 825;
+  // TODO: this whole thing is horrible but have no idea how to implement it otherwise
+  const widthBreakpoint1: number = 1277;
+  const widthBreakpoint2: number = 1217;
+  const widthBreakpoint3: number = 1098;
+  const widthBreakpoint4: number = 1010;
+  const widthBreakpoint5: number = 883;
+  const widthBreakpoint6: number = 793;
 
   useEffect(() => {
     const handleResize = () => {
@@ -89,35 +92,39 @@ function NavigationBar() {
                 </Dropdown.Menu>
               </Dropdown>
             </Nav.Item>
-            <Nav.Item>
-              <Link to="/rassegna-stampa">
-                <Button
-                  variant="danger"
-                  className={`no-dropdown ${location.pathname === "/rassegna-stampa" && "bg-danger"}`}
-                >
-                  RASSEGNA STAMPA
-                </Button>
-              </Link>
-            </Nav.Item>
-            <Nav.Item>
-              <Dropdown as={ButtonGroup}>
-                <Link to="/news">
-                  <Button variant="danger" className={`${location.pathname.startsWith("/news") && "bg-danger"}`}>
-                    NEWS
+            {(viewportWidth > widthBreakpoint6 || viewportWidth < 768) && (
+              <Nav.Item>
+                <Link to="/rassegna-stampa">
+                  <Button
+                    variant="danger"
+                    className={`no-dropdown ${location.pathname === "/rassegna-stampa" && "bg-danger"}`}
+                  >
+                    RASSEGNA STAMPA
                   </Button>
                 </Link>
-                <Dropdown.Toggle split variant="danger" />
-                <Dropdown.Menu>
-                  <Dropdown.Item
-                    as={Link}
-                    to="/news/archivio-news"
-                    className={`${location.pathname.startsWith("/news/archivio-news") && "bg-danger fw-semibold"}`}
-                  >
-                    Archivio News
-                  </Dropdown.Item>
-                </Dropdown.Menu>
-              </Dropdown>
-            </Nav.Item>
+              </Nav.Item>
+            )}
+            {(viewportWidth > widthBreakpoint5 || viewportWidth < 768) && (
+              <Nav.Item>
+                <Dropdown as={ButtonGroup}>
+                  <Link to="/news">
+                    <Button variant="danger" className={`${location.pathname.startsWith("/news") && "bg-danger"}`}>
+                      NEWS
+                    </Button>
+                  </Link>
+                  <Dropdown.Toggle split variant="danger" />
+                  <Dropdown.Menu>
+                    <Dropdown.Item
+                      as={Link}
+                      to="/news/archivio-news"
+                      className={`${location.pathname.startsWith("/news/archivio-news") && "bg-danger fw-semibold"}`}
+                    >
+                      Archivio News
+                    </Dropdown.Item>
+                  </Dropdown.Menu>
+                </Dropdown>
+              </Nav.Item>
+            )}
             {(viewportWidth > widthBreakpoint4 || viewportWidth < 768) && (
               <Nav.Item>
                 <Dropdown as={ButtonGroup}>
@@ -141,15 +148,6 @@ function NavigationBar() {
                       className={`${location.pathname.startsWith("/chi-siamo/statuto") && "bg-danger fw-semibold"}`}
                     >
                       Statuto
-                    </Dropdown.Item>
-                    <Dropdown.Item
-                      as={Link}
-                      to="/chi-siamo/rassegna-stampa"
-                      className={`${
-                        location.pathname.startsWith("/chi-siamo/rassegna-stampa") && "bg-danger fw-semibold"
-                      }`}
-                    >
-                      Rassegna stampa
                     </Dropdown.Item>
                   </Dropdown.Menu>
                 </Dropdown>
@@ -243,6 +241,25 @@ function NavigationBar() {
                   </Link> */}
                   {/* <Dropdown.Toggle split variant="danger" /> */}
                   <Dropdown.Menu>
+                    {viewportWidth <= widthBreakpoint6 && (
+                      <>
+                        <Dropdown.Item as={Link} to="/rassegna-stampa" className="fw-semibold">
+                          Rassegna stampa
+                        </Dropdown.Item>
+                        <NavDropdown.Divider />
+                      </>
+                    )}
+                    {viewportWidth <= widthBreakpoint5 && (
+                      <>
+                        <Dropdown.Item as={Link} to="/news" className="fw-semibold">
+                          News
+                        </Dropdown.Item>
+                        <Dropdown.Item as={Link} to="/news/archivio-news">
+                          Archivio News
+                        </Dropdown.Item>
+                        <NavDropdown.Divider />
+                      </>
+                    )}
                     {viewportWidth <= widthBreakpoint4 && (
                       <>
                         <Dropdown.Item as={Link} to="/chi-siamo" className="fw-semibold">
@@ -253,9 +270,6 @@ function NavigationBar() {
                         </Dropdown.Item>
                         <Dropdown.Item as={Link} to="/chi-siamo/statuto">
                           Statuto
-                        </Dropdown.Item>
-                        <Dropdown.Item as={Link} to="/chi-siamo/rassegna-stampa">
-                          Rassegna stampa
                         </Dropdown.Item>
                         <NavDropdown.Divider />
                       </>

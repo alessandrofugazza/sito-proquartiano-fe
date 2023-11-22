@@ -9,7 +9,7 @@ export default function ArticleCategories({ categories }: IArticleCategoriesProp
     <>
       {categories.map(category => (
         <Button key={category} variant="danger" size="sm" className="category me-1 mb-2 py-0">
-          {category}
+          {category.toUpperCase()}
         </Button>
       ))}
     </>

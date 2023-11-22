@@ -8,7 +8,13 @@ export default function ArticleCategories({ categories }: IArticleCategoriesProp
   return (
     <>
       {categories.map(category => (
-        <Button key={category} variant="danger" size="sm" className="category me-1 mb-2 py-0">
+        <Button
+          key={category}
+          variant="danger"
+          size="sm"
+          className="category me-1 mb-2"
+          style={{ fontSize: "0.7rem", paddingBlock: "2.5px" }}
+        >
           {category.toUpperCase()}
         </Button>
       ))}

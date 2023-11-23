@@ -6,15 +6,18 @@
     //     }
     // }
 
-    #home-btn {
+    .no-dropdown {
         padding-inline: 9px;
     }
 
     .dropdown {
-        padding-inline: 3px;
+        @media (min-width: 768px) {
+            padding-inline: 6px;
+        }
 
         a {
             text-decoration: none;
+            color: white;
         }
     }
 
@@ -31,17 +34,21 @@
     button {
         border-radius: 0;
 
-        .active {
-            background-color: initial;
+        // .active {
+        //     background-color: initial;
+        // }
+
+        &.btn {
+            padding-inline: 7px;
+            font-weight: 600;
+
+            @media (max-width: 768px) {
+                padding-inline: 8px;
+            }
         }
 
         &.dropdown-toggle {
             padding-inline: 4px;
-        }
-
-        &.btn {
-            padding-inline: 5px;
-            font-weight: 600;
 
             @media (max-width: 768px) {
                 padding-inline: 8px;

@@ -1,7 +1,5 @@
 function Statuto() {
-  return(
-    <></>
-  )
+  return <></>;
 }
 
 export default Statuto;

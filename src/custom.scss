@@ -1,5 +1,6 @@
-$pqRed: #dc3545;
-$pqRedSecondary: #c73140;
+@import './styles/variables';
+
+$headings-margin-bottom: 1.1rem;
 
 // container
 $container-padding-x: 4rem;
@@ -12,5 +13,8 @@ $accordion-button-active-color: white;
 $accordion-icon-color: white;
 $accordion-icon-active-color: white;
 $accordion-button-focus-box-shadow: none;
+
+$border-radius: .2rem;
+$border-radius-sm: .18rem;
 
 @import '~bootstrap/scss/bootstrap';

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { CloseButton, Col, InputGroup, Modal, Row } from "react-bootstrap";
+import { CloseButton, Col, InputGroup, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Article from "../Article";

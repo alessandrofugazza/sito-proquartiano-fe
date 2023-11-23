@@ -90,7 +90,10 @@ function App() {
             path="/info-privacy/info-cookies"
             element={<RouteWrapper title="Info cookies" content={<InfoCookies />} />}
           />
-          <Route path="admin/login" element={<RouteWrapper title="Login" content={<AdminLogin />} />} />
+          <Route
+            path="auth/login"
+            element={<RouteWrapper title="Login" content={<AdminLogin />} breadcrumb={false} />}
+          />
           <Route
             path="/admin/aggiungi-articolo"
             element={<RouteWrapper title="Aggiungi articolo" content={<AddArticle />} />}

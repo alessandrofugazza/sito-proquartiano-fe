@@ -82,7 +82,7 @@ export default function AddArticle() {
       const re = await fetch("http://localhost:3001/articles", {
         method: "POST",
         headers: {
-          Authorization: "",
+          Authorization: `Bearer ${localStorage.getItem("loginToken")}`,
         },
         body: formData,
       });

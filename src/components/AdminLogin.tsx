@@ -18,7 +18,8 @@ export default function AdminLogin() {
         "Content-Type": "application/json",
       },
     });
-    console.log(await re.json());
+    const rePayload = await re.json();
+    localStorage.setItem("loginToken", rePayload.accessToken);
   };
   return (
     <Form onSubmit={handleSubmit}>

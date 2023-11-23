@@ -1,3 +1,4 @@
+import { useNavigate } from "react-router-dom";
 import "../../styles/ArticleDateAuthorTag.scss";
 
 interface ArticleDateAuthorTagProps {
@@ -7,6 +8,7 @@ interface ArticleDateAuthorTagProps {
 }
 
 function ArticleDateAuthorTag({ date, author, tags }: ArticleDateAuthorTagProps) {
+  const navitate = useNavigate();
   return (
     <div className="d-flex gap-2 date-author-tags">
       <div>
@@ -21,7 +23,9 @@ function ArticleDateAuthorTag({ date, author, tags }: ArticleDateAuthorTagProps)
         <i className="bi bi-tags-fill"></i>
         {tags.map((tag, index) => (
           <span key={tag}>
-            <span className="tag">{tag}</span>
+            <span className="tag" onClick={() => navitate(`/articles/tag/${tag}`)}>
+              {tag}
+            </span>
             {index < tags.length - 1 && ", "}
           </span>
         ))}

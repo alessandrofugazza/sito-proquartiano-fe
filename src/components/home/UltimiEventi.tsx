@@ -44,6 +44,7 @@ function UltimiEventi() {
                 categories={articlesData.content[0].categories.map(category => category.name)}
                 title={articlesData.content[0].title}
                 description={articlesData.content[0].content}
+                articleId={articlesData.content[0].id}
               />
             </Col>
           </Row>
@@ -59,6 +60,7 @@ function UltimiEventi() {
                     categories={article.categories.map(category => category.name)}
                     title={article.title}
                     description={article.content}
+                    articleId={article.id}
                   />
                 </Col>
               );

@@ -101,13 +101,13 @@ function App() {
             path="/admins/aggiungi-articolo"
             element={<RouteWrapper title="Aggiungi articolo" content={<AddArticle />} />}
           />
-          <Route path="/articles/:id" element={<Article />} />
+          <Route path="/articoli/:id" element={<Article />} />
           <Route
-            path="/articles/category/:categoryOrTagName"
-            element={<RouteWrapper title="" breadcrumb={false} content={<UltimiEventi fetchUrlPath="category" />} />}
+            path="/articoli/categoria/:categoryOrTagName"
+            element={<RouteWrapper title="" breadcrumb={false} content={<UltimiEventi fetchUrlPath="categoria" />} />}
           />
           <Route
-            path="/articles/tag/:categoryOrTagName"
+            path="/articoli/tag/:categoryOrTagName"
             element={<RouteWrapper title="" breadcrumb={false} content={<UltimiEventi fetchUrlPath="tag" />} />}
           />
           <Route

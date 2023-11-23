@@ -9,7 +9,7 @@ function UltimiEventi({ fetchUrlPath = "" }) {
   const [articlesData, setArticlesData] = useState<IArticlesApiResponse | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
-  let fetchUrl = "http://localhost:3001/articles";
+  let fetchUrl = "http://localhost:3001/articoli";
   const params = useParams();
   if (fetchUrlPath) {
     fetchUrl += `/${fetchUrlPath}/${params.categoryOrTagName}`;

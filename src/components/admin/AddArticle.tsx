@@ -79,7 +79,7 @@ export default function AddArticle() {
     }
 
     try {
-      const re = await fetch("http://localhost:3001/articles", {
+      const re = await fetch("http://localhost:3001/articoli", {
         method: "POST",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("loginToken")}`,

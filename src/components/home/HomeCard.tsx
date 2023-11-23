@@ -28,7 +28,7 @@ function HomeCard({ imgSrc, categories, title, date, author, tags, description, 
         <ArticleDateAuthorTag date={date} author={author} tags={tags} />
         <Card.Text className="my-4">{description}</Card.Text>
         <div className="text-end">
-          <Button variant="danger" size="sm" onClick={() => navigate(`/articles/${articleId}`)}>
+          <Button variant="danger" size="sm" onClick={() => navigate(`/articoli/${articleId}`)}>
             Leggi tutto
           </Button>
         </div>

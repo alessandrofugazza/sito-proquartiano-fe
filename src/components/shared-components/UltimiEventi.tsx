@@ -1,14 +1,19 @@
-import HomeCard from "./HomeCard";
+import HomeCard from "../home/HomeCard";
 import img1 from "../../assets/img/PQ_sagraW2023.jpg";
 import { Col, Row } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import { IArticleApiResponse, IArticlesApiResponse } from "../../interfaces/IArticleApi";
+import { useParams } from "react-router-dom";
 
-function UltimiEventi() {
+function UltimiEventi({ fetchUrlPath = "" }) {
   const [articlesData, setArticlesData] = useState<IArticlesApiResponse | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
-  const fetchUrl = "http://localhost:3001/articles";
+  let fetchUrl = "http://localhost:3001/articles";
+  const params = useParams();
+  if (fetchUrlPath) {
+    fetchUrl += `/${fetchUrlPath}/${params.categoryOrTagName}`;
+  }
   const fetchArticlesData = async () => {
     try {
       const re = await fetch(fetchUrl);
@@ -29,9 +34,14 @@ function UltimiEventi() {
   }, []);
   return (
     <div className="recent-events">
-      <h3 className="text-center" style={{ marginTop: "2em" }}>
-        Ultimi eventi
-      </h3>
+      {fetchUrlPath && (
+        <h1 className="text-center my-3 h2">{`Ultimi eventi con ${fetchUrlPath} "${params.categoryOrTagName}"`}</h1>
+      )}
+      {!fetchUrlPath && (
+        <h3 className="text-center" style={{ marginTop: "2em" }}>
+          Ultimi eventi
+        </h3>
+      )}
       {articlesData && !isLoading && (
         <>
           <Row className="mt-5 mb-4">

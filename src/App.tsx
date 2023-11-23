@@ -23,6 +23,7 @@ import AddArticle from "./components/admin/AddArticle";
 import Article from "./components/Article";
 import AdminLogin from "./components/AdminLogin";
 import Profilo from "./components/admin/Profilo";
+import UltimiEventi from "./components/shared-components/UltimiEventi";
 
 function App() {
   return (
@@ -101,6 +102,14 @@ function App() {
             element={<RouteWrapper title="Aggiungi articolo" content={<AddArticle />} />}
           />
           <Route path="/articles/:id" element={<Article />} />
+          <Route
+            path="/articles/category/:categoryOrTagName"
+            element={<RouteWrapper title="" breadcrumb={false} content={<UltimiEventi fetchUrlPath="category" />} />}
+          />
+          <Route
+            path="/articles/tag/:categoryOrTagName"
+            element={<RouteWrapper title="" breadcrumb={false} content={<UltimiEventi fetchUrlPath="tag" />} />}
+          />
           <Route
             path="*"
             element={

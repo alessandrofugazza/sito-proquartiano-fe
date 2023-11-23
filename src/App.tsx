@@ -22,6 +22,7 @@ import ScrollToTop from "./components/ScrollToTop";
 import AddArticle from "./components/admin/AddArticle";
 import Article from "./components/Article";
 import AdminLogin from "./components/AdminLogin";
+import Profilo from "./components/admin/Profilo";
 
 function App() {
   return (
@@ -94,8 +95,9 @@ function App() {
             path="auth/login"
             element={<RouteWrapper title="Login" content={<AdminLogin />} breadcrumb={false} />}
           />
+          <Route path="/admins/profilo" element={<RouteWrapper title="Pagina di profilo" content={<Profilo />} />} />
           <Route
-            path="/admin/aggiungi-articolo"
+            path="/admins/aggiungi-articolo"
             element={<RouteWrapper title="Aggiungi articolo" content={<AddArticle />} />}
           />
           <Route path="/articles/:id" element={<Article />} />

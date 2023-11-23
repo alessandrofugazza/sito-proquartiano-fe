@@ -12,7 +12,7 @@ import InfoPrivacy from "./components/InfoPrivacy";
 import ArchivioNews from "./components/news/ArchivioNews";
 import Mangiacucu from "./components/chi-siamo/Mangiacucu";
 import Statuto from "./components/chi-siamo/Statuto";
-import RassegnaStampa from "./components/chi-siamo/RassegnaStampa";
+import RassegnaStampa from "./components/RassegnaStampa";
 import ComeRaggiungerci from "./components/dove/ComeRaggiungerci";
 import Crediti from "./components/contatti/Crediti";
 import Link from "./components/contatti/Link";

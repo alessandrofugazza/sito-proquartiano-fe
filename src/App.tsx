@@ -96,7 +96,10 @@ function App() {
             path="auth/login"
             element={<RouteWrapper title="Login" content={<AdminLogin />} breadcrumb={false} />}
           />
-          <Route path="/admins/profilo" element={<RouteWrapper title="Pagina di profilo" content={<Profilo />} />} />
+          <Route
+            path="/admins/profilo"
+            element={<RouteWrapper title="Pagina di profilo" breadcrumb={false} content={<Profilo />} />}
+          />
           <Route
             path="/admins/aggiungi-articolo"
             element={<RouteWrapper title="Aggiungi articolo" content={<AddArticle />} />}

@@ -1,7 +1,7 @@
 import { Button } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
-export default function Profilo() {
+export default function AccountPage() {
   const navigate = useNavigate();
   return (
     <div className="d-flex flex-column align-items-start">

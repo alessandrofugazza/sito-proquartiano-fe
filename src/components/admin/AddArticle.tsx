@@ -61,16 +61,22 @@ export default function AddArticle() {
     }
   };
 
-  const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.currentTarget;
     if (form.checkValidity() === false) {
-      // e.stopPropagation();
+      e.stopPropagation();
       console.log("invalid");
-      return;
     }
 
     console.log("saved");
+    setArticle({
+      authorId: "",
+      title: "",
+      content: "",
+      categories: [],
+      tags: [],
+    });
     setValidated(true);
     const formData = new FormData();
     formData.append("article", JSON.stringify(article));
@@ -116,7 +122,7 @@ export default function AddArticle() {
 
   return (
     <>
-      <Form noValidate validated={validated} onSubmit={handleFormSubmit} className="">
+      <Form noValidate validated={validated} onSubmit={handleSubmit} className="">
         <Row>
           <Col lg="6">
             <InputGroup hasValidation className="mb-3">

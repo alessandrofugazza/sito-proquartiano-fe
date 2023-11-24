@@ -22,7 +22,7 @@ import ScrollToTop from "./components/ScrollToTop";
 import AddArticle from "./components/admin/AddArticle";
 import Article from "./components/Article";
 import AdminLogin from "./components/AdminLogin";
-import Profilo from "./components/admin/Profilo";
+import Profilo from "./components/admin/AccountPage";
 import UltimiEventi from "./components/shared-components/UltimiEventi";
 
 function App() {

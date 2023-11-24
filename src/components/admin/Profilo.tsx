@@ -1,4 +1,5 @@
 import { useEffect } from "react";
+import { Button } from "react-bootstrap";
 
 export default function Profilo() {
   const fetchProfileData = async () => {
@@ -12,5 +13,10 @@ export default function Profilo() {
   useEffect(() => {
     fetchProfileData();
   }, []);
-  return <></>;
+  return (
+    <div className="d-flex flex-column align-items-start">
+      <Button variant="link">Modifica profilo</Button>
+      <Button variant="link">Articoli pubblicati</Button>
+    </div>
+  );
 }

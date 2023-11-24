@@ -24,6 +24,8 @@ import Article from "./components/Article";
 import AdminLogin from "./components/AdminLogin";
 import Profilo from "./components/admin/AccountPage";
 import UltimiEventi from "./components/shared-components/UltimiEventi";
+import EditAccount from "./components/admin/EditAccount";
+import PublishedArticles from "./components/admin/PublishedArticles";
 
 function App() {
   return (
@@ -101,7 +103,15 @@ function App() {
             element={<RouteWrapper title="Pagina di profilo" breadcrumb={false} content={<Profilo />} />}
           />
           <Route
-            path="/admins/aggiungi-articolo"
+            path="/admins/profilo/modifica"
+            element={<RouteWrapper title="Pagina di profilo" breadcrumb={false} content={<EditAccount />} />}
+          />
+          <Route
+            path="/admins/profilo/articoli"
+            element={<RouteWrapper title="Pagina di profilo" breadcrumb={false} content={<PublishedArticles />} />}
+          />
+          <Route
+            path="/admins/profilo/aggiungi-articolo"
             element={<RouteWrapper title="Aggiungi articolo" content={<AddArticle />} />}
           />
           <Route path="/articoli/:id" element={<Article />} />

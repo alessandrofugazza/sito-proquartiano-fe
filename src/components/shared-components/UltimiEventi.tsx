@@ -47,7 +47,7 @@ function UltimiEventi() {
           <Row className="mt-5 mb-4">
             <Col>
               <HomeCard
-                imgSrc={img1}
+                imgSrc={articlesData.content[0].img}
                 date={articlesData.content[0].date}
                 author={articlesData.content[0].author.signature}
                 tags={articlesData.content[0].tags.map(tag => tag.name)}
@@ -63,7 +63,7 @@ function UltimiEventi() {
               return (
                 <Col key={article.id}>
                   <HomeCard
-                    imgSrc={img1}
+                    imgSrc={article.img}
                     date={article.date}
                     author={article.author.signature}
                     tags={article.tags.map(tag => tag.name)}

@@ -3,6 +3,7 @@ import { CloseButton, Col, InputGroup, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Article from "../Article";
+import OutcomeToast from "../shared-components/OutcomeToast";
 
 interface Article {
   authorId: string;
@@ -30,6 +31,7 @@ export default function AddArticle() {
   const [img, setImg] = useState<File | null>(null);
   const [newTag, setNewTag] = useState("");
   const [validated, setValidated] = useState(false);
+  const [showOutcomeToast, setShowOutcomeToast] = useState(false);
 
   const handleInputChange = (propertyName: string, propertyValue: string | string[]) => {
     setArticle({ ...article, [propertyName]: propertyValue });
@@ -63,6 +65,8 @@ export default function AddArticle() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setShowOutcomeToast(true);
+    setTimeout(() => setShowOutcomeToast(false), 3000);
     const form = e.currentTarget;
     if (form.checkValidity() === false) {
       e.stopPropagation();
@@ -250,6 +254,7 @@ export default function AddArticle() {
           </Modal.Body>
         </Modal>
       )} */}
+      <OutcomeToast showToast={showOutcomeToast} />
     </>
   );
 }

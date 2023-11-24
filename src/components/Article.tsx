@@ -37,7 +37,7 @@ export default function Article() {
           title={articleData.title}
           content={
             <ArticleContent
-              author={articleData.author.username}
+              author={articleData.author.username} // todo fix
               date={articleData.date}
               content={articleData.content}
               categories={articleData.categories.map(category => category.name)}

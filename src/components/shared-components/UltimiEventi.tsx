@@ -3,17 +3,17 @@ import img1 from "../../assets/img/PQ_sagraW2023.jpg";
 import { Col, Row } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import { IArticleApiResponse, IArticlesApiResponse } from "../../interfaces/IArticleApi";
-import { useParams } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 
-function UltimiEventi({ fetchUrlPath = "" }) {
+function UltimiEventi() {
   const [articlesData, setArticlesData] = useState<IArticlesApiResponse | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
-  let fetchUrl = "http://localhost:3001/articoli";
+  const location = useLocation();
+
+  const queryParams = new URLSearchParams(location.search);
+  let fetchUrl = "http://localhost:3001/articoli?" + queryParams;
   const params = useParams();
-  if (fetchUrlPath) {
-    fetchUrl += `/${fetchUrlPath}/${params.categoryOrTagName}`;
-  }
   const fetchArticlesData = async () => {
     try {
       const re = await fetch(fetchUrl);
@@ -34,14 +34,14 @@ function UltimiEventi({ fetchUrlPath = "" }) {
   }, []);
   return (
     <div className="recent-events">
-      {fetchUrlPath && (
+      {/* {fetchUrlPath && (
         <h1 className="text-center my-3 h2">{`Ultimi eventi con ${fetchUrlPath} "${params.categoryOrTagName}"`}</h1>
       )}
       {!fetchUrlPath && (
         <h3 className="text-center" style={{ marginTop: "2em" }}>
           Ultimi eventi
         </h3>
-      )}
+      )} */}
       {articlesData && !isLoading && (
         <>
           <Row className="mt-5 mb-4">

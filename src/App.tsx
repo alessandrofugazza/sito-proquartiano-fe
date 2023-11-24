@@ -105,14 +105,7 @@ function App() {
             element={<RouteWrapper title="Aggiungi articolo" content={<AddArticle />} />}
           />
           <Route path="/articoli/:id" element={<Article />} />
-          <Route
-            path="/articoli/categoria/:categoryOrTagName"
-            element={<RouteWrapper title="" breadcrumb={false} content={<UltimiEventi fetchUrlPath="categoria" />} />}
-          />
-          <Route
-            path="/articoli/tag/:categoryOrTagName"
-            element={<RouteWrapper title="" breadcrumb={false} content={<UltimiEventi fetchUrlPath="tag" />} />}
-          />
+          <Route path="/articoli" element={<RouteWrapper title="" breadcrumb={false} content={<UltimiEventi />} />} />
           <Route
             path="*"
             element={

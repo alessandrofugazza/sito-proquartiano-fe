@@ -1,6 +1,5 @@
-import HomeCard from "../home/HomeCard";
-import img1 from "../../assets/img/PQ_sagraW2023.jpg";
-import { Col, Row } from "react-bootstrap";
+import HomeCard from "./HomeCard";
+import { Button, Col, Row } from "react-bootstrap";
 import { useEffect, useState } from "react";
 import { IArticleApiResponse, IArticlesApiResponse } from "../../interfaces/IArticleApi";
 import { useLocation, useParams } from "react-router-dom";
@@ -12,8 +11,8 @@ function UltimiEventi() {
   const location = useLocation();
 
   const queryParams = new URLSearchParams(location.search);
+  // const pageParam = queryParams.get("page");
   let fetchUrl = "http://localhost:3001/articoli?" + queryParams;
-  const params = useParams();
   const fetchArticlesData = async () => {
     try {
       const re = await fetch(fetchUrl);
@@ -36,12 +35,12 @@ function UltimiEventi() {
     <div className="recent-events">
       {/* {fetchUrlPath && (
         <h1 className="text-center my-3 h2">{`Ultimi eventi con ${fetchUrlPath} "${params.categoryOrTagName}"`}</h1>
-      )}
-      {!fetchUrlPath && (
-        <h3 className="text-center" style={{ marginTop: "2em" }}>
-          Ultimi eventi
-        </h3>
-      )} */}
+      )}*/}
+
+      <h3 className="text-center" style={{ marginTop: "2em" }}>
+        Ultimi eventi
+      </h3>
+
       {articlesData && !isLoading && (
         <>
           <Row className="mt-5 mb-4">
@@ -76,6 +75,15 @@ function UltimiEventi() {
               );
             })}
           </Row>
+          {/* <Button
+            variant="link"
+            onClick={() => {
+              fetchUrl += "page=2&size=10";
+              fetchArticlesData();
+            }}
+          >
+            Pagina precedente
+          </Button> */}
         </>
       )}
     </div>

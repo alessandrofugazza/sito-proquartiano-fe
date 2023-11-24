@@ -1,8 +1,8 @@
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import "../../styles/HomeCard.scss";
-import ArticleDateAuthorTag from "../shared-components/ArticleDateAuthorTag";
-import ArticleCategories from "../shared-components/ArticleCategories";
+import ArticleDateAuthorTag from "./ArticleDateAuthorTag";
+import ArticleCategories from "./ArticleCategories";
 import { useNavigate } from "react-router-dom";
 
 interface HomeCardProps {
@@ -20,7 +20,7 @@ function HomeCard({ imgSrc, categories, title, date, author, tags, description, 
   const navigate = useNavigate();
 
   return (
-    <Card className="shadow">
+    <Card className="shadow h-100">
       <Card.Img variant="top" src={imgSrc} className="img-fluid" style={{ maxHeight: "400px", objectFit: "contain" }} />
       <Card.Body>
         <ArticleCategories categories={categories} />

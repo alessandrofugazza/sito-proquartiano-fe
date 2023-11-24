@@ -26,6 +26,7 @@ import Profilo from "./components/admin/AccountPage";
 import UltimiEventi from "./components/shared-components/UltimiEventi";
 import EditAccount from "./components/admin/EditAccount";
 import PublishedArticles from "./components/admin/PublishedArticles";
+import TestPage from "./components/TestPage";
 
 function App() {
   return (
@@ -116,6 +117,17 @@ function App() {
           />
           <Route path="/articoli/:id" element={<Article />} />
           <Route path="/articoli" element={<RouteWrapper title="" breadcrumb={false} content={<UltimiEventi />} />} />
+          <Route
+            path="/test-page"
+            element={
+              <RouteWrapper
+                title="Test page"
+                description="If you are reading this and you are not me, you shouldn't be here."
+                breadcrumb={false}
+                content={<TestPage />}
+              />
+            }
+          />
           <Route
             path="*"
             element={

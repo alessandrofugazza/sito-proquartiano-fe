@@ -16,6 +16,7 @@ export interface IArticleApiResponse {
 
 export interface IAuthor {
     id: string;
+    signature: string;
     username: string;
     email: string;
 }

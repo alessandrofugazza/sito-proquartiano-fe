@@ -49,7 +49,7 @@ function UltimiEventi() {
               <HomeCard
                 imgSrc={img1}
                 date={articlesData.content[0].date}
-                author={articlesData.content[0].author.username}
+                author={articlesData.content[0].author.signature}
                 tags={articlesData.content[0].tags.map(tag => tag.name)}
                 categories={articlesData.content[0].categories.map(category => category.name)}
                 title={articlesData.content[0].title}
@@ -65,7 +65,7 @@ function UltimiEventi() {
                   <HomeCard
                     imgSrc={img1}
                     date={article.date}
-                    author={article.author.username}
+                    author={article.author.signature}
                     tags={article.tags.map(tag => tag.name)}
                     categories={article.categories.map(category => category.name)}
                     title={article.title}

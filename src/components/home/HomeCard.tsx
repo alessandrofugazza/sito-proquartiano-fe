@@ -4,19 +4,9 @@ import "../../styles/HomeCard.scss";
 import ArticleDateAuthorTag from "../shared-components/ArticleDateAuthorTag";
 import ArticleCategories from "../shared-components/ArticleCategories";
 import { useNavigate } from "react-router-dom";
+import { IArticleProps } from "../../interfaces/IArticleProps";
 
-interface HomeCardProps {
-  imgSrc: string;
-  categories: string[];
-  title: string;
-  date: string;
-  author: string;
-  tags: string[];
-  description: string;
-  articleId: string;
-}
-
-function HomeCard({ imgSrc, categories, title, date, author, tags, description, articleId }: HomeCardProps) {
+function HomeCard({ imgSrc, categories, title, date, author, tags, description, articleId }: IArticleProps) {
   const navigate = useNavigate();
 
   return (

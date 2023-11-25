@@ -26,7 +26,8 @@ import Profilo from "./components/admin/AccountPage";
 import UltimiEventi from "./components/home/UltimiEventi";
 import EditAccount from "./components/admin/EditAccount";
 import PublishedArticles from "./components/admin/PublishedArticles";
-import TestPage from "./components/TestPage";
+import TestPage from "./components/filtered-results/FilteredResults";
+import FilteredResults from "./components/filtered-results/FilteredResults";
 
 function App() {
   return (
@@ -124,7 +125,7 @@ function App() {
                 title="Test page"
                 description="If you are reading this and you are not me, you shouldn't be here."
                 breadcrumb={false}
-                content={<TestPage />}
+                content={<FilteredResults />}
               />
             }
           />

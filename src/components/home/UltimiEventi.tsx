@@ -17,7 +17,7 @@ function UltimiEventi() {
   //   setRecentEventsPage()
   // }
 
-  let fetchUrl = "http://localhost:3001/articoli";
+  let fetchUrl = "http://localhost:3001/articoli?size=11";
   const fetchArticlesData = async () => {
     try {
       const re = await fetch(fetchUrl);
@@ -110,13 +110,14 @@ function UltimiEventi() {
           {/* todo better syntax */}
           {/* todo scroll needs to wait for fetch */}
           {/* todo handle no more results */}
-          <div className="d-flex justify-content-between mt-5 recent-events-nav-btns">
+          <div className="d-flex justify-content-between mt-5 ">
             <Button
+              className="recent-events-nav-btn"
               variant="link"
               onClick={() => {
                 const nextPage = recentEventsPage + 1;
                 setRecentEventsPage(nextPage);
-                fetchUrl = `http://localhost:3001/articoli?page=${nextPage - 1}&size=10`;
+                fetchUrl = `http://localhost:3001/articoli?page=${nextPage - 1}`;
                 fetchArticlesData();
                 if (ultimiEventiRef.current) {
                   ultimiEventiRef.current.scrollIntoView({ behavior: "smooth" });
@@ -129,11 +130,12 @@ function UltimiEventi() {
             </Button>
             {recentEventsPage > 1 && (
               <Button
+                className="recent-events-nav-btn"
                 variant="link"
                 onClick={() => {
                   const nextPage = recentEventsPage - 1;
                   setRecentEventsPage(nextPage);
-                  fetchUrl = `http://localhost:3001/articoli?page=${nextPage - 1}&size=10`;
+                  fetchUrl = `http://localhost:3001/articoli?page=${nextPage - 1}`;
                   fetchArticlesData();
                   if (ultimiEventiRef.current) {
                     ultimiEventiRef.current.scrollIntoView({ behavior: "smooth" });

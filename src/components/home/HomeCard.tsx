@@ -5,10 +5,13 @@ import ArticleDateAuthorTag from "../shared-components/ArticleDateAuthorTag";
 import ArticleCategories from "../shared-components/ArticleCategories";
 import { useNavigate } from "react-router-dom";
 import { IArticleProps } from "../../interfaces/IArticleProps";
+import defaultImg from "../../logo.png";
 
 function HomeCard({ imgSrc, categories, title, date, author, tags, description, articleId }: IArticleProps) {
   const navigate = useNavigate();
-
+  if (!imgSrc) {
+    imgSrc = defaultImg;
+  }
   return (
     <Card className="shadow h-100">
       <Card.Img variant="top" src={imgSrc} className="img-fluid" style={{ maxHeight: "400px", objectFit: "contain" }} />

@@ -23,7 +23,12 @@ export default function SingleFilteredResult({
   return (
     <Col xs={12}>
       <Card className="flex-row shadow " style={{ height: "200px" }}>
-        <Card.Img variant="top" src={imgSrc} className="img-fluid w-25" style={{ objectFit: "contain" }} />
+        <Card.Img
+          variant="top"
+          src={imgSrc}
+          className="img-fluid w-25"
+          style={{ objectFit: "contain", paddingBlock: "10px" }}
+        />
         <Card.Body className="d-flex flex-column justify-content-between">
           <Card.Title>{title}</Card.Title>
           <ArticleCategories categories={categories} />

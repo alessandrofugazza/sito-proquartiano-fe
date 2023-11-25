@@ -23,7 +23,7 @@ import AddArticle from "./components/admin/AddArticle";
 import Article from "./components/Article";
 import AdminLogin from "./components/AdminLogin";
 import Profilo from "./components/admin/AccountPage";
-import UltimiEventi from "./components/shared-components/UltimiEventi";
+import UltimiEventi from "./components/home/UltimiEventi";
 import EditAccount from "./components/admin/EditAccount";
 import PublishedArticles from "./components/admin/PublishedArticles";
 import TestPage from "./components/TestPage";

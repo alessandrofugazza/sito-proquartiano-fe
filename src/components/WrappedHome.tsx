@@ -1,4 +1,4 @@
-import UltimiEventi from "./shared-components/UltimiEventi";
+import UltimiEventi from "./home/UltimiEventi";
 import ArgomentiInPrimoPiano from "./home/ArgomentiInPrimoPiano";
 import HomeManifestazioniPrincipali from "./home/HomeManifestazioniPrincipali";
 

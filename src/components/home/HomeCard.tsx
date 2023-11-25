@@ -1,8 +1,8 @@
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import "../../styles/HomeCard.scss";
-import ArticleDateAuthorTag from "./ArticleDateAuthorTag";
-import ArticleCategories from "./ArticleCategories";
+import ArticleDateAuthorTag from "../shared-components/ArticleDateAuthorTag";
+import ArticleCategories from "../shared-components/ArticleCategories";
 import { useNavigate } from "react-router-dom";
 
 interface HomeCardProps {

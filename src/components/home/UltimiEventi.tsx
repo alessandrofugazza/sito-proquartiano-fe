@@ -3,6 +3,7 @@ import { Button, Col, Row } from "react-bootstrap";
 import { useEffect, useRef, useState } from "react";
 import { IArticleApiResponse, IArticlesApiResponse } from "../../interfaces/IArticleApi";
 import { useLocation, useParams } from "react-router-dom";
+import HomePagination from "./HomePagination";
 
 function UltimiEventi() {
   const [articlesData, setArticlesData] = useState<IArticlesApiResponse | null>(null);
@@ -44,7 +45,9 @@ function UltimiEventi() {
       <h3 className="text-center" style={{ marginTop: "2em" }} ref={ultimiEventiRef}>
         Ultimi eventi
       </h3>
-      <p>PAGEEEEEEEEEEEEEEEEEE</p>
+
+      {/* // todo should i implement this? */}
+      {/* <HomePagination currentPage={recentEventsPage} /> */}
 
       {articlesData && !isLoading && (
         <>
@@ -104,20 +107,45 @@ function UltimiEventi() {
               })}
             </Row>
           )}
-          <Button
-            variant="link"
-            onClick={() => {
-              const nextPage = recentEventsPage + 1;
-              setRecentEventsPage(nextPage);
-              fetchUrl = `http://localhost:3001/articoli?page=${recentEventsPage}&size=10`;
-              fetchArticlesData();
-              if (ultimiEventiRef.current) {
-                ultimiEventiRef.current.scrollIntoView({ behavior: "smooth" });
-              }
-            }}
-          >
-            Pagina precedente
-          </Button>
+          {/* todo better syntax */}
+          {/* todo scroll needs to wait for fetch */}
+          {/* todo handle no more results */}
+          <div className="d-flex justify-content-between mt-5 recent-events-nav-btns">
+            <Button
+              variant="link"
+              onClick={() => {
+                const nextPage = recentEventsPage + 1;
+                setRecentEventsPage(nextPage);
+                fetchUrl = `http://localhost:3001/articoli?page=${nextPage - 1}&size=10`;
+                fetchArticlesData();
+                if (ultimiEventiRef.current) {
+                  ultimiEventiRef.current.scrollIntoView({ behavior: "smooth" });
+                }
+              }}
+            >
+              <div className="d-flex gap-2 align-items-center">
+                <i className="bi bi-arrow-left-circle fs-5"></i> <span>Precedente</span>
+              </div>
+            </Button>
+            {recentEventsPage > 1 && (
+              <Button
+                variant="link"
+                onClick={() => {
+                  const nextPage = recentEventsPage - 1;
+                  setRecentEventsPage(nextPage);
+                  fetchUrl = `http://localhost:3001/articoli?page=${nextPage - 1}&size=10`;
+                  fetchArticlesData();
+                  if (ultimiEventiRef.current) {
+                    ultimiEventiRef.current.scrollIntoView({ behavior: "smooth" });
+                  }
+                }}
+              >
+                <div className="d-flex gap-2 align-items-center">
+                  <span>Successivo</span> <i className="bi bi-arrow-right-circle fs-5"></i>
+                </div>
+              </Button>
+            )}
+          </div>
         </>
       )}
     </div>

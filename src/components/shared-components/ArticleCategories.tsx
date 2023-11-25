@@ -15,8 +15,11 @@ export default function ArticleCategories({ categories }: IArticleCategoriesProp
           variant="danger"
           size="sm"
           className="category me-1 mb-2"
-          style={{ fontSize: "0.7rem", paddingBlock: "2.5px", width: "fit-content" }}
-          onClick={() => navigate(`/articoli?categoria=${category}`)}
+          style={{ fontSize: "0.7rem", paddingBlock: "3px", width: "fit-content" }}
+          onClick={e => {
+            e.stopPropagation();
+            navigate(`/articoli?categoria=${category}`);
+          }}
         >
           {category.toUpperCase()}
         </Button>

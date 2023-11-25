@@ -9,13 +9,13 @@ export default function FilteredResults() {
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
   const location = useLocation();
-  const [recentEventsPage, setRecentEventsPage] = useState(1);
+  const [fetchPage, setFetchPage] = useState(0);
 
   // const handleInputChange = () => {
   //   setRecentEventsPage()
   // }
 
-  const fetchUrl = "http://localhost:3001/articoli";
+  const fetchUrl = `http://localhost:3001/articoli`;
   const fetchArticlesData = async () => {
     try {
       const re = await fetch(fetchUrl);

@@ -21,7 +21,14 @@ function ArticleDateAuthorTag({ date, author, tags }: ArticleDateAuthorTagProps)
     <div className="d-flex gap-2 date-author-tags">
       <div>
         <i className="bi bi-person-fill"></i>
-        <span onClick={() => navitate(`/articoli?autore=${author}`)}>{author}</span>
+        <span
+          onClick={e => {
+            e.stopPropagation();
+            navitate(`/articoli?autore=${author}`);
+          }}
+        >
+          {author}
+        </span>
       </div>
       <div>
         <i className="bi bi-calendar-event"></i>
@@ -31,7 +38,13 @@ function ArticleDateAuthorTag({ date, author, tags }: ArticleDateAuthorTagProps)
         <i className="bi bi-tags-fill"></i>
         {tags.map((tag, index) => (
           <span key={tag}>
-            <span className="tag" onClick={() => navitate(`/articoli?tag=${tag}`)}>
+            <span
+              className="tag"
+              onClick={e => {
+                e.stopPropagation();
+                navitate(`/articoli?tag=${tag}`);
+              }}
+            >
               {tag}
             </span>
             {index < tags.length - 1 && ", "}

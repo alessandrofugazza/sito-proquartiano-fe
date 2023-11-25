@@ -1,0 +1,7 @@
+.single-filtered-result {
+    transition: transform 0.12s linear;
+
+    &:hover {
+        transform: scale(1.005);
+    }
+}

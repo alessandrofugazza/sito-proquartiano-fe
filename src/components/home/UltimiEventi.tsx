@@ -10,7 +10,7 @@ function UltimiEventi() {
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
   const location = useLocation();
-  const [recentEventsPage, setRecentEventsPage] = useState(1);
+  const [recentEventsPage, setRecentEventsPage] = useState(0);
   const ultimiEventiRef = useRef<HTMLDivElement>(null);
 
   // const handleInputChange = () => {

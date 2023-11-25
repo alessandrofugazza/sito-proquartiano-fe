@@ -5,6 +5,7 @@ import ArticleDateAuthorTag from "../shared-components/ArticleDateAuthorTag";
 import { useNavigate } from "react-router-dom";
 // import defaultImg from "../../assets/img/logo.png";
 import defaultImg from "../../logo.png";
+import "../../styles/SingleFilteredResult.scss";
 
 export default function SingleFilteredResult({
   imgSrc,
@@ -22,12 +23,16 @@ export default function SingleFilteredResult({
   }
   return (
     <Col xs={12}>
-      <Card className="flex-row shadow " style={{ height: "200px" }}>
+      <Card
+        className="flex-row shadow single-filtered-result"
+        style={{ height: "200px" }}
+        onClick={() => navigate(`/articoli/${articleId}`)}
+      >
         <Card.Img
           variant="top"
           src={imgSrc}
-          className="img-fluid w-25"
-          style={{ objectFit: "contain", paddingBlock: "10px" }}
+          className="img-fluid"
+          style={{ objectFit: "contain", paddingBlock: "10px", width: "18%" }}
         />
         <Card.Body className="d-flex flex-column justify-content-between">
           <Card.Title>{title}</Card.Title>

@@ -78,4 +78,10 @@ form {
     .form-control {
         width: 180px;
     }
+
+    .search-icon {
+        &:hover {
+            cursor: pointer;
+        }
+    }
 }

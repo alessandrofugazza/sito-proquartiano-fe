@@ -26,9 +26,9 @@ import Profilo from "./components/admin/AccountPage";
 import UltimiEventi from "./components/home/UltimiEventi";
 import EditAccount from "./components/admin/EditAccount";
 import PublishedArticles from "./components/admin/PublishedArticles";
-import TestPage from "./components/filtered-results/FilteredResults";
 import FilteredResults from "./components/filtered-results/FilteredResults";
 
+// todo add redux somewhere
 function App() {
   return (
     <div className="App">

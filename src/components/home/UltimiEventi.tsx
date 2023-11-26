@@ -51,7 +51,7 @@ function UltimiEventi() {
 
       {articlesData && !isLoading && (
         <>
-          {recentEventsPage === 1 && (
+          {recentEventsPage === 0 && (
             <>
               <Row className="mt-5 mb-4">
                 <Col>
@@ -87,7 +87,7 @@ function UltimiEventi() {
               </Row>
             </>
           )}
-          {recentEventsPage > 1 && (
+          {recentEventsPage > 0 && (
             <Row xs={1} md={2} className="gy-4">
               {articlesData.content.map(article => {
                 return (

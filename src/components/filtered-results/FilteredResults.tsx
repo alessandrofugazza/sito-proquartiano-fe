@@ -4,24 +4,21 @@ import { IArticleApiResponse, IArticlesApiResponse } from "../../interfaces/IArt
 import { useLocation, useParams } from "react-router-dom";
 import SingleFilteredResult from "./SingleFilteredResult";
 
+// todo WHY DUPLICATED KEYS??
 export default function FilteredResults() {
-  const [articlesData, setArticlesData] = useState<IArticlesApiResponse | null>(null);
+  const [articlesData, setArticlesData] = useState<IArticleApiResponse[] | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
   const location = useLocation();
   const [fetchPage, setFetchPage] = useState(0);
 
-  // const handleInputChange = () => {
-  //   setRecentEventsPage()
-  // }
-
-  const fetchUrl = `http://localhost:3001/articoli`;
   const fetchArticlesData = async () => {
+    const fetchUrl = `http://localhost:3001/articoli?page=${fetchPage}`;
     try {
       const re = await fetch(fetchUrl);
       if (re.ok) {
-        const data = await re.json();
-        setArticlesData(data);
+        const newData = await re.json();
+        setArticlesData(oldData => [...(oldData || []), ...newData.content]);
       } else {
         setHasError(true);
       }
@@ -31,15 +28,18 @@ export default function FilteredResults() {
       setIsLoading(false);
     }
   };
+  // useEffect(() => {
+  //   fetchArticlesData(fetchPage);
+  // }, []);
   useEffect(() => {
     fetchArticlesData();
-  }, []);
+  }, [fetchPage]);
   return (
     <>
       <Row className="gy-4">
         {articlesData &&
           !isLoading &&
-          articlesData.content.map(article => {
+          articlesData.map(article => {
             return (
               <SingleFilteredResult
                 key={article.id}
@@ -55,6 +55,20 @@ export default function FilteredResults() {
             );
           })}
       </Row>
+      <div className="d-flex mt-5">
+        <Button
+          className="recent-events-nav-btn mx-auto fs-5"
+          variant="link"
+          onClick={() => {
+            // const nextPage = fetchPage + 1;
+            setFetchPage(fetchPage => fetchPage + 1);
+            // console.log(nextPage);
+            // fetchArticlesData(nextPage);
+          }}
+        >
+          Carica altro
+        </Button>
+      </div>
     </>
   );
 }

@@ -23,6 +23,7 @@ export default function SingleFilteredResult({
   }
   return (
     <Col xs={12}>
+      {/* todo responsive */}
       <Card
         className="flex-row shadow single-filtered-result"
         style={{ height: "200px" }}

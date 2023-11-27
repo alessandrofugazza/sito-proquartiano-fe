@@ -27,6 +27,9 @@ import UltimiEventi from "./components/home/UltimiEventi";
 import EditAccount from "./components/admin/EditAccount";
 import PublishedArticles from "./components/admin/PublishedArticles";
 import FilteredResults from "./components/filtered-results/FilteredResults";
+import MercatinoDeiLibri from "./components/manifestazioni/MercatinoDeiLibri";
+import Sagra from "./components/manifestazioni/Sagra";
+import ConcorsoCorale from "./components/manifestazioni/ConcorsoCorale";
 
 // todo add redux somewhere
 function App() {
@@ -36,6 +39,7 @@ function App() {
         <ScrollToTop />
         <NavigationBar />
         <Routes>
+          {/* // todo make component for routes */}
           <Route path="/" element={<Home />} />
           <Route
             path="/manifestazioni"
@@ -46,6 +50,18 @@ function App() {
                 content={<Manifestazioni />}
               />
             }
+          />
+          <Route
+            path="/manifestazioni/mercatino-dei-libri"
+            element={<RouteWrapper title="Mercatino dei libri" content={<MercatinoDeiLibri />} />}
+          />
+          <Route
+            path="/manifestazioni/sagra"
+            element={<RouteWrapper title="Sagra di Quartiano" content={<Sagra />} />}
+          />
+          <Route
+            path="/manifestazioni/concorso-corale"
+            element={<RouteWrapper title="Concorso Corale" content={<ConcorsoCorale />} />}
           />
           <Route
             path="/rassegna-stampa"

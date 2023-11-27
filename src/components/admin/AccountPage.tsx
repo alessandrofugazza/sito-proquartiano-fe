@@ -5,9 +5,9 @@ export default function AccountPage() {
   const navigate = useNavigate();
   return (
     <div className="d-flex flex-column align-items-start">
-      <Button variant="link" onClick={() => navigate("/admins/profilo/modifica")}>
+      {/* <Button variant="link" onClick={() => navigate("/admins/profilo/modifica")}>
         Modifica profilo
-      </Button>
+      </Button> */}
       <Button variant="link" onClick={() => navigate("/admins/profilo/articoli")}>
         Articoli pubblicati
       </Button>

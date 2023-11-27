@@ -22,8 +22,13 @@ import ScrollToTop from "./components/ScrollToTop";
 import AddArticle from "./components/admin/AddArticle";
 import Article from "./components/Article";
 import AdminLogin from "./components/AdminLogin";
-import Profilo from "./components/admin/Profilo";
+import Profilo from "./components/admin/AccountPage";
+import UltimiEventi from "./components/home/UltimiEventi";
+import EditAccount from "./components/admin/EditAccount";
+import PublishedArticles from "./components/admin/PublishedArticles";
+import FilteredResults from "./components/filtered-results/FilteredResults";
 
+// todo add redux somewhere
 function App() {
   return (
     <div className="App">
@@ -95,12 +100,35 @@ function App() {
             path="auth/login"
             element={<RouteWrapper title="Login" content={<AdminLogin />} breadcrumb={false} />}
           />
-          <Route path="/admins/profilo" element={<RouteWrapper title="Pagina di profilo" content={<Profilo />} />} />
           <Route
-            path="/admins/aggiungi-articolo"
+            path="/admins/profilo"
+            element={<RouteWrapper title="Pagina di profilo" breadcrumb={false} content={<Profilo />} />}
+          />
+          <Route
+            path="/admins/profilo/modifica"
+            element={<RouteWrapper title="Pagina di profilo" breadcrumb={false} content={<EditAccount />} />}
+          />
+          <Route
+            path="/admins/profilo/articoli"
+            element={<RouteWrapper title="Pagina di profilo" breadcrumb={false} content={<PublishedArticles />} />}
+          />
+          <Route
+            path="/admins/profilo/aggiungi-articolo"
             element={<RouteWrapper title="Aggiungi articolo" content={<AddArticle />} />}
           />
-          <Route path="/articles/:id" element={<Article />} />
+          <Route path="/articoli/:id" element={<Article />} />
+          <Route path="/articoli" element={<RouteWrapper title="" breadcrumb={false} content={<UltimiEventi />} />} />
+          <Route
+            path="/test-page"
+            element={
+              <RouteWrapper
+                title="Test page"
+                description="If you are reading this and you are not me, you shouldn't be here."
+                breadcrumb={false}
+                content={<FilteredResults />}
+              />
+            }
+          />
           <Route
             path="*"
             element={

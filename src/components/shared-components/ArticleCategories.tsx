@@ -1,10 +1,12 @@
 import { Button } from "react-bootstrap";
+import { useNavigate, useNavigation } from "react-router-dom";
 
 interface IArticleCategoriesProps {
   categories: string[];
 }
 
 export default function ArticleCategories({ categories }: IArticleCategoriesProps) {
+  const navigate = useNavigate();
   return (
     <>
       {categories.map(category => (
@@ -13,7 +15,11 @@ export default function ArticleCategories({ categories }: IArticleCategoriesProp
           variant="danger"
           size="sm"
           className="category me-1 mb-2"
-          style={{ fontSize: "0.7rem", paddingBlock: "2.5px" }}
+          style={{ fontSize: "0.7rem", paddingBlock: "3px", width: "fit-content" }}
+          onClick={e => {
+            e.stopPropagation();
+            navigate(`/articoli?categoria=${category}`);
+          }}
         >
           {category.toUpperCase()}
         </Button>

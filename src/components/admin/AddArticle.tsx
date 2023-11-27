@@ -3,6 +3,7 @@ import { CloseButton, Col, InputGroup, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Article from "../Article";
+import OutcomeToast from "../shared-components/OutcomeToast";
 
 interface Article {
   authorId: string;
@@ -30,6 +31,7 @@ export default function AddArticle() {
   const [img, setImg] = useState<File | null>(null);
   const [newTag, setNewTag] = useState("");
   const [validated, setValidated] = useState(false);
+  const [showOutcomeToast, setShowOutcomeToast] = useState(false);
 
   const handleInputChange = (propertyName: string, propertyValue: string | string[]) => {
     setArticle({ ...article, [propertyName]: propertyValue });
@@ -61,16 +63,24 @@ export default function AddArticle() {
     }
   };
 
-  const handleFormSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setShowOutcomeToast(true);
+    setTimeout(() => setShowOutcomeToast(false), 3000);
     const form = e.currentTarget;
     if (form.checkValidity() === false) {
-      // e.stopPropagation();
+      e.stopPropagation();
       console.log("invalid");
-      return;
     }
 
     console.log("saved");
+    setArticle({
+      authorId: "",
+      title: "",
+      content: "",
+      categories: [],
+      tags: [],
+    });
     setValidated(true);
     const formData = new FormData();
     formData.append("article", JSON.stringify(article));
@@ -79,7 +89,7 @@ export default function AddArticle() {
     }
 
     try {
-      const re = await fetch("http://localhost:3001/articles", {
+      const re = await fetch("http://localhost:3001/articoli", {
         method: "POST",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("loginToken")}`,
@@ -116,7 +126,7 @@ export default function AddArticle() {
 
   return (
     <>
-      <Form noValidate validated={validated} onSubmit={handleFormSubmit} className="">
+      <Form noValidate validated={validated} onSubmit={handleSubmit} className="">
         <Row>
           <Col lg="6">
             <InputGroup hasValidation className="mb-3">
@@ -244,6 +254,7 @@ export default function AddArticle() {
           </Modal.Body>
         </Modal>
       )} */}
+      <OutcomeToast showToast={showOutcomeToast} />
     </>
   );
 }

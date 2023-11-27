@@ -10,7 +10,7 @@ export default function Article() {
   const [articleData, setArticleData] = useState<IArticleApiResponse | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
-  const fetchUrl = "http://localhost:3001/articles/" + params.id;
+  const fetchUrl = "http://localhost:3001/articoli/" + params.id;
   const fetchArticleData = async () => {
     try {
       const re = await fetch(fetchUrl);
@@ -37,7 +37,7 @@ export default function Article() {
           title={articleData.title}
           content={
             <ArticleContent
-              author={articleData.author.username}
+              author={articleData.author.signature} // todo fix
               date={articleData.date}
               content={articleData.content}
               categories={articleData.categories.map(category => category.name)}

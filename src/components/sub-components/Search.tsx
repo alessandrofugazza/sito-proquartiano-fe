@@ -2,7 +2,7 @@ import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { useState } from "react";
-import { Modal } from "react-bootstrap";
+import { InputGroup, Modal } from "react-bootstrap";
 import { IArticlesApiResponse } from "../../interfaces/IArticleApi";
 
 export default function Search() {
@@ -20,7 +20,7 @@ export default function Search() {
     e.preventDefault();
     setIsLoading(true);
     setSearch(query);
-    const fetchUrl = `http://localhost:3001/articles/search?q=${query}`;
+    const fetchUrl = `http://localhost:3001/articoli/search?q=${query}`;
     try {
       const re = await fetch(fetchUrl);
       if (re.ok) {
@@ -42,13 +42,18 @@ export default function Search() {
       <Form className="ms-auto" onSubmit={handleSubmit}>
         <Row>
           <Col xs="auto">
-            <Form.Control
-              type="search"
-              value={query}
-              onChange={handleChange}
-              placeholder="Cerca qualcosa ..."
-              className=" mr-sm-2"
-            />
+            <InputGroup>
+              <Form.Control
+                type="search"
+                value={query}
+                onChange={handleChange}
+                placeholder="Cerca qualcosa ..."
+                className="mr-sm-2"
+              />
+              <InputGroup.Text className="search-icon" onClick={handleSubmit}>
+                <i className="bi bi-search"></i>
+              </InputGroup.Text>
+            </InputGroup>
           </Col>
           {/* <Col xs="auto">
                   <Button type="submit" variant='danger'>Cerca</Button>

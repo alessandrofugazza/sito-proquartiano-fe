@@ -4,6 +4,9 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Article from "../Article";
 import OutcomeToast from "../shared-components/OutcomeToast";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
+import "../../styles/AddArticle.scss";
 
 interface Article {
   authorId: string;
@@ -32,6 +35,25 @@ export default function AddArticle() {
   const [newTag, setNewTag] = useState("");
   const [validated, setValidated] = useState(false);
   const [showOutcomeToast, setShowOutcomeToast] = useState(false);
+
+  // quill
+  const modules = {
+    toolbar: [
+      ["bold", "italic", "underline", "strike"], // toggled buttons
+      ["blockquote"],
+      ["link"],
+      [{ list: "ordered" }, { list: "bullet" }],
+
+      [{ size: ["small", false, "large", "huge"] }], // custom dropdown
+
+      [{ color: [] }, { background: [] }], // dropdown with defaults from theme
+      // [{ font: [] }],
+      // [{ align: [] }],
+
+      ["clean"],
+    ],
+  };
+  //
 
   const handleInputChange = (propertyName: string, propertyValue: string | string[]) => {
     setArticle({ ...article, [propertyName]: propertyValue });
@@ -213,13 +235,9 @@ export default function AddArticle() {
           <Col>
             <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
               <Form.Label>Contenuto</Form.Label>
-              <Form.Control
-                className="w-100"
-                as="textarea"
-                rows={10}
-                value={article.content}
-                onChange={e => handleInputChange("content", e.target.value)}
-              />
+              <div className="w-100">
+                <ReactQuill value={article.content} onChange={content => handleInputChange("content", content)} />
+              </div>
             </Form.Group>
           </Col>
         </Row>
@@ -240,6 +258,7 @@ export default function AddArticle() {
         {/* <Button variant="danger" type="button" onClick={() => setShowPreview(true)}>
           Anteprima
         </Button> */}
+
         <Button variant="danger" type="submit">
           Aggiungi articolo
         </Button>

@@ -13,7 +13,8 @@ export default function FilteredResults() {
   const [fetchPage, setFetchPage] = useState(0);
 
   const fetchArticlesData = async () => {
-    const fetchUrl = `http://localhost:3001/articoli?page=${fetchPage}`;
+    const fetchUrl = `http://localhost:3001${location.pathname}${location.search}&page=${fetchPage}`;
+    // const pagedFetchUrl = `${fetchUrl}&page=${fetchPage}`;
     try {
       const re = await fetch(fetchUrl);
       if (re.ok) {

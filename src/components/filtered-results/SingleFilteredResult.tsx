@@ -52,7 +52,7 @@ export default function SingleFilteredResult({
           <Card.Title>{title}</Card.Title>
           <ArticleCategories categories={categories} />
           <ArticleDateAuthorTag date={date} author={author} tags={tags} />
-          <Card.Text>
+          <Card.Text as="div">
             {/* todo understand what this style does */}
             <div style={{ whiteSpace: "pre-line" }}>{stripHtml(description)}</div>
           </Card.Text>

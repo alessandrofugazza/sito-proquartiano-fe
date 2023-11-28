@@ -30,7 +30,7 @@ function HomeCard({ imgSrc, categories, title, date, author, tags, description, 
         <ArticleCategories categories={categories} />
         <Card.Title className="my-2">{title}</Card.Title>
         <ArticleDateAuthorTag date={date} author={author} tags={tags} />
-        <Card.Text className="my-4">
+        <Card.Text as="div" className="my-4">
           <div style={{ whiteSpace: "pre-line" }}>{stripHtml(description)}</div>
         </Card.Text>
         <div className="text-end">

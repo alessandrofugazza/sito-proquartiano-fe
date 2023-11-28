@@ -133,8 +133,11 @@ function App() {
             element={<RouteWrapper title="Aggiungi articolo" content={<AddArticle />} />}
           />
           <Route path="/articoli/:id" element={<Article />} />
-          <Route path="/articoli" element={<RouteWrapper title="" breadcrumb={false} content={<UltimiEventi />} />} />
           <Route
+            path="/articoli"
+            element={<RouteWrapper title="" breadcrumb={false} content={<FilteredResults />} />}
+          />
+          {/* <Route
             path="/test-page"
             element={
               <RouteWrapper
@@ -144,7 +147,7 @@ function App() {
                 content={<FilteredResults />}
               />
             }
-          />
+          /> */}
           <Route
             path="*"
             element={

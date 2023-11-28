@@ -24,15 +24,7 @@
       border: 1px solid rgba(0, 0, 0, 0.281);
     }
 
-    .date-author-tags {
-      span {
-        &:hover {
-          color: $pqRed;
-          text-decoration: underline;
-          cursor: pointer;
-        }
-      }
-    }
+
 
     .category {
       font-size: 0.75rem;

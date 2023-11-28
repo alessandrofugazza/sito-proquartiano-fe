@@ -32,7 +32,7 @@ function ArticleDateAuthorTag({ date, author, tags }: ArticleDateAuthorTagProps)
       </div>
       <div>
         <i className="bi bi-calendar-event"></i>
-        <span>{formattedDate}</span>
+        <span className="date">{formattedDate}</span>
       </div>
       <div>
         <i className="bi bi-tags-fill"></i>

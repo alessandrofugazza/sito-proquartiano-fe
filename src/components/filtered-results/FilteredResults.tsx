@@ -14,7 +14,8 @@ export default function FilteredResults({ title = "" }: IFilteredResultsProps) {
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
   const location = useLocation();
-  const [fetchPage, setFetchPage] = useState(0);
+  // const [fetchPage, setFetchPage] = useState(0);
+  let fetchPage = 0;
 
   const fetchArticlesData = async () => {
     const fetchUrl = `http://localhost:3001${location.pathname}${location.search}&page=${fetchPage}`;
@@ -36,9 +37,13 @@ export default function FilteredResults({ title = "" }: IFilteredResultsProps) {
   // useEffect(() => {
   //   fetchArticlesData(fetchPage);
   // }, []);
+  // useEffect(() => {
+  //   fetchArticlesData();
+  // }, [fetchPage]);
   useEffect(() => {
+    setArticlesData(null);
     fetchArticlesData();
-  }, [fetchPage]);
+  }, [location.search]);
   return (
     <>
       {title && <h1>{title}</h1>}
@@ -67,9 +72,10 @@ export default function FilteredResults({ title = "" }: IFilteredResultsProps) {
           variant="link"
           onClick={() => {
             // const nextPage = fetchPage + 1;
-            setFetchPage(fetchPage => fetchPage + 1);
+            // setFetchPage(fetchPage => fetchPage + 1);
+            fetchPage += 1;
             // console.log(nextPage);
-            // fetchArticlesData(nextPage);
+            fetchArticlesData();
           }}
         >
           Carica altro

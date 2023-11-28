@@ -10,7 +10,8 @@ function UltimiEventi() {
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
   const location = useLocation();
-  const [recentEventsPage, setRecentEventsPage] = useState(0);
+  const [currentPage, setCurrentPage] = useState(0);
+  // let currentPage = 0;
   const ultimiEventiRef = useRef<HTMLDivElement>(null);
 
   // const handleInputChange = () => {
@@ -51,7 +52,7 @@ function UltimiEventi() {
 
       {articlesData && !isLoading && (
         <>
-          {recentEventsPage === 0 && (
+          {currentPage === 0 && (
             <>
               <Row className="mt-5 mb-4">
                 <Col>
@@ -87,7 +88,7 @@ function UltimiEventi() {
               </Row>
             </>
           )}
-          {recentEventsPage > 0 && (
+          {currentPage > 0 && (
             <Row xs={1} md={2} className="gy-4">
               {articlesData.content.map(article => {
                 return (
@@ -115,9 +116,9 @@ function UltimiEventi() {
               className="recent-events-nav-btn"
               variant="link"
               onClick={() => {
-                const nextPage = recentEventsPage + 1;
-                setRecentEventsPage(nextPage);
-                fetchUrl = `http://localhost:3001/articoli?page=${nextPage - 1}`;
+                const nextPage = currentPage + 1; // currentPage += 1;
+                setCurrentPage(nextPage);
+                fetchUrl = `http://localhost:3001/articoli?page=${nextPage}`;
                 fetchArticlesData();
                 if (ultimiEventiRef.current) {
                   ultimiEventiRef.current.scrollIntoView({ behavior: "smooth" });
@@ -128,14 +129,18 @@ function UltimiEventi() {
                 <i className="bi bi-arrow-left-circle fs-5"></i> <span>Precedente</span>
               </div>
             </Button>
-            {recentEventsPage > 1 && (
+            {currentPage > 0 && (
               <Button
                 className="recent-events-nav-btn"
                 variant="link"
                 onClick={() => {
-                  const nextPage = recentEventsPage - 1;
-                  setRecentEventsPage(nextPage);
-                  fetchUrl = `http://localhost:3001/articoli?page=${nextPage - 1}`;
+                  const nextPage = currentPage - 1;
+                  setCurrentPage(nextPage);
+
+                  fetchUrl = `http://localhost:3001/articoli?page=${nextPage}`;
+                  if (nextPage === 0) {
+                    fetchUrl += "&size=11";
+                  }
                   fetchArticlesData();
                   if (ultimiEventiRef.current) {
                     ultimiEventiRef.current.scrollIntoView({ behavior: "smooth" });

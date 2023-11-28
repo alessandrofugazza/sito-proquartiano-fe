@@ -8,14 +8,14 @@ interface IArticleCategoriesProps {
 export default function ArticleCategories({ categories }: IArticleCategoriesProps) {
   const navigate = useNavigate();
   return (
-    <>
+    <div className="d-flex">
       {categories.map(category => (
         <Button
           key={category}
           variant="danger"
           size="sm"
           className="category me-1 mb-2"
-          style={{ fontSize: "0.7rem", paddingBlock: "3px", width: "fit-content" }}
+          style={{ fontSize: "0.7rem", width: "fit-content" }}
           onClick={e => {
             e.stopPropagation();
             navigate(`/articoli?categoria=${category}`);
@@ -24,6 +24,6 @@ export default function ArticleCategories({ categories }: IArticleCategoriesProp
           {category.toUpperCase()}
         </Button>
       ))}
-    </>
+    </div>
   );
 }

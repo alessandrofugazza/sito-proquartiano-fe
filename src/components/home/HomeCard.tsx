@@ -19,7 +19,9 @@ function HomeCard({ imgSrc, categories, title, date, author, tags, description, 
         <ArticleCategories categories={categories} />
         <Card.Title className="my-2">{title}</Card.Title>
         <ArticleDateAuthorTag date={date} author={author} tags={tags} />
-        <Card.Text className="my-4">{description}</Card.Text>
+        <Card.Text className="my-4">
+          <div dangerouslySetInnerHTML={{ __html: description }} />
+        </Card.Text>
         <div className="text-end">
           <Button variant="danger" size="sm" onClick={() => navigate(`/articoli/${articleId}`)}>
             Leggi tutto

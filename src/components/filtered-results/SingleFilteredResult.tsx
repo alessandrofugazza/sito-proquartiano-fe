@@ -40,7 +40,7 @@ export default function SingleFilteredResult({
           <ArticleCategories categories={categories} />
           <ArticleDateAuthorTag date={date} author={author} tags={tags} />
           <Card.Text>
-            Some quick example text to build on the card title and make up the bulk of the card's content.
+            <div dangerouslySetInnerHTML={{ __html: description }} />
           </Card.Text>
           <div className="mt-auto text-end">
             <Button variant="danger" size="sm" onClick={() => navigate(`/articoli/${articleId}`)}>

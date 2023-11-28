@@ -4,6 +4,7 @@ import Col from "react-bootstrap/Col";
 import { useState } from "react";
 import { InputGroup, Modal } from "react-bootstrap";
 import { IArticlesApiResponse } from "../../interfaces/IArticleApi";
+import SingleFilteredResult from "../filtered-results/SingleFilteredResult";
 
 export default function Search() {
   const [isLoading, setIsLoading] = useState(false);
@@ -66,7 +67,21 @@ export default function Search() {
         </Modal.Header>
         <Modal.Body>
           {foundArticles?.content.map(article => {
-            return <p key={article.id}>{article.title}</p>;
+            return (
+              <div className="my-4">
+                <SingleFilteredResult
+                  key={article.id}
+                  imgSrc={article.img}
+                  date={article.date}
+                  author={article.author.signature}
+                  tags={article.tags.map(tag => tag.name)}
+                  categories={article.categories.map(category => category.name)}
+                  title={article.title}
+                  description={article.content}
+                  articleId={article.id}
+                />
+              </div>
+            );
           })}
         </Modal.Body>
       </Modal>

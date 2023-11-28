@@ -40,7 +40,7 @@ export default function Search() {
 
   return (
     <>
-      <Form className="ms-auto" onSubmit={handleSubmit}>
+      <Form className="ms-auto mt-2 mb-3 my-md-0" onSubmit={handleSubmit}>
         <Row>
           <Col xs="auto">
             <InputGroup>

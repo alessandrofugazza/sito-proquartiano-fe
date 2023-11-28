@@ -4,8 +4,12 @@ import { IArticleApiResponse, IArticlesApiResponse } from "../../interfaces/IArt
 import { useLocation, useParams } from "react-router-dom";
 import SingleFilteredResult from "./SingleFilteredResult";
 
+interface IFilteredResultsProps {
+  title?: string;
+}
+
 // todo WHY DUPLICATED KEYS??
-export default function FilteredResults() {
+export default function FilteredResults({ title = "" }: IFilteredResultsProps) {
   const [articlesData, setArticlesData] = useState<IArticleApiResponse[] | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
@@ -37,6 +41,7 @@ export default function FilteredResults() {
   }, [fetchPage]);
   return (
     <>
+      {title && <h1>{title}</h1>}
       <Row className="gy-4">
         {articlesData &&
           !isLoading &&

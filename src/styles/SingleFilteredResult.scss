@@ -5,6 +5,22 @@
         transform: scale(1.005);
     }
 
+    .card-img-top {
+        width: 40%;
+
+        // @media (min-width: 768px) {
+        //     width: 18%;
+        // }
+
+        // @media (min-width: 992px) {
+        //     width: 25%;
+        // }
+
+        @media (min-width: 992px) {
+            width: 18%;
+        }
+    }
+
     .card-text {
         overflow: hidden;
         text-overflow: ellipsis;

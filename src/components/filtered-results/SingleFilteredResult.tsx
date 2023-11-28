@@ -46,7 +46,8 @@ export default function SingleFilteredResult({
           variant="top"
           src={imgSrc}
           className="img-fluid"
-          style={{ objectFit: "contain", padding: "10px", width: "18%" }}
+          style={{ objectFit: "contain", padding: "10px" }}
+          // style={{ objectFit: "contain", padding: "10px", width: "18%" }}
         />
         <Card.Body className="d-flex flex-column justify-content-between">
           <Card.Title>{title}</Card.Title>

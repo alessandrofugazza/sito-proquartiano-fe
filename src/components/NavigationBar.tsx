@@ -17,12 +17,12 @@ function NavigationBar() {
   const location = useLocation();
 
   // TODO: this whole thing is horrible but have no idea how to implement it otherwise
-  const widthBreakpoint1: number = 1330;
-  const widthBreakpoint2: number = 1270;
-  const widthBreakpoint3: number = 1150;
-  const widthBreakpoint4: number = 1064;
-  const widthBreakpoint5: number = 936;
-  const widthBreakpoint6: number = 847;
+  const widthBreakpoint1: number = 1346;
+  const widthBreakpoint2: number = 1285;
+  const widthBreakpoint3: number = 1170;
+  const widthBreakpoint4: number = 1080;
+  const widthBreakpoint5: number = 952;
+  const widthBreakpoint6: number = 863;
 
   useEffect(() => {
     const handleResize = () => {

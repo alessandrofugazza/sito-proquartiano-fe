@@ -7,6 +7,18 @@ import { useNavigate } from "react-router-dom";
 import defaultImg from "../../logo.png";
 import "../../styles/SingleFilteredResult.scss";
 
+// todo understand wtf is going on here
+const stripHtml = (htmlString: string) => {
+  const strippedString = htmlString
+    .replace(/<\/h[1-6]>/gi, "\n")
+    .replace(/<br\s*\/?>/gi, "\n")
+    .replace(/<\/p>/gi, "\n")
+    .replace(/<p>/gi, "")
+    .replace(/<[^>]+>/g, "");
+
+  return strippedString;
+};
+
 export default function SingleFilteredResult({
   imgSrc,
   categories,
@@ -21,6 +33,7 @@ export default function SingleFilteredResult({
   if (!imgSrc) {
     imgSrc = defaultImg;
   }
+
   return (
     <Col xs={12}>
       {/* todo responsive */}
@@ -40,7 +53,8 @@ export default function SingleFilteredResult({
           <ArticleCategories categories={categories} />
           <ArticleDateAuthorTag date={date} author={author} tags={tags} />
           <Card.Text>
-            <div dangerouslySetInnerHTML={{ __html: description }} />
+            {/* todo understand what this style does */}
+            <div style={{ whiteSpace: "pre-line" }}>{stripHtml(description)}</div>
           </Card.Text>
           <div className="mt-auto text-end">
             <Button variant="danger" size="sm" onClick={() => navigate(`/articoli/${articleId}`)}>

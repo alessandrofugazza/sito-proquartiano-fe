@@ -16,6 +16,14 @@ interface Article {
   tags: string[];
 }
 
+interface IValidation {
+  title: boolean;
+  // date: boolean;
+  content: boolean;
+  categories: boolean;
+  tags: boolean;
+}
+
 export default function AddArticle() {
   const [hasAlert, setHasAlert] = useState(false);
   const [alert, setAlert] = useState({ message: "", status: "", variant: "success" });
@@ -30,7 +38,12 @@ export default function AddArticle() {
   const [img, setImg] = useState<File | null>(null);
   const [pdf, setPdf] = useState<File | null>(null);
   const [newTag, setNewTag] = useState("");
-  const [validated, setValidated] = useState(false);
+  const [validated, setValidated] = useState<IValidation>({
+    title: false,
+    content: false,
+    categories: false,
+    tags: false,
+  });
   const [showOutcomeToast, setShowOutcomeToast] = useState(false);
 
   // quill
@@ -93,17 +106,38 @@ export default function AddArticle() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setShowOutcomeToast(true);
-    setTimeout(() => setShowOutcomeToast(false), 3000);
-    const form = e.currentTarget;
-    if (form.checkValidity() === false) {
-      e.stopPropagation();
-      console.log("invalid");
+
+    const isTitleBlank = article.title.trim().length === 0;
+    if (isTitleBlank) {
+      window.alert("title ng");
+      setValidated({ ...validated, title: false });
+      return;
     }
+    setValidated({ ...validated, title: true });
+    const isContentValid = article.content.trim().length > 0 || img !== null || pdf !== null;
+    if (!isContentValid) {
+      window.alert("content ng");
+      setValidated({ ...validated, content: false });
+      return;
+    }
+    setValidated({ ...validated, content: true });
+    const isCategoriesEmpty = article.categories.length === 0;
+    if (isCategoriesEmpty) {
+      window.alert("categories ng");
+      setValidated({ ...validated, categories: false });
+      return;
+    }
+    setValidated({ ...validated, categories: true });
+    const isTagsEmpty = article.tags.length === 0;
+    if (isTagsEmpty) {
+      window.alert("tags ng");
+      setValidated({ ...validated, tags: false });
+      return;
+    }
+    setValidated({ ...validated, tags: true });
 
     console.log("saved");
 
-    setValidated(true);
     const formData = new FormData();
     formData.append("article", JSON.stringify(article));
     if (img) {
@@ -123,6 +157,8 @@ export default function AddArticle() {
       });
       if (re.ok) {
         console.log("done");
+        setShowOutcomeToast(true);
+        setTimeout(() => setShowOutcomeToast(false), 3000);
         setArticle({
           title: "",
           content: "",
@@ -157,10 +193,10 @@ export default function AddArticle() {
 
   return (
     <>
-      <Form noValidate validated={validated} onSubmit={handleSubmit} className="">
+      <Form onSubmit={handleSubmit} className="">
         <Row>
           <Col lg="6">
-            <InputGroup hasValidation className="mb-3">
+            <InputGroup className="mb-3">
               <InputGroup.Text id="title">Titolo</InputGroup.Text>
               <Form.Control
                 placeholder="Inserisci un titolo"
@@ -169,7 +205,6 @@ export default function AddArticle() {
                 aria-describedby="title"
                 value={article.title}
                 onChange={e => handleInputChange("title", e.target.value)}
-                required
               />
             </InputGroup>
             {/* <Form.Group className="mb-3 d-flex flex-column" controlId="title">

@@ -1,3 +1,29 @@
 .ql-container {
     height: 300px;
 }
+
+.validated .form-check {
+
+    input[type="checkbox"],
+    &.form-control,
+    .ql-container {
+        border: 1px solid green !important
+    }
+
+    .form-check-label {
+        color: green
+    }
+}
+
+.invalid {
+
+    input[type="checkbox"],
+    &.form-control,
+    .ql-container {
+        border: 1px solid red !important
+    }
+
+    .form-check-label {
+        color: red
+    }
+}

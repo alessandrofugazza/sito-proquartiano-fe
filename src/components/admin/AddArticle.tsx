@@ -1,4 +1,4 @@
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { CloseButton, Col, InputGroup, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
@@ -46,7 +46,6 @@ export default function AddArticle() {
   });
   const [showOutcomeToast, setShowOutcomeToast] = useState(false);
 
-  // quill
   const modules = {
     toolbar: [
       ["bold", "italic", "underline", "strike"], // toggled buttons
@@ -63,7 +62,37 @@ export default function AddArticle() {
       ["clean"],
     ],
   };
-  //
+
+  const validationCheck = () => {
+    const isTitleBlank = article.title.trim().length === 0;
+    if (isTitleBlank) {
+      window.alert("title ng");
+      setValidated({ ...validated, title: false });
+      return;
+    }
+    setValidated({ ...validated, title: true });
+    const isContentValid = article.content.trim().length > 0 || img !== null || pdf !== null;
+    if (!isContentValid) {
+      window.alert("content ng");
+      setValidated({ ...validated, content: false });
+      return;
+    }
+    setValidated({ ...validated, content: true });
+    const isCategoriesEmpty = article.categories.length === 0;
+    if (isCategoriesEmpty) {
+      window.alert("categories ng");
+      setValidated({ ...validated, categories: false });
+      return;
+    }
+    setValidated({ ...validated, categories: true });
+    const isTagsEmpty = article.tags.length === 0;
+    if (isTagsEmpty) {
+      window.alert("tags ng");
+      setValidated({ ...validated, tags: false });
+      return;
+    }
+    setValidated({ ...validated, tags: true });
+  };
 
   const handleInputChange = (propertyName: string, propertyValue: string | string[]) => {
     setArticle({ ...article, [propertyName]: propertyValue });
@@ -107,34 +136,7 @@ export default function AddArticle() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    const isTitleBlank = article.title.trim().length === 0;
-    if (isTitleBlank) {
-      window.alert("title ng");
-      setValidated({ ...validated, title: false });
-      return;
-    }
-    setValidated({ ...validated, title: true });
-    const isContentValid = article.content.trim().length > 0 || img !== null || pdf !== null;
-    if (!isContentValid) {
-      window.alert("content ng");
-      setValidated({ ...validated, content: false });
-      return;
-    }
-    setValidated({ ...validated, content: true });
-    const isCategoriesEmpty = article.categories.length === 0;
-    if (isCategoriesEmpty) {
-      window.alert("categories ng");
-      setValidated({ ...validated, categories: false });
-      return;
-    }
-    setValidated({ ...validated, categories: true });
-    const isTagsEmpty = article.tags.length === 0;
-    if (isTagsEmpty) {
-      window.alert("tags ng");
-      setValidated({ ...validated, tags: false });
-      return;
-    }
-    setValidated({ ...validated, tags: true });
+    validationCheck();
 
     console.log("saved");
 
@@ -205,6 +207,8 @@ export default function AddArticle() {
                 aria-describedby="title"
                 value={article.title}
                 onChange={e => handleInputChange("title", e.target.value)}
+                id="form-title"
+                className={validated.title ? "validated" : "invalid"}
               />
             </InputGroup>
             {/* <Form.Group className="mb-3 d-flex flex-column" controlId="title">
@@ -222,6 +226,7 @@ export default function AddArticle() {
                 id="associazione"
                 checked={article.categories.includes("associazione")}
                 onChange={e => handleCategoriesChange("associazione", e.target.checked)}
+                className={validated.categories ? "validated" : "invalid"}
               />
               <Form.Check
                 type="checkbox"
@@ -229,6 +234,7 @@ export default function AddArticle() {
                 id="concorsoCori"
                 checked={article.categories.includes("concorso cori")}
                 onChange={e => handleCategoriesChange("concorso cori", e.target.checked)}
+                className={validated.categories ? "validated" : "invalid"}
               />
               <Form.Check
                 type="checkbox"
@@ -236,6 +242,7 @@ export default function AddArticle() {
                 id="manifestazioni"
                 checked={article.categories.includes("manifestazioni")}
                 onChange={e => handleCategoriesChange("manifestazioni", e.target.checked)}
+                className={validated.categories ? "validated" : "invalid"}
               />
               <Form.Check
                 type="checkbox"
@@ -243,6 +250,7 @@ export default function AddArticle() {
                 id="rassegnaStampa"
                 checked={article.categories.includes("rassegna stampa")}
                 onChange={e => handleCategoriesChange("rassegna stampa", e.target.checked)}
+                className={validated.categories ? "validated" : "invalid"}
               />
             </Form.Group>
           </Col>
@@ -257,6 +265,7 @@ export default function AddArticle() {
                 value={newTag}
                 onChange={handleNewTagChange}
                 onKeyDown={addNewTag}
+                className={validated.tags ? "validated" : "invalid"}
               />
             </Form.Group>
             <div className="d-flex gap-2 flex-wrap">
@@ -284,6 +293,7 @@ export default function AddArticle() {
                   value={article.content}
                   onChange={content => handleInputChange("content", content)}
                   modules={modules}
+                  className={validated.content ? "validated" : "invalid"}
                 />
               </div>
             </Form.Group>
@@ -292,11 +302,21 @@ export default function AddArticle() {
         <Row>
           <Form.Group controlId="formFile" className="mb-3">
             <Form.Label>Aggiungi un'immagine</Form.Label>
-            <Form.Control type="file" style={{ width: "auto" }} onChange={handleImgChange} />
+            <Form.Control
+              type="file"
+              style={{ width: "auto" }}
+              onChange={handleImgChange}
+              className={validated.content ? "validated" : "invalid"}
+            />
           </Form.Group>
           <Form.Group controlId="formFile" className="mb-3">
             <Form.Label>Aggiungi un file pdf</Form.Label>
-            <Form.Control type="file" style={{ width: "auto" }} onChange={handlePdfChange} />
+            <Form.Control
+              type="file"
+              style={{ width: "auto" }}
+              onChange={handlePdfChange}
+              className={validated.content ? "validated" : "invalid"}
+            />
           </Form.Group>
         </Row>
         {/* <Button variant="danger" type="button" onClick={() => setShowPreview(true)}>

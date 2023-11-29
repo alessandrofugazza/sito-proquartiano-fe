@@ -37,7 +37,7 @@ function ArticleDateAuthorTag({ date, author, tags }: ArticleDateAuthorTagProps)
       <div>
         <i className="bi bi-tags-fill"></i>
         {tags.map((tag, index) => (
-          <span key={tag}>
+          <span key={tag} className="span-container">
             <span
               className="tag"
               onClick={e => {

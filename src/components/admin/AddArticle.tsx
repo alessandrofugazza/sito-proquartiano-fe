@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { CloseButton, Col, InputGroup, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
@@ -9,14 +9,11 @@ import "react-quill/dist/quill.snow.css";
 import "../../styles/AddArticle.scss";
 
 interface Article {
-  authorId: string;
   title: string;
   // date: string;
   content: string;
   categories: string[];
   tags: string[];
-  // img: File | null;
-  // pdf: File | null;
 }
 
 export default function AddArticle() {
@@ -24,7 +21,6 @@ export default function AddArticle() {
   const [alert, setAlert] = useState({ message: "", status: "", variant: "success" });
   const [showPreview, setShowPreview] = useState(false);
   const [article, setArticle] = useState<Article>({
-    authorId: "",
     title: "",
     // date: "",
     content: "",
@@ -32,6 +28,7 @@ export default function AddArticle() {
     tags: [],
   });
   const [img, setImg] = useState<File | null>(null);
+  const [pdf, setPdf] = useState<File | null>(null);
   const [newTag, setNewTag] = useState("");
   const [validated, setValidated] = useState(false);
   const [showOutcomeToast, setShowOutcomeToast] = useState(false);
@@ -77,11 +74,20 @@ export default function AddArticle() {
     setNewTag(e.target.value);
   };
 
+  // todo multiple images handling
+  // todo same function for both
   const handleImgChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
       setImg(e.target.files[0]);
     } else {
       setImg(null);
+    }
+  };
+  const handlePdfChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
+      setPdf(e.target.files[0]);
+    } else {
+      setPdf(null);
     }
   };
 
@@ -96,18 +102,15 @@ export default function AddArticle() {
     }
 
     console.log("saved");
-    setArticle({
-      authorId: "",
-      title: "",
-      content: "",
-      categories: [],
-      tags: [],
-    });
+
     setValidated(true);
     const formData = new FormData();
     formData.append("article", JSON.stringify(article));
     if (img) {
       formData.append("img", img);
+    }
+    if (pdf) {
+      formData.append("pdf", pdf);
     }
 
     try {
@@ -120,6 +123,12 @@ export default function AddArticle() {
       });
       if (re.ok) {
         console.log("done");
+        setArticle({
+          title: "",
+          content: "",
+          categories: [],
+          tags: [],
+        });
       } else {
         console.log("error");
       }
@@ -225,7 +234,7 @@ export default function AddArticle() {
                   key={tag}
                 >
                   {tag}
-                  <CloseButton onClick={() => handleRemoveTag(tag)} />
+                  <CloseButton className="ms-2" onClick={() => handleRemoveTag(tag)} />
                 </Button>
               ))}
             </div>
@@ -236,7 +245,11 @@ export default function AddArticle() {
             <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
               <Form.Label>Contenuto</Form.Label>
               <div className="w-100">
-                <ReactQuill value={article.content} onChange={content => handleInputChange("content", content)} />
+                <ReactQuill
+                  value={article.content}
+                  onChange={content => handleInputChange("content", content)}
+                  modules={modules}
+                />
               </div>
             </Form.Group>
           </Col>
@@ -246,14 +259,10 @@ export default function AddArticle() {
             <Form.Label>Aggiungi un'immagine</Form.Label>
             <Form.Control type="file" style={{ width: "auto" }} onChange={handleImgChange} />
           </Form.Group>
-          {/* <Form.Group controlId="formFile" className="mb-3">
+          <Form.Group controlId="formFile" className="mb-3">
             <Form.Label>Aggiungi un file pdf</Form.Label>
-            <Form.Control
-              type="file"
-              style={{ width: "auto" }}
-              onChange={e => handleInputChange("pdf", e.target.value)}
-            />
-          </Form.Group> */}
+            <Form.Control type="file" style={{ width: "auto" }} onChange={handlePdfChange} />
+          </Form.Group>
         </Row>
         {/* <Button variant="danger" type="button" onClick={() => setShowPreview(true)}>
           Anteprima

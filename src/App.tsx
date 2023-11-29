@@ -32,6 +32,7 @@ import Sagra from "./components/manifestazioni/Sagra";
 import ConcorsoCorale from "./components/manifestazioni/ConcorsoCorale";
 
 // todo add redux somewhere
+// todo clean up the goddamn interfaces
 function App() {
   return (
     <div className="App">

@@ -8,7 +8,7 @@
         margin-right: 5px;
     }
 
-    span:not(.date) {
+    span:not(.date, .span-container) {
         &:hover {
             color: $pqRed;
             text-decoration: underline;

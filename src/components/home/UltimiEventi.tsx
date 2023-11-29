@@ -65,6 +65,7 @@ function UltimiEventi() {
                     title={articlesData.content[0].title}
                     description={articlesData.content[0].content}
                     articleId={articlesData.content[0].id}
+                    pdfSrc=""
                   />
                 </Col>
               </Row>
@@ -81,6 +82,7 @@ function UltimiEventi() {
                         title={article.title}
                         description={article.content}
                         articleId={article.id}
+                        pdfSrc=""
                       />
                     </Col>
                   );
@@ -102,6 +104,7 @@ function UltimiEventi() {
                       title={article.title}
                       description={article.content}
                       articleId={article.id}
+                      pdfSrc=""
                     />
                   </Col>
                 );

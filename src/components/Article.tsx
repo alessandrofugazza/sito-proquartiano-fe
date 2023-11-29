@@ -43,7 +43,7 @@ export default function Article() {
               categories={articleData.categories.map(category => category.name)}
               tags={articleData.tags.map(tag => tag.name)}
               img={articleData.img}
-              // pdf={articleData.pdf}
+              pdf={articleData.pdf}
             />
           }
           breadcrumb={false}

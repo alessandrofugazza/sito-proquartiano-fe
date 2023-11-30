@@ -24,7 +24,20 @@ interface IValidation {
   categories: boolean;
 }
 
+const stripHtml = (html: string) => {
+  // const temporalDivElement = document.createElement("div");
+  // temporalDivElement.innerHTML = html;
+  // const textOnly = temporalDivElement.textContent || temporalDivElement.innerText || "";
+  // return textOnly.replace(/\s+/g, " ").trim();
+  const strippedContent = html.replace(/<[^>]*>?/gm, "");
+
+  // Check if the remaining string is just whitespace or empty
+  return strippedContent.trim();
+};
+
 export default function AddArticle() {
+  // let hasAttemptedSubmit = false;
+  const [hasAttemptedSubmit, setHasAttemptedSubmit] = useState(false);
   const [hasAlert, setHasAlert] = useState(false);
   const [alert, setAlert] = useState({ message: "", status: "", variant: "success" });
   const [showPreview, setShowPreview] = useState(false);
@@ -63,28 +76,37 @@ export default function AddArticle() {
     ],
   };
 
-  const validationCheck = () => {
+  const titleValidationCheck = () => {
     const isTitleBlank = article.title.trim().length === 0;
     if (isTitleBlank) {
       window.alert("title ng");
       setValidated({ ...validated, title: false });
-      return;
+      return false;
     }
     setValidated({ ...validated, title: true });
+    return true;
+  };
+
+  const contentValidationCheck = () => {
     const isContentValid = article.content.trim().length > 0 || img !== null || pdf !== null;
     if (!isContentValid) {
       window.alert("content ng");
       setValidated({ ...validated, content: false });
-      return;
+      return false;
     }
     setValidated({ ...validated, content: true });
+    return true;
+  };
+
+  const categoriesValidationCheck = () => {
     const isCategoriesEmpty = article.categories.length === 0;
     if (isCategoriesEmpty) {
       window.alert("categories ng");
       setValidated({ ...validated, categories: false });
-      return;
+      return false;
     }
     setValidated({ ...validated, categories: true });
+    return true;
   };
 
   const handleInputChange = (propertyName: string, propertyValue: string | string[]) => {
@@ -113,15 +135,27 @@ export default function AddArticle() {
   // todo same function for both
   const handleImgChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
+      if (hasAttemptedSubmit && validated.content === false) {
+        setValidated({ ...validated, content: true });
+      }
       setImg(e.target.files[0]);
     } else {
+      if (hasAttemptedSubmit && validated.content === true && stripHtml(article.content).length === 0 && pdf === null) {
+        setValidated({ ...validated, content: false });
+      }
       setImg(null);
     }
   };
   const handlePdfChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
+      if (hasAttemptedSubmit && validated.content === false) {
+        setValidated({ ...validated, content: true });
+      }
       setPdf(e.target.files[0]);
     } else {
+      if (hasAttemptedSubmit && validated.content === true && stripHtml(article.content).length === 0 && img === null) {
+        setValidated({ ...validated, content: false });
+      }
       setPdf(null);
     }
   };
@@ -129,7 +163,24 @@ export default function AddArticle() {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    validationCheck();
+    if (!hasAttemptedSubmit) {
+      setHasAttemptedSubmit(true);
+    }
+
+    const isTitleValid = titleValidationCheck();
+    const isContentValid = contentValidationCheck();
+    const areCategoriesValid = categoriesValidationCheck();
+
+    setValidated({
+      title: isTitleValid,
+      content: isContentValid,
+      categories: areCategoriesValid,
+    });
+
+    if (!isTitleValid || !isContentValid || !areCategoriesValid) {
+      window.alert("Validation failed");
+      return;
+    }
 
     console.log("saved");
 
@@ -201,9 +252,17 @@ export default function AddArticle() {
                 aria-label="Titolo"
                 aria-describedby="title"
                 value={article.title}
-                onChange={e => handleInputChange("title", e.target.value)}
+                onChange={e => {
+                  // todo functions?
+                  if (hasAttemptedSubmit && validated.title === false && e.target.value.trim().length > 0) {
+                    setValidated({ ...validated, title: true });
+                  } else if (hasAttemptedSubmit && validated.title === true && e.target.value.trim().length === 0) {
+                    setValidated({ ...validated, title: false });
+                  }
+                  handleInputChange("title", e.target.value);
+                }}
                 id="form-title"
-                className={validated.title ? "validated" : "invalid"}
+                className={hasAttemptedSubmit ? (validated.title ? "validated" : "invalid") : ""}
               />
             </InputGroup>
             <Form.Group className="mb-3 d-flex flex-column" controlId="title">
@@ -227,7 +286,7 @@ export default function AddArticle() {
             </Form.Select>
           </Col>
           <Col lg="3">
-            <Form.Group className="mb-3 mt-md-3" controlId="categories">
+            <Form.Group className="mb-3 mt-3 mt-md-0" controlId="categories">
               <Form.Label>Categorie</Form.Label>
               {/* TODO: get these from backend */}
               <Form.Check
@@ -235,32 +294,80 @@ export default function AddArticle() {
                 label="Associazione"
                 id="associazione"
                 checked={article.categories.includes("associazione")}
-                onChange={e => handleCategoriesChange("associazione", e.target.checked)}
-                className={validated.categories ? "validated" : "invalid"}
+                onChange={e => {
+                  if (hasAttemptedSubmit && validated.categories === false && e.target.checked === true) {
+                    setValidated({ ...validated, categories: true });
+                  } else if (
+                    hasAttemptedSubmit &&
+                    validated.categories === true &&
+                    e.target.checked === false &&
+                    article.categories.length === 1
+                  ) {
+                    setValidated({ ...validated, categories: false });
+                  }
+                  handleCategoriesChange("associazione", e.target.checked);
+                }}
+                className={hasAttemptedSubmit ? (validated.categories ? "validated" : "invalid") : ""}
               />
               <Form.Check
                 type="checkbox"
                 label="Concorso cori"
                 id="concorsoCori"
                 checked={article.categories.includes("concorso cori")}
-                onChange={e => handleCategoriesChange("concorso cori", e.target.checked)}
-                className={validated.categories ? "validated" : "invalid"}
+                onChange={e => {
+                  if (hasAttemptedSubmit && validated.categories === false && e.target.checked === true) {
+                    setValidated({ ...validated, categories: true });
+                  } else if (
+                    hasAttemptedSubmit &&
+                    validated.categories === true &&
+                    e.target.checked === false &&
+                    article.categories.length === 1
+                  ) {
+                    setValidated({ ...validated, categories: false });
+                  }
+                  handleCategoriesChange("concorso cori", e.target.checked);
+                }}
+                className={hasAttemptedSubmit ? (validated.categories ? "validated" : "invalid") : ""}
               />
               <Form.Check
                 type="checkbox"
                 label="Manifestazioni"
                 id="manifestazioni"
                 checked={article.categories.includes("manifestazioni")}
-                onChange={e => handleCategoriesChange("manifestazioni", e.target.checked)}
-                className={validated.categories ? "validated" : "invalid"}
+                onChange={e => {
+                  if (hasAttemptedSubmit && validated.categories === false && e.target.checked === true) {
+                    setValidated({ ...validated, categories: true });
+                  } else if (
+                    hasAttemptedSubmit &&
+                    validated.categories === true &&
+                    e.target.checked === false &&
+                    article.categories.length === 1
+                  ) {
+                    setValidated({ ...validated, categories: false });
+                  }
+                  handleCategoriesChange("manifestazioni", e.target.checked);
+                }}
+                className={hasAttemptedSubmit ? (validated.categories ? "validated" : "invalid") : ""}
               />
               <Form.Check
                 type="checkbox"
                 label="Rassegna stampa"
                 id="rassegnaStampa"
                 checked={article.categories.includes("rassegna stampa")}
-                onChange={e => handleCategoriesChange("rassegna stampa", e.target.checked)}
-                className={validated.categories ? "validated" : "invalid"}
+                onChange={e => {
+                  if (hasAttemptedSubmit && validated.categories === false && e.target.checked === true) {
+                    setValidated({ ...validated, categories: true });
+                  } else if (
+                    hasAttemptedSubmit &&
+                    validated.categories === true &&
+                    e.target.checked === false &&
+                    article.categories.length === 1
+                  ) {
+                    setValidated({ ...validated, categories: false });
+                  }
+                  handleCategoriesChange("rassegna stampa", e.target.checked);
+                }}
+                className={hasAttemptedSubmit ? (validated.categories ? "validated" : "invalid") : ""}
               />
             </Form.Group>
           </Col>
@@ -300,9 +407,22 @@ export default function AddArticle() {
               <div className="w-100">
                 <ReactQuill
                   value={article.content}
-                  onChange={content => handleInputChange("content", content)}
+                  onChange={content => {
+                    if (hasAttemptedSubmit && validated.content === false && stripHtml(content).length > 0) {
+                      setValidated({ ...validated, content: true });
+                    } else if (
+                      hasAttemptedSubmit &&
+                      validated.content === true &&
+                      stripHtml(content).length === 0 &&
+                      img === null &&
+                      pdf === null
+                    ) {
+                      setValidated({ ...validated, content: false });
+                    }
+                    handleInputChange("content", content);
+                  }}
                   modules={modules}
-                  className={validated.content ? "validated" : "invalid"}
+                  className={hasAttemptedSubmit ? (validated.content ? "validated" : "invalid") : ""}
                 />
               </div>
             </Form.Group>
@@ -315,7 +435,7 @@ export default function AddArticle() {
               type="file"
               style={{ width: "auto" }}
               onChange={handleImgChange}
-              className={validated.content ? "validated" : "invalid"}
+              className={hasAttemptedSubmit ? (validated.content ? "validated" : "invalid") : ""}
             />
           </Form.Group>
           <Form.Group controlId="formFile" className="mb-3">
@@ -324,7 +444,7 @@ export default function AddArticle() {
               type="file"
               style={{ width: "auto" }}
               onChange={handlePdfChange}
-              className={validated.content ? "validated" : "invalid"}
+              className={hasAttemptedSubmit ? (validated.content ? "validated" : "invalid") : ""}
             />
           </Form.Group>
         </Row>

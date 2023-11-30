@@ -111,9 +111,9 @@ function UltimiEventi() {
               })}
             </Row>
           )}
-          {/* todo better syntax */}
-          {/* todo scroll needs to wait for fetch */}
-          {/* todo handle no more results */}
+          {/* // todo better syntax */}
+          {/* // todo scroll needs to wait for fetch */}
+          {/* // todo handle no more results */}
           <div className="d-flex justify-content-between mt-5 ">
             <Button
               className="recent-events-nav-btn"

@@ -30,6 +30,7 @@ import FilteredResults from "./components/filtered-results/FilteredResults";
 import MercatinoDeiLibri from "./components/manifestazioni/MercatinoDeiLibri";
 import Sagra from "./components/manifestazioni/Sagra";
 import ConcorsoCorale from "./components/manifestazioni/ConcorsoCorale";
+import ManifestazionePrincipale from "./components/manifestazioni/ManifestazionePrincipale";
 
 // todo add redux somewhere
 // todo clean up the goddamn interfaces
@@ -53,16 +54,8 @@ function App() {
             }
           />
           <Route
-            path="/manifestazioni/mercatino-dei-libri"
-            element={<RouteWrapper title="Mercatino dei libri" content={<MercatinoDeiLibri />} />}
-          />
-          <Route
-            path="/manifestazioni/sagra"
-            element={<RouteWrapper title="Sagra di Quartiano" content={<Sagra />} />}
-          />
-          <Route
-            path="/manifestazioni/concorso-corale"
-            element={<RouteWrapper title="Concorso Corale" content={<ConcorsoCorale />} />}
+            path="/manifestazioni/:manifestazione"
+            element={<RouteWrapper title="Mercatino dei libri" content={<ManifestazionePrincipale />} />}
           />
           <Route
             path="/rassegna-stampa"

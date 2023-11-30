@@ -62,6 +62,18 @@
 
     }
 
+    form {
+        .form-control {
+            width: 180px;
+        }
+
+        .search-icon {
+            &:hover {
+                cursor: pointer;
+            }
+        }
+    }
+
     // @media (max-width: 768px) {
 
     //     // .dropdown-menu {
@@ -72,16 +84,4 @@
     //         padding-inline: 10px;
     //     }
     // }
-}
-
-form {
-    .form-control {
-        width: 180px;
-    }
-
-    .search-icon {
-        &:hover {
-            cursor: pointer;
-        }
-    }
 }

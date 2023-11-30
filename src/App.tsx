@@ -34,6 +34,7 @@ import ManifestazionePrincipale from "./components/manifestazioni/Manifestazione
 
 // todo add redux somewhere
 // todo clean up the goddamn interfaces
+// todo implement overlays somewhere
 function App() {
   return (
     <div className="App">

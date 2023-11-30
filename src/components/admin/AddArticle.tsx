@@ -245,7 +245,9 @@ export default function AddArticle() {
         <Row className="mb-5">
           <Col lg="6" className="d-flex flex-column gap-2">
             <InputGroup className="mb-3">
-              <InputGroup.Text id="title">Titolo</InputGroup.Text>
+              <InputGroup.Text className="fw-semibold" id="title">
+                Titolo
+              </InputGroup.Text>
               <Form.Control
                 placeholder="Inserisci un titolo"
                 type="text"
@@ -265,29 +267,38 @@ export default function AddArticle() {
                 className={hasAttemptedSubmit ? (validated.title ? "validated" : "invalid") : ""}
               />
             </InputGroup>
-            <Form.Group className="mb-3 d-flex flex-column" controlId="title">
-              <Form.Label>Data dell'evento (opzionale)</Form.Label>
+            <hr className="my-0" />
+            <Form.Group className="my-3 d-flex flex-column" controlId="title">
+              <Form.Label>
+                <span className="fw-semibold">Data dell'evento</span> (opzionale)
+              </Form.Label>
               <input
                 type="date"
                 value={article.eventDate}
                 onChange={e => handleInputChange("eventDate", e.target.value)}
               />
             </Form.Group>
-            <Form.Label className="m-0">Sezione (opzionale)</Form.Label>
-            <Form.Select
-              aria-label="Default select example"
-              value={article.section}
-              onChange={e => handleInputChange("section", e.target.value)}
-            >
-              <option>Nessuna</option>
-              <option>Mercatino dei libri</option>
-              <option>Sagra di Quartiano</option>
-              <option>Concorso corale</option>
-            </Form.Select>
+            <hr className="my-0" />
+            <div className="my-3">
+              <Form.Label className="">
+                <span className="fw-semibold">Sezione</span> (opzionale)
+              </Form.Label>
+              <Form.Select
+                aria-label="Default select example"
+                value={article.section}
+                onChange={e => handleInputChange("section", e.target.value)}
+              >
+                <option>Nessuna</option>
+                <option>Mercatino dei libri</option>
+                <option>Sagra di Quartiano</option>
+                <option>Concorso corale</option>
+              </Form.Select>
+            </div>
+            <hr className="d-lg-none my-0" />
           </Col>
           <Col lg="3">
-            <Form.Group className="mb-3 mt-3 mt-md-0" controlId="categories">
-              <Form.Label>Categorie</Form.Label>
+            <Form.Group className="mb-3 mt-3 mt-lg-0" controlId="categories">
+              <Form.Label className="fw-semibold">Categorie</Form.Label>
               {/* TODO: get these from backend */}
               <Form.Check
                 type="checkbox"
@@ -370,10 +381,11 @@ export default function AddArticle() {
                 className={hasAttemptedSubmit ? (validated.categories ? "validated" : "invalid") : ""}
               />
             </Form.Group>
+            <hr className="d-lg-none mt-4 mb-3" />
           </Col>
           <Col lg="3">
             <Form.Group className="mb-3" controlId="tags">
-              <Form.Label>Tags</Form.Label>
+              <Form.Label className="fw-semibold">Tags</Form.Label>
               <Form.Control
                 placeholder="Inserisci un nuovo tag"
                 type="text"
@@ -403,7 +415,7 @@ export default function AddArticle() {
         <Row>
           <Col>
             <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-              <Form.Label>Contenuto</Form.Label>
+              <Form.Label className="fw-semibold">Contenuto</Form.Label>
               <div className="w-100">
                 <ReactQuill
                   value={article.content}

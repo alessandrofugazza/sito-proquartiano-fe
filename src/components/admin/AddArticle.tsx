@@ -8,12 +8,13 @@ import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import "../../styles/AddArticle.scss";
 
-interface Article {
+interface IArticlePostBody {
   title: string;
-  // date: string;
+  eventDate: string;
   content: string;
   categories: string[];
   tags: string[];
+  section: string;
 }
 
 interface IValidation {
@@ -21,19 +22,19 @@ interface IValidation {
   // date: boolean;
   content: boolean;
   categories: boolean;
-  tags: boolean;
 }
 
 export default function AddArticle() {
   const [hasAlert, setHasAlert] = useState(false);
   const [alert, setAlert] = useState({ message: "", status: "", variant: "success" });
   const [showPreview, setShowPreview] = useState(false);
-  const [article, setArticle] = useState<Article>({
+  const [article, setArticle] = useState<IArticlePostBody>({
     title: "",
-    // date: "",
+    eventDate: "",
     content: "",
     categories: [],
     tags: [],
+    section: "",
   });
   const [img, setImg] = useState<File | null>(null);
   const [pdf, setPdf] = useState<File | null>(null);
@@ -42,7 +43,6 @@ export default function AddArticle() {
     title: false,
     content: false,
     categories: false,
-    tags: false,
   });
   const [showOutcomeToast, setShowOutcomeToast] = useState(false);
 
@@ -85,13 +85,6 @@ export default function AddArticle() {
       return;
     }
     setValidated({ ...validated, categories: true });
-    const isTagsEmpty = article.tags.length === 0;
-    if (isTagsEmpty) {
-      window.alert("tags ng");
-      setValidated({ ...validated, tags: false });
-      return;
-    }
-    setValidated({ ...validated, tags: true });
   };
 
   const handleInputChange = (propertyName: string, propertyValue: string | string[]) => {
@@ -164,8 +157,10 @@ export default function AddArticle() {
         setArticle({
           title: "",
           content: "",
+          eventDate: "",
           categories: [],
           tags: [],
+          section: "",
         });
       } else {
         console.log("error");
@@ -196,8 +191,8 @@ export default function AddArticle() {
   return (
     <>
       <Form onSubmit={handleSubmit} className="">
-        <Row>
-          <Col lg="6">
+        <Row className="mb-5">
+          <Col lg="6" className="d-flex flex-column gap-2">
             <InputGroup className="mb-3">
               <InputGroup.Text id="title">Titolo</InputGroup.Text>
               <Form.Control
@@ -211,13 +206,28 @@ export default function AddArticle() {
                 className={validated.title ? "validated" : "invalid"}
               />
             </InputGroup>
-            {/* <Form.Group className="mb-3 d-flex flex-column" controlId="title">
-              <Form.Label>formData dell'evento (opzionale)</Form.Label>
-              <input type="date" value={article.date} onChange={e => handleInputChange("date", e.target.value)} />
-            </Form.Group> */}
+            <Form.Group className="mb-3 d-flex flex-column" controlId="title">
+              <Form.Label>Data dell'evento (opzionale)</Form.Label>
+              <input
+                type="date"
+                value={article.eventDate}
+                onChange={e => handleInputChange("eventDate", e.target.value)}
+              />
+            </Form.Group>
+            <Form.Label className="m-0">Sezione (opzionale)</Form.Label>
+            <Form.Select
+              aria-label="Default select example"
+              value={article.section}
+              onChange={e => handleInputChange("section", e.target.value)}
+            >
+              <option>Nessuna</option>
+              <option>Mercatino dei libri</option>
+              <option>Sagra di Quartiano</option>
+              <option>Concorso corale</option>
+            </Form.Select>
           </Col>
           <Col lg="3">
-            <Form.Group className="mb-3" controlId="categories">
+            <Form.Group className="mb-3 mt-md-3" controlId="categories">
               <Form.Label>Categorie</Form.Label>
               {/* TODO: get these from backend */}
               <Form.Check
@@ -265,7 +275,6 @@ export default function AddArticle() {
                 value={newTag}
                 onChange={handleNewTagChange}
                 onKeyDown={addNewTag}
-                className={validated.tags ? "validated" : "invalid"}
               />
             </Form.Group>
             <div className="d-flex gap-2 flex-wrap">

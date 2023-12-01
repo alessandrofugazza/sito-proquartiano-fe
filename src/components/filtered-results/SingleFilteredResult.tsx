@@ -45,7 +45,7 @@ export default function SingleFilteredResult({
         <Card.Img
           variant="top"
           src={imgSrc}
-          className="img-fluid"
+          className="img-fluid "
           style={{ objectFit: "contain", padding: "10px" }}
           // style={{ objectFit: "contain", padding: "10px", width: "18%" }}
         />

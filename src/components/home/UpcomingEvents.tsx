@@ -14,9 +14,9 @@ export default function UpcomingEvents() {
   const navigate = useNavigate();
   const [value, onChange] = useState<Value>(new Date());
   const fetchComingUp = async () => {
-    const re = await fetch("http://localhost:3001/articoli/coming-up");
+    const re = await fetch("http://localhost:3001/articoli/coming-up/all");
     const data = await re.json();
-    setComingUpData(data.content);
+    setComingUpData(data);
   };
   useEffect(() => {
     fetchComingUp();
@@ -45,8 +45,8 @@ export default function UpcomingEvents() {
       <Col xs={12} lg="auto" className="d-flex flex-column order-first order-lg-0 mb-4 mb-lg-0">
         <h3 className="h5 d-none d-lg-block">Eventi in arrivo:</h3>
         <h3 className="d-lg-none mx-auto">Eventi in arrivo</h3>
-        <ListGroup as="div" className="d-flex flex-column gap-2 flex-grow-1 justify-content-between my-2">
-          {comingUpData?.map(event => {
+        <ListGroup as="div" className="d-flex flex-column gap-2 flex-grow-1 justify-content-between my-2 flex-grow-1">
+          {comingUpData?.slice(0, 3).map(event => {
             return (
               <ListGroup.Item
                 key={event.id}

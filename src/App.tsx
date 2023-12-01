@@ -36,6 +36,7 @@ import TestPage from "./components/TestPage";
 // todo add redux somewhere
 // todo clean up the goddamn interfaces
 // todo implement overlays somewhere
+// todo use link instead of usenavigate
 function App() {
   return (
     <div className="App">

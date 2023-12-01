@@ -444,6 +444,7 @@ export default function AddArticle() {
           <Form.Group controlId="formFile" className="mb-3">
             <Form.Label>Aggiungi un'immagine</Form.Label>
             <Form.Control
+              accept=".jpeg, .jpg, .png"
               type="file"
               style={{ width: "auto" }}
               onChange={handleImgChange}
@@ -453,6 +454,7 @@ export default function AddArticle() {
           <Form.Group controlId="formFile" className="mb-3">
             <Form.Label>Aggiungi un file pdf</Form.Label>
             <Form.Control
+              accept=".pdf"
               type="file"
               style={{ width: "auto" }}
               onChange={handlePdfChange}

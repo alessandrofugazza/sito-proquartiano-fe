@@ -5,7 +5,7 @@ import ArticleDateAuthorTag from "../shared-components/ArticleDateAuthorTag";
 import ArticleCategories from "../shared-components/ArticleCategories";
 import { useNavigate } from "react-router-dom";
 import { IArticleProps } from "../../interfaces/IArticleProps";
-import defaultImg from "../../logo.png";
+import defaultImg from "../../assets/img/default-img.png";
 
 const stripHtml = (htmlString: string) => {
   const strippedString = htmlString

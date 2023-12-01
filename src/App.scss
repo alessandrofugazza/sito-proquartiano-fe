@@ -19,7 +19,7 @@
   }
 
   main {
-    button:not(.recent-events-nav-btn, .category, .btn-link) {
+    .navigation-button {
       box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
       border: 1px solid rgba(0, 0, 0, 0.281);
     }
@@ -31,7 +31,9 @@
     }
   }
 
-  .bi {
+  .bi-person-fill,
+  .bi-calendar-event,
+  .bi-tags-fill {
     color: #494949c9;
   }
 

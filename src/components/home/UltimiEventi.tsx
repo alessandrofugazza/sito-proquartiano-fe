@@ -47,7 +47,7 @@ function UltimiEventi() {
     fetchArticlesData();
   }, []);
   return (
-    <div className="recent-events">
+    <Col lg={{ span: 10, offset: 1 }} className="recent-events">
       {/* {fetchUrlPath && (
         <h1 className="text-center my-3 h2">{`Ultimi eventi con ${fetchUrlPath} "${params.categoryOrTagName}"`}</h1>
       )}*/}
@@ -64,7 +64,7 @@ function UltimiEventi() {
           {currentPage === 0 && (
             <>
               <Row className="mt-5 mb-4">
-                <Col>
+                <Col className="big-card">
                   <HomeCard
                     imgSrc={articlesData.content[0].img}
                     date={articlesData.content[0].date}
@@ -74,6 +74,7 @@ function UltimiEventi() {
                     title={articlesData.content[0].title}
                     description={articlesData.content[0].content}
                     articleId={articlesData.content[0].id}
+                    // todo is pdfsrc needed here
                     pdfSrc=""
                   />
                 </Col>
@@ -81,7 +82,7 @@ function UltimiEventi() {
               <Row xs={1} md={2} className="gy-4">
                 {articlesData.content.slice(1).map(article => {
                   return (
-                    <Col key={article.id}>
+                    <Col key={article.id} className="small-card">
                       <HomeCard
                         imgSrc={article.img}
                         date={article.date}
@@ -167,7 +168,7 @@ function UltimiEventi() {
           </div>
         </>
       )}
-    </div>
+    </Col>
   );
 }
 

@@ -25,15 +25,19 @@ function HomeCard({ imgSrc, categories, title, date, author, tags, description, 
   }
   return (
     <Card className="shadow h-100">
-      <Card.Img variant="top" src={imgSrc} className="img-fluid" style={{ maxHeight: "400px", objectFit: "contain" }} />
-      <Card.Body>
+      <Card.Img
+        variant="top"
+        src={imgSrc}
+        className={`img-fluid p-2 border-bottom ${imgSrc === defaultImg ? "default-img" : ""}`}
+      />
+      <Card.Body className="d-flex flex-column">
         <ArticleCategories categories={categories} />
         <Card.Title className="my-2">{title}</Card.Title>
         <ArticleDateAuthorTag date={date} author={author} tags={tags} />
-        <Card.Text as="div" className="my-4">
-          <div style={{ whiteSpace: "pre-line" }}>{stripHtml(description)}</div>
+        <Card.Text as="div" className="my-3">
+          <div style={{ whiteSpace: "pre-line" }}>{stripHtml(description).trim()}</div>
         </Card.Text>
-        <div className="text-end">
+        <div className="text-end mt-auto">
           <Button variant="danger" size="sm" onClick={() => navigate(`/articoli/${articleId}`)}>
             Leggi tutto
           </Button>

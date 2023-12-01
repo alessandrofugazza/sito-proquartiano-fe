@@ -14,3 +14,22 @@
         font-weight: 600;
     }
 }
+
+.recent-events {
+    .big-card img {
+        max-height: 400px;
+        object-fit: contain;
+    }
+
+    .small-card img {
+        max-height: 200px;
+        object-fit: contain;
+
+        &:not(.default-img) {
+            object-position: top;
+            object-fit: cover;
+
+        }
+
+    }
+}

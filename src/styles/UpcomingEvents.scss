@@ -32,12 +32,47 @@
         }
 
         .react-calendar__tile {
-            font-weight: 600
+            font-weight: 600;
+            position: relative;
+
+            &:hover {
+                background-color: initial;
+            }
+
+            &.react-calendar__tile--active {
+                background-color: initial;
+            }
+
+            &.react-calendar__tile--now {
+                background-color: #006edc;
+                color: white !important;
+            }
+
+            &:not(:disabled) {
+                color: black;
+            }
+
+            &:not(.eventful-day) {
+                cursor: default;
+            }
+
+            &.eventful-day {
+
+                &::after {
+                    content: "";
+                    position: absolute;
+                    width: 33px;
+                    height: 33px;
+                    border-radius: 50%;
+                    border: 2px solid #ff3b3b;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                }
+            }
         }
 
-        .eventful-day {
-            border: 1px solid red;
-        }
+
     }
 
     .list-group-item {

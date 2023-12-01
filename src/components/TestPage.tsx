@@ -4,12 +4,14 @@ import { useEffect, useState } from "react";
 import Calendar from "react-calendar";
 import { IArticleApiResponse } from "../interfaces/IArticleApi";
 import { Col, ListGroup, Row } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 type ValuePiece = Date | null;
 
 type Value = ValuePiece | [ValuePiece, ValuePiece];
 
 export default function TestPage() {
   const [comingUpData, setComingUpData] = useState<IArticleApiResponse[] | null>(null);
+  const navigate = useNavigate();
   const [value, onChange] = useState<Value>(new Date());
   const fetchComingUp = async () => {
     const re = await fetch("http://localhost:3001/articoli/coming-up");
@@ -29,8 +31,8 @@ export default function TestPage() {
     return formattedDate;
   };
   return (
-    <div className="d-flex gap-5">
-      <div>
+    <Row className="calendar">
+      <Col xs="auto">
         <Calendar
           onChange={onChange}
           value={value}
@@ -39,8 +41,8 @@ export default function TestPage() {
           maxDate={new Date(new Date().setFullYear(new Date().getFullYear() + 1))}
           minDetail="month"
         />
-      </div>
-      <div className="d-flex flex-column ">
+      </Col>
+      <Col className="d-flex flex-column ">
         <h5 className="fw-bold">Eventi in arrivo: </h5>
         <ListGroup as="div" className="d-flex flex-column gap-2 flex-grow-1 justify-content-between my-2">
           {comingUpData?.map(event => {
@@ -49,6 +51,7 @@ export default function TestPage() {
                 key={event.id}
                 className="d-flex justify-content-between align-items-start "
                 style={{ borderTopWidth: "1px" }}
+                onClick={() => navigate(`articoli/${event.id}`)}
               >
                 <div className="ms-2 me-auto">
                   <div className="d-flex gap-2">
@@ -61,7 +64,7 @@ export default function TestPage() {
             );
           })}
         </ListGroup>
-      </div>
-    </div>
+      </Col>
+    </Row>
   );
 }

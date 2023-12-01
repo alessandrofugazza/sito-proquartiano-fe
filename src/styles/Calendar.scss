@@ -1,16 +1,28 @@
-.react-calendar {
-    .react-calendar__navigation__label {
-        background-color: #fff !important;
-        font-weight: 600;
-        color: black
+.calendar {
+    .react-calendar {
+        .react-calendar__navigation__label {
+            background-color: #fff !important;
+            font-weight: 600;
+            color: black
+        }
+
+        .react-calendar__navigation__next2-button,
+        .react-calendar__navigation__prev2-button {
+            display: none;
+        }
+
+        .react-calendar__tile {
+            font-weight: 600
+        }
     }
 
-    .react-calendar__navigation__next2-button,
-    .react-calendar__navigation__prev2-button {
-        display: none;
-    }
+    .list-group-item {
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
 
-    .react-calendar__tile {
-        font-weight: 600
+        &:hover {
+            cursor: pointer;
+            border-color: #666;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+        }
     }
 }

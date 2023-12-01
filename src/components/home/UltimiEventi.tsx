@@ -8,7 +8,10 @@ import HomePagination from "./HomePagination";
 function UltimiEventi() {
   const [articlesData, setArticlesData] = useState<IArticlesApiResponse | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [hasError, setHasError] = useState(false);
+  const [error, setError] = useState({
+    hasError: false,
+    errorMessage: "",
+  });
   const location = useLocation();
   const [currentPage, setCurrentPage] = useState(0);
   // let currentPage = 0;
@@ -26,10 +29,16 @@ function UltimiEventi() {
         const data = await re.json();
         setArticlesData(data);
       } else {
-        setHasError(true);
+        setError({
+          hasError: true,
+          errorMessage: `Error ${re.status}: ${re.statusText}`,
+        });
       }
     } catch (error) {
-      setHasError(true);
+      setError({
+        hasError: true,
+        errorMessage: "Errore nel reperimento dati.",
+      });
     } finally {
       setIsLoading(false);
     }
@@ -44,7 +53,7 @@ function UltimiEventi() {
       )}*/}
 
       <h3 className="text-center" style={{ marginTop: "2em" }} ref={ultimiEventiRef}>
-        Ultimi eventi
+        Ultime notizie
       </h3>
 
       {/* // todo should i implement this? */}

@@ -31,6 +31,7 @@ import MercatinoDeiLibri from "./components/manifestazioni/MercatinoDeiLibri";
 import Sagra from "./components/manifestazioni/Sagra";
 import ConcorsoCorale from "./components/manifestazioni/ConcorsoCorale";
 import ManifestazionePrincipale from "./components/manifestazioni/ManifestazionePrincipale";
+import TestPage from "./components/TestPage";
 
 // todo add redux somewhere
 // todo clean up the goddamn interfaces
@@ -132,17 +133,17 @@ function App() {
             path="/articoli"
             element={<RouteWrapper title="" breadcrumb={false} content={<FilteredResults />} />}
           />
-          {/* <Route
+          <Route
             path="/test-page"
             element={
               <RouteWrapper
                 title="Test page"
                 description="If you are reading this and you are not me, you shouldn't be here."
                 breadcrumb={false}
-                content={<FilteredResults />}
+                content={<TestPage />}
               />
             }
-          /> */}
+          />
           <Route
             path="*"
             element={

@@ -182,8 +182,6 @@ export default function AddArticle() {
       return;
     }
 
-    console.log("saved");
-
     const formData = new FormData();
     formData.append("article", JSON.stringify(article));
     if (img) {
@@ -202,6 +200,7 @@ export default function AddArticle() {
         body: formData,
       });
       if (re.ok) {
+        setHasAttemptedSubmit(false);
         console.log("done");
         setShowOutcomeToast(true);
         setTimeout(() => setShowOutcomeToast(false), 3000);
@@ -299,7 +298,7 @@ export default function AddArticle() {
           <Col lg="3">
             <Form.Group className="mb-3 mt-3 mt-lg-0" controlId="categories">
               <Form.Label className="fw-semibold">Categorie</Form.Label>
-              {/* TODO: get these from backend */}
+              {/* // TODO: get these from backend */}
               <Form.Check
                 type="checkbox"
                 label="Associazione"

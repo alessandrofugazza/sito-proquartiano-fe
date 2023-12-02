@@ -2,20 +2,23 @@ import { encryptTransform } from "redux-persist-transform-encrypt";
 import storage from "redux-persist/lib/storage";
 import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { persistStore, persistReducer } from "redux-persist";
-import updatePreviousUrlReducer from "../reducers/previousUrlReducer";
+import favoritesReducer from "../reducers/favoritesReducer";
+import selectedArticleReducer from "../reducers/selectArticleReducer";
 
 const persistConfig = {
   key: "root",
   storage,
   transforms: [
     encryptTransform({
-      secretKey: process.env.REACT_APP_PERSIST_KEY,
+      // ? review
+      secretKey: process.env.REACT_APP_PERSIST_KEY!,
     }),
   ],
 };
 
 const rootReducer = combineReducers({
-  previousUrl: updatePreviousUrlReducer,
+  favorites: favoritesReducer,
+  selectedArticle: selectedArticleReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);
@@ -26,3 +29,5 @@ export const store = configureStore({
 });
 
 export const persistor = persistStore(store);
+
+export type RootState = ReturnType<typeof rootReducer>;

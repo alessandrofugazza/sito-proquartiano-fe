@@ -1,3 +1,5 @@
+@import './variables';
+
 .calendar {
     .react-calendar {
         // todo this
@@ -91,5 +93,16 @@
         //     -webkit-line-clamp: 1;
         //     -webkit-box-orient: vertical;
         // }
+    }
+
+}
+
+.popover-body {
+    a:not(:hover) {
+        color: black;
+    }
+
+    a:hover {
+        color: $pqRed;
     }
 }

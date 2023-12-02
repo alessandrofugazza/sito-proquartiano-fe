@@ -4,14 +4,16 @@ import { useEffect, useRef, useState } from "react";
 import Calendar from "react-calendar";
 import { IArticleApiResponse } from "../../interfaces/IArticleApi";
 import { Col, ListGroup, Overlay, Popover, Row } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { differenceInCalendarDays } from "date-fns";
+import { hr } from "date-fns/locale";
 
 type ValuePiece = Date | null;
 
 type Value = ValuePiece | [ValuePiece, ValuePiece];
 
 export default function UpcomingEvents() {
+  // todo organize this clusterfuck of a component
   const [comingUpData, setComingUpData] = useState<IArticleApiResponse[] | null>(null);
   const navigate = useNavigate();
   const [showPopover, setShowPopover] = useState(false);
@@ -47,20 +49,40 @@ export default function UpcomingEvents() {
       }
     }
   }
+
+  const currentClickedDateRef = useRef<Date | null>(null);
+
   function handleDayClick(date: Date) {
-    const foundEvent = comingUpData?.find(event => isSameDay(new Date(event.eventDate), date));
-    if (foundEvent) {
-      // todo fix
-      setPopoverTarget(document.querySelector(".react-calendar__tile--active"));
-      setShowPopover(true);
+    // ^ pass only date, id and title
+    const eventsOnThisDay = comingUpData?.filter(event => isSameDay(new Date(event.eventDate), date));
+    if (eventsOnThisDay && eventsOnThisDay.length > 0) {
+      setSelectedDayEvents(eventsOnThisDay);
+
+      currentClickedDateRef.current = date;
+
+      // ? should apply to article validation?
+      // learn this trick
+      setTimeout(() => {
+        setPopoverTarget(document.querySelector(".react-calendar__tile--active"));
+        setShowPopover(true);
+      }, 0);
     }
   }
 
+  const [selectedDayEvents, setSelectedDayEvents] = useState<IArticleApiResponse[]>([]);
+
   const popover = (
     <Popover id="popover-basic" ref={popoverRef}>
-      <Popover.Header as="h3">Event Details</Popover.Header>
+      <Popover.Header as="h3">Dettagli evento</Popover.Header>
       <Popover.Body>
-        And here's some <strong>amazing</strong> content about the event.
+        {selectedDayEvents.map((event, index) => (
+          <div key={event.id}>
+            <Link to={`/articoli/${event.id}`}>
+              <span className="fw-semibold">{event.title}</span>
+            </Link>
+            {index !== selectedDayEvents.length - 1 && <hr />}
+          </div>
+        ))}
       </Popover.Body>
     </Popover>
   );

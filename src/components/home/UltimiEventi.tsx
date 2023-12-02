@@ -16,13 +16,16 @@ function UltimiEventi() {
   const [currentPage, setCurrentPage] = useState(0);
   // let currentPage = 0;
   const ultimiEventiRef = useRef<HTMLDivElement>(null);
-
+  // let fetchPage = 0;
+  const [fetchPage, setFetchPage] = useState(0);
   // const handleInputChange = () => {
   //   setRecentEventsPage()
   // }
 
-  let fetchUrl = "http://localhost:3001/articoli?size=11";
   const fetchArticlesData = async () => {
+    let fetchUrl = "http://localhost:3001/articoli?";
+    fetchPage === 0 ? (fetchUrl += "size=11") : (fetchUrl += `size=10&page=${fetchPage}`);
+    // const fetchUrl = "http://localhost:3001/articoli?size=11";
     try {
       const re = await fetch(fetchUrl);
       if (re.ok) {
@@ -74,7 +77,7 @@ function UltimiEventi() {
                     title={articlesData.content[0].title}
                     description={articlesData.content[0].content}
                     articleId={articlesData.content[0].id}
-                    // todo is pdfsrc needed here
+                    // ? is pdfsrc needed here
                     pdfSrc=""
                   />
                 </Col>
@@ -124,7 +127,7 @@ function UltimiEventi() {
           {/* // todo better syntax */}
           {/* // todo scroll needs to wait for fetch */}
           {/* // todo handle no more results */}
-          <div className="d-flex justify-content-between mt-5 ">
+          {/* <div className="d-flex justify-content-between mt-5 ">
             <Button
               className="recent-events-nav-btn"
               variant="link"
@@ -165,6 +168,22 @@ function UltimiEventi() {
                 </div>
               </Button>
             )}
+          </div> */}
+          {/* // ! fix the navigation bug here and in filtered results */}
+          <div className="d-flex mt-5">
+            <Button
+              className="recent-events-nav-btn mx-auto fs-5"
+              variant="link"
+              onClick={() => {
+                // fetchPage += 1;
+                setTimeout(() => {
+                  setFetchPage(fetchPage + 1);
+                  fetchArticlesData();
+                }, 0);
+              }}
+            >
+              Carica altro
+            </Button>
           </div>
         </>
       )}

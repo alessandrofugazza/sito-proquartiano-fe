@@ -8,13 +8,15 @@ interface IFilteredResultsProps {
   title?: string;
 }
 
-// todo WHY DUPLICATED KEYS??
+// ! WHY DUPLICATED KEYS??
 export default function FilteredResults({ title = "" }: IFilteredResultsProps) {
   const [articlesData, setArticlesData] = useState<IArticleApiResponse[] | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
   const location = useLocation();
   // const [fetchPage, setFetchPage] = useState(0);
+  // ? usestate
+  // learn difference
   let fetchPage = 0;
 
   const fetchArticlesData = async () => {
@@ -72,10 +74,7 @@ export default function FilteredResults({ title = "" }: IFilteredResultsProps) {
           className="recent-events-nav-btn mx-auto fs-5"
           variant="link"
           onClick={() => {
-            // const nextPage = fetchPage + 1;
-            // setFetchPage(fetchPage => fetchPage + 1);
             fetchPage += 1;
-            // console.log(nextPage);
             fetchArticlesData();
           }}
         >

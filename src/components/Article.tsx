@@ -29,6 +29,7 @@ export default function Article() {
   useEffect(() => {
     fetchArticleData();
   }, []);
+
   return (
     <>
       {isLoading && <Spinner variant="danger" />}

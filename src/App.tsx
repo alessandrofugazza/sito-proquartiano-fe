@@ -33,10 +33,10 @@ import ConcorsoCorale from "./components/manifestazioni/ConcorsoCorale";
 import ManifestazionePrincipale from "./components/manifestazioni/ManifestazionePrincipale";
 import TestPage from "./components/TestPage";
 
-// todo add redux somewhere
 // todo clean up the goddamn interfaces
 // todo implement overlays somewhere
 // todo use link instead of usenavigate
+// todo use mixins and the like
 function App() {
   return (
     <div className="App">

@@ -59,7 +59,7 @@ function UltimiEventi() {
         Ultime notizie
       </h3>
 
-      {/* // todo should i implement this? */}
+      {/* // ? should i implement this? */}
       {/* <HomePagination currentPage={recentEventsPage} /> */}
 
       {articlesData && !isLoading && (

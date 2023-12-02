@@ -1,44 +1,35 @@
 import { useDispatch } from "react-redux";
-import { ADD_TO_FAVORITES, addToFavoritesAction } from "../redux/actions";
+import { ADD_TO_FAVORITES, REMOVE_FROM_FAVORITES, addToFavoritesAction } from "../redux/actions";
 import ArticleCategories from "./shared-components/ArticleCategories";
 import ArticleDateAuthorTag from "./shared-components/ArticleDateAuthorTag";
-import { IArticleApiResponse } from "../interfaces/IArticleApi";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
-
-interface IArticleContentProps {
-  author: string;
-  date: string;
-  content: string;
-  categories: string[];
-  tags: string[];
-  img: string;
-  pdf: string;
-}
-
-// export default function ArticleContent({ author, date, content, categories, tags, img, pdf }: IArticleContentProps) {
-//   return (
-//     <div className="position-relative">
-//       <ArticleCategories categories={categories} />
-//       <ArticleDateAuthorTag date={date} author={author} tags={tags} />
-//       <div dangerouslySetInnerHTML={{ __html: content }} />
-//       <img src={img} alt="" className="img-fluid" />
-//       <embed src={pdf} type="application/pdf" width="100%" height="600" style={{ border: "none" }}></embed>
-//       <i className="bi bi-star position-absolute" onClick={useDispatch(addToFavoritesAction)}></i>
-//     </div>
-//   );
-// }
-interface ArticleContentProps {
-  articleData: IArticleApiResponse;
-}
+import { useState } from "react";
+import { OverlayTrigger, Tooltip, TooltipProps } from "react-bootstrap";
+import "../styles/Article.scss";
 
 export default function ArticleContent() {
   const dispatch = useDispatch();
   const selectedArticle = useSelector((state: RootState) => state.selectedArticle.content);
+  const favoriteArticles = useSelector((state: RootState) => state.favorites.content);
+  const [isFavorite, setIsFavorite] = useState(favoriteArticles.some(article => article.id === selectedArticle.id));
   const handleAddToFavorites = () => {
-    // dispatch(addToFavoritesAction(articleData));
-    dispatch({ type: ADD_TO_FAVORITES, payload: selectedArticle });
+    if (isFavorite) {
+      dispatch({
+        type: REMOVE_FROM_FAVORITES,
+        payload: favoriteArticles.findIndex(article => article.id === selectedArticle.id),
+      });
+    } else {
+      dispatch({ type: ADD_TO_FAVORITES, payload: selectedArticle });
+    }
+    setIsFavorite(!isFavorite);
   };
+  const renderTooltip = (props: TooltipProps) => (
+    <Tooltip id="button-tooltip" {...props}>
+      {isFavorite ? "Rimuovi dai preferiti" : "Aggiungi ai preferiti"}
+    </Tooltip>
+  );
+
   return (
     <div className="position-relative">
       <ArticleCategories categories={selectedArticle.categories.map(category => category.name)} />
@@ -49,14 +40,25 @@ export default function ArticleContent() {
       />
       <div dangerouslySetInnerHTML={{ __html: selectedArticle.content }} />
       <img src={selectedArticle.img} alt="" className="img-fluid" />
-      <embed
-        src={selectedArticle.pdf}
-        type="application/pdf"
-        width="100%"
-        height="600"
-        style={{ border: "none" }}
-      ></embed>
-      <i className="bi bi-star position-absolute" onClick={handleAddToFavorites}></i>
+      {selectedArticle.pdf && (
+        <embed
+          src={selectedArticle.pdf}
+          type="application/pdf"
+          width="100%"
+          height="600"
+          style={{ border: "none" }}
+        ></embed>
+      )}
+
+      {/* // todo make tooltip disappear after click */}
+      <OverlayTrigger placement="left" delay={{ show: 250, hide: 400 }} overlay={renderTooltip}>
+        {/* // todo let user check favorites */}
+        <i
+          // todo customize border of filled star
+          className={`bi ${isFavorite ? "bi-star-fill" : "bi-star"} fs-4 position-absolute top-0 end-0`}
+          onClick={handleAddToFavorites}
+        ></i>
+      </OverlayTrigger>
     </div>
   );
 }

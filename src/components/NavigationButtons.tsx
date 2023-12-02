@@ -15,7 +15,7 @@ function NavigationButtons() {
   };
 
   return (
-    <div className="d-flex justify-content-center justify-content-md-end gap-4 mt-5 ">
+    <div className="d-flex justify-content-center justify-content-md-end gap-4 mt-auto ">
       {previousUrl && (
         <Button variant="danger" onClick={handleGoBack} className="fw-semibold navigation-button">
           Torna indietro

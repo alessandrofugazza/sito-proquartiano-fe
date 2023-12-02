@@ -115,25 +115,24 @@ export default function UpcomingEvents() {
         <h3 className="h5 d-none d-lg-block mb-2">Eventi in arrivo:</h3>
         <h3 className="d-lg-none mx-auto">Eventi in arrivo</h3>
         <ListGroup as="div" className="d-flex flex-column justify-content-between my-2 flex-grow-1">
-          {comingUpData?.slice(0, 3).map(event => {
-            return (
-              <ListGroup.Item
-                key={event.id}
-                className="d-flex justify-content-between align-items-start "
-                style={{ borderTopWidth: "1px" }}
-                onClick={() => navigate(`articoli/${event.id}`)}
-              >
-                <div className="ms-2 me-auto">
-                  <div className="d-flex gap-2">
-                    <i className="bi bi-calendar-event"></i>
-                    <span className="fw-semibold">{formatDate(event.eventDate)}</span>
-                  </div>
-                  {/* // todo fix overflow */}
-                  <span className="upcoming-event-title">{event.title}</span>
+          {comingUpData?.slice(0, 3).map(event => (
+            <ListGroup.Item
+              as={Link}
+              to={`articoli/${event.id}`}
+              key={event.id}
+              className="d-flex justify-content-between align-items-start "
+              style={{ borderTopWidth: "1px" }}
+            >
+              <div className="ms-2 me-auto">
+                <div className="d-flex gap-2">
+                  <i className="bi bi-calendar-event"></i>
+                  <span className="fw-semibold">{formatDate(event.eventDate)}</span>
                 </div>
-              </ListGroup.Item>
-            );
-          })}
+                {/* // todo fix overflow */}
+                <span className="upcoming-event-title">{event.title}</span>
+              </div>
+            </ListGroup.Item>
+          ))}
         </ListGroup>
       </Col>
     </Row>

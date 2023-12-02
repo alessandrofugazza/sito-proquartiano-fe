@@ -3,12 +3,21 @@
 .recent-events {
 
 
+    .card {
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
 
-    .card-text {
-        overflow: hidden;
-        text-overflow: ellipsis;
-        display: -webkit-box;
-        -webkit-line-clamp: 3;
-        -webkit-box-orient: vertical;
+        &:hover {
+            cursor: pointer;
+            border-color: #666;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-text {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+        }
     }
 }

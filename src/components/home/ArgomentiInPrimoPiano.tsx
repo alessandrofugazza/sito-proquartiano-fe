@@ -5,6 +5,7 @@ import "../../styles/ArgomentiInPrimoPiano.scss";
 
 function ArgomentiInPrimoPiano() {
   return (
+    // fb do we really want this
     <div className="argomenti-in-primo-piano">
       <h2 className="text-center mb-4">Argomenti in primo piano</h2>
       <Row xs="2" lg="4" className="gy-4">

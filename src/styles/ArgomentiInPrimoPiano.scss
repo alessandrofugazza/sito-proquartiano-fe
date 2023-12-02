@@ -1,13 +1,12 @@
 .argomenti-in-primo-piano {
-    a {
-        text-decoration: none;
-    }
 
     .argomenti-in-primo-piano-card {
-        transition: transform 0.2s ease-in-out;
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
 
         &:hover {
-            transform: scale(1.02);
+            cursor: pointer;
+            border-color: #666;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
         }
     }
 }

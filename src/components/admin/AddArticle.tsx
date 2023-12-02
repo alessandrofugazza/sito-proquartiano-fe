@@ -254,7 +254,7 @@ export default function AddArticle() {
                 aria-describedby="title"
                 value={article.title}
                 onChange={e => {
-                  // todo functions?
+                  // ^ functions?
                   if (hasAttemptedSubmit && validated.title === false && e.target.value.trim().length > 0) {
                     setValidated({ ...validated, title: true });
                   } else if (hasAttemptedSubmit && validated.title === true && e.target.value.trim().length === 0) {
@@ -299,6 +299,7 @@ export default function AddArticle() {
             <Form.Group className="mb-3 mt-3 mt-lg-0" controlId="categories">
               <Form.Label className="fw-semibold">Categorie</Form.Label>
               {/* // TODO: get these from backend */}
+              {/* // todo map */}
               <Form.Check
                 type="checkbox"
                 label="Associazione"

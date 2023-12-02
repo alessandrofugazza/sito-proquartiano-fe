@@ -1,4 +1,4 @@
-import { Button, Card, Col } from "react-bootstrap";
+import { Button, Card, Col, Row } from "react-bootstrap";
 import { IArticleProps } from "../../interfaces/IArticleProps";
 import ArticleCategories from "../shared-components/ArticleCategories";
 import ArticleDateAuthorTag from "../shared-components/ArticleDateAuthorTag";
@@ -36,34 +36,40 @@ export default function SingleFilteredResult({
 
   return (
     <Col xs={12}>
-      {/* todo responsive */}
-      <Card
-        className="flex-row shadow single-filtered-result"
-        style={{ height: "200px" }}
-        onClick={() => navigate(`/articoli/${articleId}`)}
-      >
-        <Card.Img
-          variant="top"
-          src={imgSrc}
-          className="img-fluid "
-          style={{ objectFit: "contain", padding: "10px" }}
-          // style={{ objectFit: "contain", padding: "10px", width: "18%" }}
-        />
-        <Card.Body className="d-flex flex-column justify-content-between">
-          <Card.Title>{title}</Card.Title>
-          <ArticleCategories categories={categories} />
-          <ArticleDateAuthorTag date={date} author={author} tags={tags} />
-          <Card.Text as="div">
-            {/* todo understand what this style does */}
-            <div style={{ whiteSpace: "pre-line" }}>{stripHtml(description)}</div>
-          </Card.Text>
-          <div className="mt-auto text-end">
-            <Button variant="danger" size="sm" onClick={() => navigate(`/articoli/${articleId}`)}>
-              Leggi tutto
-            </Button>
-          </div>
-        </Card.Body>
-      </Card>
+      {/* // todo responsive cahnges to img top */}
+      <Row>
+        <Card
+          className="flex-row shadow single-filtered-result"
+          style={{ height: "200px" }}
+          onClick={() => navigate(`/articoli/${articleId}`)}
+        >
+          <Col xs={2} className="d-flex">
+            <Card.Img
+              variant="top"
+              src={imgSrc}
+              className="img-fluid "
+              style={{ objectFit: "contain", padding: "10px" }}
+              // style={{ objectFit: "contain", padding: "10px", width: "18%" }}
+            />
+          </Col>
+          <Col xs={10} className="d-flex">
+            <Card.Body className="d-flex flex-column ">
+              <Card.Title>{title}</Card.Title>
+              <ArticleCategories categories={categories} />
+              <ArticleDateAuthorTag date={date} author={author} tags={tags} />
+              <Card.Text as="div">
+                {/* todo understand what this style does */}
+                <div style={{ whiteSpace: "pre-line" }}>{stripHtml(description)}</div>
+              </Card.Text>
+              <div className="mt-auto text-end">
+                <Button variant="danger" size="sm" onClick={() => navigate(`/articoli/${articleId}`)}>
+                  Leggi tutto
+                </Button>
+              </div>
+            </Card.Body>
+          </Col>
+        </Card>
+      </Row>
     </Col>
   );
 }

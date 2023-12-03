@@ -9,6 +9,7 @@ export interface IArticleApiResponse {
     date: string;
     eventDate: string;
     content: string;
+    section: string;
     categories: ICategory[];
     tags: ITag[];
     img: string,

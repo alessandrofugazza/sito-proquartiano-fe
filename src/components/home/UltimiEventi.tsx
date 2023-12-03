@@ -6,31 +6,24 @@ import { useLocation, useParams } from "react-router-dom";
 import HomePagination from "./HomePagination";
 
 function UltimiEventi() {
-  const [articlesData, setArticlesData] = useState<IArticlesApiResponse | null>(null);
+  const [articlesData, setArticlesData] = useState<IArticleApiResponse[] | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState({
     hasError: false,
     errorMessage: "",
   });
-  const location = useLocation();
-  const [currentPage, setCurrentPage] = useState(0);
-  // let currentPage = 0;
   const ultimiEventiRef = useRef<HTMLDivElement>(null);
-  // let fetchPage = 0;
   const [fetchPage, setFetchPage] = useState(0);
-  // const handleInputChange = () => {
-  //   setRecentEventsPage()
-  // }
 
   const fetchArticlesData = async () => {
     let fetchUrl = "http://localhost:3001/articoli?";
-    fetchPage === 0 ? (fetchUrl += "size=11") : (fetchUrl += `size=10&page=${fetchPage}`);
-    // const fetchUrl = "http://localhost:3001/articoli?size=11";
+    // todo this is horrible, find a way to implement an offset
+    fetchPage === 0 ? (fetchUrl += "size=11") : (fetchUrl += `size=11&page=${fetchPage}`);
     try {
       const re = await fetch(fetchUrl);
       if (re.ok) {
-        const data = await re.json();
-        setArticlesData(data);
+        const newData = await re.json();
+        setArticlesData(oldData => [...(oldData || []), ...newData.content]);
       } else {
         setError({
           hasError: true,
@@ -60,54 +53,31 @@ function UltimiEventi() {
       </h3>
 
       {/* // ? should i implement this? */}
-      {/* <HomePagination currentPage={recentEventsPage} /> */}
+      {/* <HomePagination fetchPage={recentEventsPage} /> */}
 
       {articlesData && !isLoading && (
         <>
-          {currentPage === 0 && (
-            <>
-              <Row className="mt-5 mb-4">
-                <Col className="big-card">
-                  <HomeCard
-                    imgSrc={articlesData.content[0].img}
-                    date={articlesData.content[0].date}
-                    author={articlesData.content[0].author.signature}
-                    tags={articlesData.content[0].tags.map(tag => tag.name)}
-                    categories={articlesData.content[0].categories.map(category => category.name)}
-                    title={articlesData.content[0].title}
-                    description={articlesData.content[0].content}
-                    articleId={articlesData.content[0].id}
-                    // ? is pdfsrc needed here
-                    pdfSrc=""
-                  />
-                </Col>
-              </Row>
-              <Row xs={1} md={2} className="gy-4">
-                {articlesData.content.slice(1).map(article => {
-                  return (
-                    <Col key={article.id} className="small-card">
-                      <HomeCard
-                        imgSrc={article.img}
-                        date={article.date}
-                        author={article.author.signature}
-                        tags={article.tags.map(tag => tag.name)}
-                        categories={article.categories.map(category => category.name)}
-                        title={article.title}
-                        description={article.content}
-                        articleId={article.id}
-                        pdfSrc=""
-                      />
-                    </Col>
-                  );
-                })}
-              </Row>
-            </>
-          )}
-          {currentPage > 0 && (
+          <>
+            <Row className="mt-5 mb-4">
+              <Col className="big-card">
+                <HomeCard
+                  imgSrc={articlesData[0].img}
+                  date={articlesData[0].date}
+                  author={articlesData[0].author.signature}
+                  tags={articlesData[0].tags.map(tag => tag.name)}
+                  categories={articlesData[0].categories.map(category => category.name)}
+                  title={articlesData[0].title}
+                  description={articlesData[0].content}
+                  articleId={articlesData[0].id}
+                  // ? is pdfsrc needed here
+                  pdfSrc=""
+                />
+              </Col>
+            </Row>
             <Row xs={1} md={2} className="gy-4">
-              {articlesData.content.map(article => {
+              {articlesData.slice(1).map(article => {
                 return (
-                  <Col key={article.id}>
+                  <Col key={article.id} className="small-card">
                     <HomeCard
                       imgSrc={article.img}
                       date={article.date}
@@ -123,53 +93,9 @@ function UltimiEventi() {
                 );
               })}
             </Row>
-          )}
-          {/* // todo better syntax */}
-          {/* // todo scroll needs to wait for fetch */}
-          {/* // todo handle no more results */}
-          {/* <div className="d-flex justify-content-between mt-5 ">
-            <Button
-              className="recent-events-nav-btn"
-              variant="link"
-              onClick={() => {
-                const nextPage = currentPage + 1; // currentPage += 1;
-                setCurrentPage(nextPage);
-                fetchUrl = `http://localhost:3001/articoli?page=${nextPage}`;
-                fetchArticlesData();
-                if (ultimiEventiRef.current) {
-                  ultimiEventiRef.current.scrollIntoView({ behavior: "smooth" });
-                }
-              }}
-            >
-              <div className="d-flex gap-2 align-items-center">
-                <i className="bi bi-arrow-left-circle fs-5"></i> <span>Precedente</span>
-              </div>
-            </Button>
-            {currentPage > 0 && (
-              <Button
-                className="recent-events-nav-btn"
-                variant="link"
-                onClick={() => {
-                  const nextPage = currentPage - 1;
-                  setCurrentPage(nextPage);
+          </>
 
-                  fetchUrl = `http://localhost:3001/articoli?page=${nextPage}`;
-                  if (nextPage === 0) {
-                    fetchUrl += "&size=11";
-                  }
-                  fetchArticlesData();
-                  if (ultimiEventiRef.current) {
-                    ultimiEventiRef.current.scrollIntoView({ behavior: "smooth" });
-                  }
-                }}
-              >
-                <div className="d-flex gap-2 align-items-center">
-                  <span>Successivo</span> <i className="bi bi-arrow-right-circle fs-5"></i>
-                </div>
-              </Button>
-            )}
-          </div> */}
-          {/* // ! fix the navigation bug here and in filtered results */}
+          {/* // todo handle no more results */}
           <div className="d-flex mt-5">
             <Button
               className="recent-events-nav-btn mx-auto fs-5"

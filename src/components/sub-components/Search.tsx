@@ -2,7 +2,7 @@ import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { useState } from "react";
-import { InputGroup, Modal } from "react-bootstrap";
+import { Collapse, InputGroup, ListGroup, Modal } from "react-bootstrap";
 import { IArticlesApiResponse } from "../../interfaces/IArticleApi";
 import SingleFilteredResult from "../filtered-results/SingleFilteredResult";
 
@@ -13,6 +13,7 @@ export default function Search() {
   const [search, setSearch] = useState("");
   const [foundArticles, setFoundArticles] = useState<IArticlesApiResponse | null>(null);
   const [lgShow, setLgShow] = useState(false);
+  const [showDropdown, setShowDropdown] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(e.target.value);
@@ -43,14 +44,23 @@ export default function Search() {
       <Form className="ms-auto mt-2 mb-3 my-md-0" onSubmit={handleSubmit}>
         <Row>
           <Col xs="auto">
-            <InputGroup>
+            <InputGroup className="position-relative">
+              {/* // todo advanced search */}
               <Form.Control
                 type="search"
                 value={query}
                 onChange={handleChange}
                 placeholder="Cerca qualcosa ..."
                 className="mr-sm-2"
+                onClick={() => setShowDropdown(true)}
+                onBlur={() => setShowDropdown(false)}
               />
+              <Collapse in={showDropdown}>
+                <ListGroup className="position-absolute" style={{ top: "100%", width: "100%" }}>
+                  <ListGroup.Item>Ricerca avanzata</ListGroup.Item>
+                </ListGroup>
+              </Collapse>
+
               <InputGroup.Text className="search-icon" onClick={handleSubmit}>
                 <i className="bi bi-search"></i>
               </InputGroup.Text>

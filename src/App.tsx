@@ -37,6 +37,7 @@ import TestPage from "./components/TestPage";
 // todo implement overlays somewhere
 // todo use link instead of usenavigate
 // todo use mixins and the like
+// ^ better component import https://react-bootstrap.netlify.app/docs/getting-started/introduction/#importing-components
 function App() {
   return (
     <div className="App">

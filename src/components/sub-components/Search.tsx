@@ -68,7 +68,7 @@ export default function Search() {
         <Modal.Body>
           {foundArticles?.content.map(article => {
             return (
-              <div className="my-4">
+              <div className="my-4" key={article.id}>
                 <SingleFilteredResult
                   key={article.id}
                   imgSrc={article.img}

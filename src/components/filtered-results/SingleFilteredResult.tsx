@@ -38,41 +38,41 @@ export default function SingleFilteredResult({
   return (
     <Col xs={12}>
       {/* // todo responsive cahnges to img top */}
-      <Row>
-        <Card className="flex-row shadow single-filtered-result" style={{ height: "200px" }}>
-          <Col className="d-flex" xs={2}>
-            <Link className="d-flex" to={`/articoli/${articleId}`}>
-              <Card.Img
-                variant="top"
-                src={imgSrc}
-                className="img-fluid "
-                style={{ objectFit: "contain", padding: "10px" }}
-                // style={{ objectFit: "contain", padding: "10px", width: "18%" }}
-              />
-            </Link>
-          </Col>
-          <Col xs={10} className="d-flex">
-            <Card.Body className="d-flex flex-column ">
-              <Card.Title>
-                <Link to={`/articoli/${articleId}`}>{title}</Link>
-              </Card.Title>
-              <ArticleCategories categories={categories} />
-              <ArticleDateAuthorTag date={date} author={author} tags={tags} />
-              <Card.Text as="div">
-                {/* todo understand what this style does */}
-                <div style={{ whiteSpace: "pre-line" }}>{stripHtml(description)}</div>
-              </Card.Text>
-              <div className="mt-auto text-end">
-                <Link to={`/articoli/${articleId}`}>
-                  <Button variant="danger" size="sm">
-                    Leggi tutto
-                  </Button>
-                </Link>
-              </div>
-            </Card.Body>
-          </Col>
-        </Card>
-      </Row>
+      <Card className="flex-row shadow single-filtered-result" style={{ height: "200px" }}>
+        <Col className="d-flex" xs={2}>
+          <Link className="d-flex" to={`/articoli/${articleId}`}>
+            <Card.Img
+              variant="top"
+              src={imgSrc}
+              className="img-fluid "
+              style={{ objectFit: "contain", padding: "10px" }}
+              // style={{ objectFit: "contain", padding: "10px", width: "18%" }}
+            />
+          </Link>
+        </Col>
+        <Col xs={10} className="d-flex">
+          <Card.Body className="d-flex flex-column ">
+            <Card.Title>
+              <Link to={`/articoli/${articleId}`} style={{ color: "initial" }}>
+                {title}
+              </Link>
+            </Card.Title>
+            <ArticleCategories categories={categories} />
+            <ArticleDateAuthorTag date={date} author={author} tags={tags} />
+            <Card.Text as="div">
+              {/* todo understand what this style does */}
+              <div style={{ whiteSpace: "pre-line" }}>{stripHtml(description)}</div>
+            </Card.Text>
+            <div className="mt-auto text-end">
+              <Link to={`/articoli/${articleId}`}>
+                <Button variant="danger" size="sm">
+                  Leggi tutto
+                </Button>
+              </Link>
+            </div>
+          </Card.Body>
+        </Col>
+      </Card>
     </Col>
   );
 }

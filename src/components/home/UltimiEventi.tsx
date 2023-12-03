@@ -48,7 +48,7 @@ function UltimiEventi() {
   };
   useEffect(() => {
     fetchArticlesData();
-  }, []);
+  }, [fetchPage]);
   return (
     <Col lg={{ span: 10, offset: 1 }} className="recent-events">
       {/* {fetchUrlPath && (
@@ -175,11 +175,7 @@ function UltimiEventi() {
               className="recent-events-nav-btn mx-auto fs-5"
               variant="link"
               onClick={() => {
-                // fetchPage += 1;
-                setTimeout(() => {
-                  setFetchPage(fetchPage + 1);
-                  fetchArticlesData();
-                }, 0);
+                setFetchPage(fetchPage + 1);
               }}
             >
               Carica altro

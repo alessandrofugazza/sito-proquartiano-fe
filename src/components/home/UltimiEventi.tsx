@@ -57,43 +57,49 @@ function UltimiEventi() {
 
       {articlesData && !isLoading && (
         <>
-          <>
-            <Row className="mt-5 mb-4">
-              <Col className="big-card">
-                <HomeCard
-                  imgSrc={articlesData[0].img}
-                  date={articlesData[0].date}
-                  author={articlesData[0].author.signature}
-                  tags={articlesData[0].tags.map(tag => tag.name)}
-                  categories={articlesData[0].categories.map(category => category.name)}
-                  title={articlesData[0].title}
-                  description={articlesData[0].content}
-                  articleId={articlesData[0].id}
-                  // ? is pdfsrc needed here
-                  pdfSrc=""
-                />
-              </Col>
-            </Row>
-            <Row xs={1} md={2} className="gy-4">
-              {articlesData.slice(1).map(article => {
-                return (
-                  <Col key={article.id} className="small-card">
-                    <HomeCard
-                      imgSrc={article.img}
-                      date={article.date}
-                      author={article.author.signature}
-                      tags={article.tags.map(tag => tag.name)}
-                      categories={article.categories.map(category => category.name)}
-                      title={article.title}
-                      description={article.content}
-                      articleId={article.id}
-                      pdfSrc=""
-                    />
-                  </Col>
-                );
-              })}
-            </Row>
-          </>
+          <Row className="mt-5 mb-4">
+            <Col className="big-card">
+              <HomeCard
+                imgSrc={articlesData[0].img}
+                date={articlesData[0].date}
+                author={articlesData[0].author.signature}
+                tags={articlesData[0].tags.map(tag => tag.name)}
+                categories={articlesData[0].categories.map(category => category.name)}
+                title={articlesData[0].title}
+                description={articlesData[0].content}
+                articleId={articlesData[0].id}
+                // ? is pdfsrc needed here
+                pdfSrc=""
+              />
+            </Col>
+          </Row>
+          <Row xs={1} md={2} className="gy-4">
+            {articlesData.slice(1).map((article, index) => {
+              return (
+                <Col
+                  key={article.id}
+                  // * terrible hack. what happens when no more results?
+                  className={`small-card ${
+                    articlesData.length > 11 && index === articlesData.length - 2 && !(articlesData.length % 2)
+                      ? "d-none"
+                      : ""
+                  }`}
+                >
+                  <HomeCard
+                    imgSrc={article.img}
+                    date={article.date}
+                    author={article.author.signature}
+                    tags={article.tags.map(tag => tag.name)}
+                    categories={article.categories.map(category => category.name)}
+                    title={article.title}
+                    description={article.content}
+                    articleId={article.id}
+                    pdfSrc=""
+                  />
+                </Col>
+              );
+            })}
+          </Row>
 
           {/* // todo handle no more results */}
           <div className="d-flex mt-5">

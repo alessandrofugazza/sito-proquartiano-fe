@@ -14,6 +14,7 @@ function UltimiEventi() {
   });
   const ultimiEventiRef = useRef<HTMLDivElement>(null);
   const [fetchPage, setFetchPage] = useState(0);
+  const [isLastPage, setIsLastPage] = useState(false);
 
   const fetchArticlesData = async () => {
     let fetchUrl = "http://localhost:3001/articoli?";
@@ -23,6 +24,9 @@ function UltimiEventi() {
       const re = await fetch(fetchUrl);
       if (re.ok) {
         const newData = await re.json();
+        if (newData.last === true) {
+          setIsLastPage(true);
+        }
         setArticlesData(oldData => [...(oldData || []), ...newData.content]);
       } else {
         setError({
@@ -80,7 +84,10 @@ function UltimiEventi() {
                   key={article.id}
                   // * terrible hack. what happens when no more results?
                   className={`small-card ${
-                    articlesData.length > 11 && index === articlesData.length - 2 && !(articlesData.length % 2)
+                    articlesData.length > 11 &&
+                    index === articlesData.length - 2 &&
+                    !(articlesData.length % 2) &&
+                    !isLastPage
                       ? "d-none"
                       : ""
                   }`}
@@ -101,18 +108,23 @@ function UltimiEventi() {
             })}
           </Row>
 
-          {/* // todo handle no more results */}
-          <div className="d-flex mt-5">
-            <Button
-              className="recent-events-nav-btn mx-auto fs-5"
-              variant="link"
-              onClick={() => {
-                setFetchPage(fetchPage + 1);
-              }}
-            >
-              Carica altro
-            </Button>
-          </div>
+          {!isLastPage ? (
+            <div className="d-flex mt-5">
+              <Button
+                className="recent-events-nav-btn mx-auto fs-5"
+                variant="link"
+                onClick={() => {
+                  setFetchPage(fetchPage + 1);
+                }}
+              >
+                Carica altro
+              </Button>
+            </div>
+          ) : (
+            <div className="d-flex mt-5">
+              <span className="recent-events-nav-btn mx-auto fs-5">Fine dei risultati</span>
+            </div>
+          )}
         </>
       )}
     </Col>

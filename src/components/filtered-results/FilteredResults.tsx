@@ -14,6 +14,8 @@ export default function FilteredResults({ title = "" }: IFilteredResultsProps) {
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
   const location = useLocation();
+  const [isLastPage, setIsLastPage] = useState(false);
+
   // const [fetchPage, setFetchPage] = useState(0);
   // ? usestate
   // learn difference
@@ -26,6 +28,9 @@ export default function FilteredResults({ title = "" }: IFilteredResultsProps) {
       const re = await fetch(fetchUrl);
       if (re.ok) {
         const newData = await re.json();
+        if (newData.last === true) {
+          setIsLastPage(true);
+        }
         setArticlesData(oldData => [...(oldData || []), ...newData.content]);
       } else {
         setHasError(true);
@@ -69,18 +74,24 @@ export default function FilteredResults({ title = "" }: IFilteredResultsProps) {
             );
           })}
       </Row>
-      <div className="d-flex mt-5">
-        <Button
-          className="recent-events-nav-btn mx-auto fs-5"
-          variant="link"
-          onClick={() => {
-            fetchPage += 1;
-            fetchArticlesData();
-          }}
-        >
-          Carica altro
-        </Button>
-      </div>
+      {!isLastPage ? (
+        <div className="d-flex mt-5">
+          <Button
+            className="recent-events-nav-btn mx-auto fs-5"
+            variant="link"
+            onClick={() => {
+              fetchPage += 1;
+              fetchArticlesData();
+            }}
+          >
+            Carica altro
+          </Button>
+        </div>
+      ) : (
+        <div className="d-flex mt-5">
+          <span className="recent-events-nav-btn mx-auto fs-5">Fine dei risultati</span>
+        </div>
+      )}
     </>
   );
 }

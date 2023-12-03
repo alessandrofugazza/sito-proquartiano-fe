@@ -18,6 +18,7 @@
             "Noto Color Emoji";
         border-color: #d7d7d3;
 
+
         .react-calendar__navigation__label__labelText {
             text-transform: capitalize;
         }
@@ -52,6 +53,11 @@
 
             &:not(:disabled) {
                 color: black;
+            }
+
+            &:disabled {
+                // todo hardcoded color is bad
+                color: rgb(117, 117, 117);
             }
 
             &:not(.eventful-day) {

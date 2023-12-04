@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { CloseButton, Col, InputGroup, Row } from "react-bootstrap";
+import { CloseButton, Col, Collapse, InputGroup, ListGroup, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Article from "../Article";
@@ -58,7 +58,7 @@ export default function AddArticle() {
     categories: false,
   });
   const [showOutcomeToast, setShowOutcomeToast] = useState(false);
-
+  const [showDropdown, setShowDropdown] = useState(false);
   const modules = {
     toolbar: [
       ["bold", "italic", "underline", "strike"], // toggled buttons
@@ -159,6 +159,23 @@ export default function AddArticle() {
       setPdf(null);
     }
   };
+
+  const [mostUsedTags, setMostUsedTags] = useState([]);
+
+  // todo fetch with pagination
+  const fetchMostUsedTags = async () => {
+    const re = await fetch("http://localhost:3001/tags/most-used", {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("loginToken")}`,
+      },
+    });
+    const data = await re.json();
+    setMostUsedTags(data);
+  };
+
+  useEffect(() => {
+    fetchMostUsedTags();
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -384,7 +401,7 @@ export default function AddArticle() {
             <hr className="d-lg-none mt-4 mb-3" />
           </Col>
           <Col lg="3">
-            <Form.Group className="mb-3" controlId="tags">
+            <Form.Group className="mb-3 position-relative" controlId="tags">
               <Form.Label className="fw-semibold">Tags</Form.Label>
               <Form.Control
                 placeholder="Inserisci un nuovo tag"
@@ -394,7 +411,33 @@ export default function AddArticle() {
                 value={newTag}
                 onChange={handleNewTagChange}
                 onKeyDown={addNewTag}
+                onClick={() => setShowDropdown(true)}
+                onBlur={() => {
+                  setTimeout(() => setShowDropdown(false), 50);
+                }}
               />
+              <Collapse in={showDropdown}>
+                <ListGroup className="position-absolute z-3" style={{ top: "100%", width: "100%" }}>
+                  <ListGroup.Item className="fw-semibold px-2 py-1 tag-suggestion-label" style={{ fontSize: "0.8rem" }}>
+                    tags più usati &gt;&gt;&gt;
+                  </ListGroup.Item>
+                  {mostUsedTags.map(tag => (
+                    <ListGroup.Item
+                      style={{ fontSize: "0.8rem" }}
+                      className={`px-2 py-1 tag-suggestion ${article.tags.includes(tag) ? "d-none" : ""}`}
+                      key={tag}
+                      onClick={() => {
+                        setArticle({
+                          ...article,
+                          tags: [...article.tags, tag],
+                        });
+                      }}
+                    >
+                      {tag}
+                    </ListGroup.Item>
+                  ))}
+                </ListGroup>
+              </Collapse>
             </Form.Group>
             <div className="d-flex gap-2 flex-wrap">
               {article.tags.map(tag => (

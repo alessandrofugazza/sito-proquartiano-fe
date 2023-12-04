@@ -129,7 +129,7 @@ export default function UpcomingEvents() {
         {/* // todo better scrolling to not cut items */}
         <ListGroup
           as="div"
-          className="d-flex flex-column gap-3 my-2 flex-grow-1"
+          className="d-flex flex-column gap-3 my-2 flex-grow-1 "
           style={{ maxHeight: "234px", overflowY: "auto" }}
         >
           {comingUpData?.map(event => (

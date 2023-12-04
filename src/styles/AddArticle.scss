@@ -27,3 +27,15 @@
         color: red
     }
 }
+
+.tag-suggestion-label {
+    cursor: default;
+    pointer-events: none
+}
+
+.tag-suggestion {
+    &:hover {
+        cursor: pointer;
+        background-color: rgb(248, 249, 250);
+    }
+}

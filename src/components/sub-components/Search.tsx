@@ -44,7 +44,7 @@ export default function Search() {
       <Form className="ms-auto mt-2 mb-3 my-md-0" onSubmit={handleSubmit}>
         <Row>
           <Col xs="auto">
-            <InputGroup className="position-relative">
+            <InputGroup>
               {/* // todo advanced search */}
               <Form.Control
                 type="search"

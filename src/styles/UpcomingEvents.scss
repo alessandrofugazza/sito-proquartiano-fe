@@ -58,6 +58,10 @@
             &:disabled {
                 // todo hardcoded color is bad
                 color: rgb(117, 117, 117);
+
+                &:hover {
+                    background-color: #f0f0f0;
+                }
             }
 
             &:not(.eventful-day) {
@@ -78,13 +82,17 @@
                     transform: translate(-50%, -50%);
                 }
 
+
                 &:focus {
+
                     &:after {
+                        transition: background-color 0.5s ease;
                         border-radius: 50%;
                         background-color: #ff3b3b;
                     }
 
                     abbr {
+                        transition: color 0.5s ease;
                         position: relative;
                         color: white;
                         z-index: 999;

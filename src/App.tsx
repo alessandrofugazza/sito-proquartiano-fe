@@ -40,6 +40,7 @@ import TestPage from "./components/TestPage";
 // ^ better component import https://react-bootstrap.netlify.app/docs/getting-started/introduction/#importing-components
 // todo remove things like "comingUpData?"
 // todo PLACEHOLDERS
+// todo customize icons to make em look less bootstrapy
 function App() {
   return (
     <div className="App">

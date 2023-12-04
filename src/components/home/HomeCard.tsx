@@ -25,11 +25,13 @@ function HomeCard({ imgSrc, categories, title, date, author, tags, description, 
   }
   return (
     <Card className="shadow h-100">
-      <Card.Img
-        variant="top"
-        src={imgSrc}
-        className={`img-fluid p-2 border-bottom ${imgSrc === defaultImg ? "default-img" : ""}`}
-      />
+      {imgSrc !== "big-card-no-image" && (
+        <Card.Img
+          variant="top"
+          src={imgSrc}
+          className={`img-fluid p-2 border-bottom ${imgSrc === defaultImg ? "default-img" : ""}`}
+        />
+      )}
       <Card.Body className="d-flex flex-column">
         <ArticleCategories categories={categories} />
         <Card.Title className="my-2">{title}</Card.Title>

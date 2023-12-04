@@ -65,7 +65,7 @@ function UltimiEventi() {
           <Row className="mt-5 mb-4">
             <Col className="big-card">
               <HomeCard
-                imgSrc={articlesData[0].img}
+                imgSrc={articlesData[0].img ? articlesData[0].img : "big-card-no-image"} // todo bad hack but will do for now, check api response
                 date={articlesData[0].date}
                 author={articlesData[0].author.signature}
                 tags={articlesData[0].tags.map(tag => tag.name)}

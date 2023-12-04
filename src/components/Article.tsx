@@ -38,7 +38,9 @@ export default function Article() {
   return (
     <>
       {isLoading && <Spinner variant="danger" />}
-      {articleData && <RouteWrapper title={articleData.title} content={<ArticleContent />} breadcrumb={false} />}
+      {articleData && (
+        <RouteWrapper title={articleData.title} content={<ArticleContent />} breadcrumb={false} isArticle={true} />
+      )}
     </>
   );
 }

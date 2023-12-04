@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import "../styles/NavigationButtons.scss";
 
 function NavigationButtons() {
+  // ? is this really the smartest way to do this?
   const previousUrl = sessionStorage.getItem("previousUrl");
   if (!previousUrl) {
     sessionStorage.setItem("previousUrl", window.location.href);

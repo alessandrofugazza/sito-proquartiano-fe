@@ -39,6 +39,7 @@ import TestPage from "./components/TestPage";
 // todo use mixins and the like
 // ^ better component import https://react-bootstrap.netlify.app/docs/getting-started/introduction/#importing-components
 // todo remove things like "comingUpData?"
+// todo PLACEHOLDERS
 function App() {
   return (
     <div className="App">

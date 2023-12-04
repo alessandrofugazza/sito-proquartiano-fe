@@ -7,6 +7,7 @@ import { Col, ListGroup, Overlay, Popover, Row } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { differenceInCalendarDays } from "date-fns";
 import { hr } from "date-fns/locale";
+import { Placement } from "react-bootstrap/esm/types";
 
 type ValuePiece = Date | null;
 
@@ -62,6 +63,9 @@ export default function UpcomingEvents() {
 
       // ? should apply to article validation?
       // learn this trick
+      // ! popover slight delay when already on screen
+      // ! popover freaks out when changing month
+      // ? keep the fill?
       setTimeout(() => {
         setPopoverTarget(document.querySelector(".react-calendar__tile--active"));
         setShowPopover(true);
@@ -94,7 +98,10 @@ export default function UpcomingEvents() {
 
   return (
     <Row className="calendar">
+      <h3 className="d-lg-none text-center">Eventi in arrivo</h3>
       <Col xs="auto" className="mx-auto mx-lg-0 d-none d-lg-block">
+        {/* // todo implement only after having figured out how to position popover */}
+        {/* <Col xs="auto" className="mx-auto mx-lg-0 "> */}
         <Calendar
           onChange={onChange}
           value={value}
@@ -108,7 +115,7 @@ export default function UpcomingEvents() {
         <Overlay
           show={showPopover}
           target={popoverTarget}
-          placement="right"
+          placement={"right"}
           container={popoverRef.current}
           rootClose={true}
           onHide={() => setShowPopover(false)}
@@ -116,9 +123,8 @@ export default function UpcomingEvents() {
           {popover}
         </Overlay>
       </Col>
-      <Col xs="12" lg="auto" className="d-flex flex-column order-first order-lg-0 mb-4 mb-lg-0 flex-grow-1">
+      <Col xs="12" lg="auto" className="d-flex flex-column   mb-4 mb-lg-0 flex-grow-1">
         <h3 className="h5 d-none d-lg-block mb-2">Eventi in arrivo:</h3>
-        <h3 className="d-lg-none mx-auto">Eventi in arrivo</h3>
         {/* // ? hardcoded height is BAD */}
         {/* // todo better scrolling to not cut items */}
         <ListGroup

@@ -6,6 +6,7 @@ interface IOutcomeToast {
   showToast: boolean;
 }
 
+// ! fix position
 export default function OutcomeToast({ showToast }: IOutcomeToast) {
   // const [show, setShow] = useState(false);
   return (

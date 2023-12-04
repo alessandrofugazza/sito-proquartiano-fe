@@ -69,17 +69,52 @@
                 &::after {
                     content: "";
                     position: absolute;
-                    width: 33px;
-                    height: 33px;
+                    width: 30px;
+                    height: 30px;
                     border-radius: 50%;
                     border: 2px solid #ff3b3b;
                     top: 50%;
                     left: 50%;
                     transform: translate(-50%, -50%);
                 }
+
+                &:focus {
+                    &:after {
+                        border-radius: 50%;
+                        background-color: #ff3b3b;
+                    }
+
+                    abbr {
+                        position: relative;
+                        color: white;
+                        z-index: 999;
+                    }
+                }
             }
         }
 
+        .react-calendar__tile--now {
+            background-color: transparent !important;
+
+            &::after {
+                content: "";
+                background-color: #006edc;
+                position: absolute;
+                width: 30px;
+                height: 30px;
+                border-radius: 50%;
+                border: 2px solid #006edc;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+
+            abbr {
+                position: relative;
+                color: white;
+                z-index: 999;
+            }
+        }
 
     }
 

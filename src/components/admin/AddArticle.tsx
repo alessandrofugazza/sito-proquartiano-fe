@@ -418,6 +418,7 @@ export default function AddArticle() {
             <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
               <Form.Label className="fw-semibold">Contenuto</Form.Label>
               <div className="w-100">
+                {/* // ? semibold? */}
                 <ReactQuill
                   value={article.content}
                   onChange={content => {

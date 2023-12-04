@@ -7,40 +7,13 @@ function ArgomentiInPrimoPiano() {
   return (
     // fb do we really want this
     <div className="argomenti-in-primo-piano">
-      <h2 className="text-center mb-4">Argomenti in primo piano</h2>
-      <Row xs="2" lg="4" className="gy-4">
-        <Col>
-          <Link to={"/articoli?categoria=associazione"}>
-            <ArgomentiInPrimoPianoCard
-              title="Associazione"
-              description="placeholderplaceholderplaceholderplaceholderplaceholderplaceholderplaceholderplaceholderplaceholderplaceholder"
-            />
-          </Link>
-        </Col>
-        <Col>
-          <Link to={"/manifestazioni/concorso-corale"}>
-            <ArgomentiInPrimoPianoCard
-              title="Concorso cori"
-              description="placeholderplaceholderplaceholderplaceholderplaceholderplaceholderplaceholderplaceholderplaceholderplaceholder"
-            />
-          </Link>
-        </Col>
-        <Col>
-          <Link to={"/manifestazioni"}>
-            <ArgomentiInPrimoPianoCard
-              title="Manifestazioni"
-              description="placeholderplaceholderplaceholderplaceholderplaceholderplaceholderplaceholderplaceholderplaceholderplaceholder"
-            />
-          </Link>
-        </Col>
-        <Col>
-          <Link to={"/rassegna-stampa"}>
-            <ArgomentiInPrimoPianoCard
-              title="Rassegna stampa"
-              description="placeholderplaceholderplaceholderplaceholderplaceholderplaceholderplaceholderplaceholderplaceholderplaceholder"
-            />
-          </Link>
-        </Col>
+      <h2 className="text-center mb-4 h2">Argomenti in primo piano</h2>
+      {/* // ? wasnt changing gx bad for the container? */}
+      <Row xs="2" lg="4" className="g-lg-4 g-3 ">
+        <ArgomentiInPrimoPianoCard title="Associazione" link="/articoli?categoria=associazione" />
+        <ArgomentiInPrimoPianoCard title="Concorso cori" link="/manifestazioni/concorso-corale" />
+        <ArgomentiInPrimoPianoCard title="Manifestazioni" link="/manifestazioni" />
+        <ArgomentiInPrimoPianoCard title="Rassegna stampa" link="/rassegna-stampa" />
       </Row>
     </div>
   );

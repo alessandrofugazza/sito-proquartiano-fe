@@ -1,4 +1,13 @@
 @import 'custom';
+@import './styles/variables';
+
+.span-link {
+  cursor: pointer;
+
+  &:hover {
+    color: $pqRedSecondary;
+  }
+}
 
 .App {
   // background-color: #fcb9001f;

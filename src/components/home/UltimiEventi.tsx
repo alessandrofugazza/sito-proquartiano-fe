@@ -16,6 +16,7 @@ function UltimiEventi() {
   const [fetchPage, setFetchPage] = useState(0);
   const [isLastPage, setIsLastPage] = useState(false);
 
+  // todo common function for this and filteredresults. redux?
   const fetchArticlesData = async () => {
     let fetchUrl = "http://localhost:3001/articoli?";
     // todo this is horrible, find a way to implement an offset
@@ -82,8 +83,9 @@ function UltimiEventi() {
               return (
                 <Col
                   key={article.id}
-                  // * terrible hack. what happens when no more results?
+                  // * terrible hack. implement offset in get
                   className={`small-card ${
+                    // ! smarter conditions
                     articlesData.length > 11 &&
                     index === articlesData.length - 2 &&
                     !(articlesData.length % 2) &&

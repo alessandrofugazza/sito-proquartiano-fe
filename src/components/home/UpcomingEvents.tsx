@@ -77,9 +77,14 @@ export default function UpcomingEvents() {
       <Popover.Body>
         {selectedDayEvents.map((event, index) => (
           <div key={event.id}>
-            <Link to={`/articoli/${event.id}`}>
-              <span className="fw-semibold">{event.title}</span>
-            </Link>
+            <span
+              className="fw-semibold span-link"
+              onClick={() => {
+                navigate(`/articoli/${event.id}`);
+              }}
+            >
+              {event.title}
+            </span>
             {index !== selectedDayEvents.length - 1 && <hr />}
           </div>
         ))}
@@ -114,11 +119,16 @@ export default function UpcomingEvents() {
       <Col xs="12" lg="auto" className="d-flex flex-column order-first order-lg-0 mb-4 mb-lg-0 flex-grow-1">
         <h3 className="h5 d-none d-lg-block mb-2">Eventi in arrivo:</h3>
         <h3 className="d-lg-none mx-auto">Eventi in arrivo</h3>
-        <ListGroup as="div" className="d-flex flex-column justify-content-between my-2 flex-grow-1">
-          {comingUpData?.slice(0, 3).map(event => (
+        {/* // ? hardcoded height is BAD */}
+        {/* // todo better scrolling to not cut items */}
+        <ListGroup
+          as="div"
+          className="d-flex flex-column gap-3 my-2 flex-grow-1"
+          style={{ maxHeight: "234px", overflowY: "auto" }}
+        >
+          {comingUpData?.map(event => (
             <ListGroup.Item
-              as={Link}
-              to={`articoli/${event.id}`}
+              onClick={() => navigate(`articoli/${event.id}`)}
               key={event.id}
               className="d-flex justify-content-between align-items-start "
               style={{ borderTopWidth: "1px" }}

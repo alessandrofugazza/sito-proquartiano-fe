@@ -52,14 +52,14 @@ export default function Search() {
                 onChange={handleChange}
                 placeholder="Cerca qualcosa ..."
                 className="mr-sm-2"
-                onClick={() => setShowDropdown(true)}
-                onBlur={() => setShowDropdown(false)}
+                // onClick={() => setShowDropdown(true)}
+                // onBlur={() => setShowDropdown(false)}
               />
-              <Collapse in={showDropdown}>
+              {/* <Collapse in={showDropdown}>
                 <ListGroup className="position-absolute" style={{ top: "100%", width: "100%" }}>
                   <ListGroup.Item>Ricerca avanzata</ListGroup.Item>
                 </ListGroup>
-              </Collapse>
+              </Collapse> */}
 
               <InputGroup.Text className="search-icon" onClick={handleSubmit}>
                 <i className="bi bi-search"></i>

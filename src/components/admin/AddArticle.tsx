@@ -412,6 +412,7 @@ export default function AddArticle() {
             </div>
           </Col>
         </Row>
+        {/* // todo file compression? */}
         <Row>
           <Col>
             <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">

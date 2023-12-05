@@ -72,10 +72,10 @@ export default function Search() {
         </Row>
       </Form>
       <Modal size="lg" show={lgShow} onHide={() => setLgShow(false)} aria-labelledby="example-modal-sizes-title-lg">
-        <Modal.Header closeButton>
+        <Modal.Header closeButton className="px-4">
           <Modal.Title id="example-modal-sizes-title-lg">{`Risultati per "${search}"`}</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body className="px-4">
           {foundArticles?.content.map(article => {
             return (
               <div className="my-4" key={article.id}>

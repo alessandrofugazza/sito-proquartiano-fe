@@ -7,8 +7,10 @@ import SingleFilteredResult from "./SingleFilteredResult";
 interface IFilteredResultsProps {
   title?: string;
 }
+// ? usestate
+// learn difference
+let fetchPage = 0;
 
-// ! WHY DUPLICATED KEYS??
 export default function FilteredResults({ title = "" }: IFilteredResultsProps) {
   const [articlesData, setArticlesData] = useState<IArticleApiResponse[] | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -17,9 +19,6 @@ export default function FilteredResults({ title = "" }: IFilteredResultsProps) {
   const [isLastPage, setIsLastPage] = useState(false);
 
   // const [fetchPage, setFetchPage] = useState(0);
-  // ? usestate
-  // learn difference
-  let fetchPage = 0;
 
   const fetchArticlesData = async () => {
     const fetchUrl = `http://localhost:3001${location.pathname}${location.search}&page=${fetchPage}`;

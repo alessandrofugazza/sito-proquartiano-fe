@@ -4,17 +4,17 @@ import "../../styles/OutcomeToast.scss";
 
 interface IOutcomeToast {
   showToast: boolean;
+  isSuccess: boolean;
 }
 
-// ! fix position
-export default function OutcomeToast({ showToast }: IOutcomeToast) {
+export default function OutcomeToast({ showToast, isSuccess }: IOutcomeToast) {
   // const [show, setShow] = useState(false);
   return (
-    <ToastContainer position="bottom-end">
-      <Toast className="outcome-toast" show={showToast} bg="success">
+    <ToastContainer>
+      <Toast className="outcome-toast" show={showToast}>
         <Toast.Header>
-          <img src="holder.js/20x20?text=%20" className="rounded me-2" alt="" />
-          <strong className="me-auto">Bootstrap</strong>
+          <i className="bi bi-check2 fs-3 me-1"></i>
+          <strong className="me-auto">Successo!</strong>
         </Toast.Header>
         <Toast.Body>Operazione effettuata con successo.</Toast.Body>
       </Toast>

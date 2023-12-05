@@ -33,6 +33,8 @@ function NavigationBar() {
   }, []);
 
   return (
+    // todo try this?
+    // <Navbar expand="md" bg="light" data-bs-theme="light" sticky="top">
     <Navbar expand="md" bg="dark" data-bs-theme="dark" sticky="top">
       <Container fluid>
         <Navbar.Brand as={Link} to="/">

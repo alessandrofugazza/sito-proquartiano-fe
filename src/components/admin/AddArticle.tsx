@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { CloseButton, Col, Collapse, InputGroup, ListGroup, Row } from "react-bootstrap";
+import { Alert, CloseButton, Col, Collapse, InputGroup, ListGroup, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Article from "../Article";
@@ -35,6 +35,7 @@ const stripHtml = (html: string) => {
   return strippedContent.trim();
 };
 
+// ^ this component is a mess
 export default function AddArticle() {
   // let hasAttemptedSubmit = false;
   const [hasAttemptedSubmit, setHasAttemptedSubmit] = useState(false);
@@ -172,7 +173,11 @@ export default function AddArticle() {
     const data = await re.json();
     setMostUsedTags(data);
   };
-
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState({
+    hasError: false,
+    errorMessage: "",
+  });
   useEffect(() => {
     fetchMostUsedTags();
   }, []);
@@ -230,12 +235,21 @@ export default function AddArticle() {
           section: "",
         });
       } else {
-        console.log("error");
+        setError({
+          hasError: true,
+          errorMessage: `Error ${re.status}: ${re.statusText}`,
+        });
       }
     } catch (error) {
-      console.log("error");
+      setError({
+        hasError: true,
+        errorMessage: "Errore nel reperimento dati.",
+      });
+    } finally {
+      setIsLoading(false);
     }
   };
+  const [showOutcome, setShowOutcome] = useState(true);
 
   const addNewTag = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
@@ -261,13 +275,13 @@ export default function AddArticle() {
         <Row className="mb-5">
           <Col lg="6" className="d-flex flex-column gap-2">
             <InputGroup className="mb-3">
-              <InputGroup.Text className="fw-semibold" id="title">
+              <InputGroup.Text as="label" htmlFor="form-title" className="fw-semibold" id="title">
                 Titolo
               </InputGroup.Text>
               <Form.Control
                 placeholder="Inserisci un titolo"
                 type="text"
-                aria-label="Titolo"
+                aria-label="title"
                 aria-describedby="title"
                 value={article.title}
                 onChange={e => {
@@ -284,7 +298,7 @@ export default function AddArticle() {
               />
             </InputGroup>
             <hr className="my-0" />
-            <Form.Group className="my-3 d-flex flex-column" controlId="title">
+            <Form.Group className="my-3 d-flex flex-column" controlId="form-date">
               <Form.Label>
                 <span className="fw-semibold">Data dell'evento</span> (opzionale)
               </Form.Label>
@@ -292,17 +306,18 @@ export default function AddArticle() {
                 type="date"
                 value={article.eventDate}
                 onChange={e => handleInputChange("eventDate", e.target.value)}
+                id="form-date"
               />
             </Form.Group>
             <hr className="my-0" />
             <div className="my-3">
-              <Form.Label className="">
+              <Form.Label htmlFor="form-section">
                 <span className="fw-semibold">Sezione</span> (opzionale)
               </Form.Label>
               <Form.Select
-                aria-label="Default select example"
                 value={article.section}
                 onChange={e => handleInputChange("section", e.target.value)}
+                id="form-section"
               >
                 <option>Nessuna</option>
                 <option>Mercatino dei libri</option>
@@ -456,7 +471,7 @@ export default function AddArticle() {
           </Col>
         </Row>
         {/* // todo file compression? */}
-        <Row>
+        <Row className="mb-3">
           <Col>
             <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
               <Form.Label className="fw-semibold">Contenuto</Form.Label>
@@ -486,8 +501,8 @@ export default function AddArticle() {
           </Col>
         </Row>
         <Row>
-          <Form.Group controlId="formFile" className="mb-3">
-            <Form.Label>Aggiungi un'immagine</Form.Label>
+          <Form.Group controlId="formFile" className="mb-4">
+            <Form.Label className="fw-semibold">Aggiungi un'immagine</Form.Label>
             <Form.Control
               accept=".jpeg, .jpg, .png"
               type="file"
@@ -496,8 +511,8 @@ export default function AddArticle() {
               className={hasAttemptedSubmit ? (validated.content ? "validated" : "invalid") : ""}
             />
           </Form.Group>
-          <Form.Group controlId="formFile" className="mb-3">
-            <Form.Label>Aggiungi un file pdf</Form.Label>
+          <Form.Group controlId="formFile" className="mb-4">
+            <Form.Label className="fw-semibold">Aggiungi un file pdf</Form.Label>
             <Form.Control
               accept=".pdf"
               type="file"
@@ -510,8 +525,9 @@ export default function AddArticle() {
         {/* <Button variant="danger" type="button" onClick={() => setShowPreview(true)}>
           Anteprima
         </Button> */}
-
-        <Button variant="danger" type="submit">
+        {/* // todo add confirm */}
+        {/* // todo style the btn */}
+        <Button variant="danger" type="submit" className="mt-3">
           Aggiungi articolo
         </Button>
       </Form>
@@ -525,7 +541,20 @@ export default function AddArticle() {
           </Modal.Body>
         </Modal>
       )} */}
-      <OutcomeToast showToast={showOutcomeToast} />
+      {/* // todo add placeholder */}
+      <Alert
+        variant={`${error.hasError ? "danger" : "success"}`}
+        className="mt-5"
+        onClose={() => setShowOutcome(false)}
+        dismissible
+      >
+        <Alert.Heading className="d-flex align-items-center">
+          <i className={`bi ${error.hasError ? "bi-x" : "bi-check2"} fs-1 me-3`}></i>
+          <span>{error.hasError ? "Errore!" : "Successo!"}</span>
+        </Alert.Heading>
+        <p>{error.hasError ? "L'operazione non è andata a buon fine" : "Operazione effettuata con successo."}</p>
+      </Alert>
+      {/* <OutcomeToast showToast={showOutcomeToast} isSuccess={true} /> */}
     </>
   );
 }

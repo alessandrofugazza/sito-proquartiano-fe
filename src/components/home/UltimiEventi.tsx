@@ -1,4 +1,4 @@
-import HomeCard from "./HomeCard";
+import HomeCard from "./ArticleCard";
 import { Button, Col, Row } from "react-bootstrap";
 import { useEffect, useRef, useState } from "react";
 import { IArticleApiResponse, IArticlesApiResponse } from "../../interfaces/IArticleApi";
@@ -15,10 +15,14 @@ function UltimiEventi() {
   const ultimiEventiRef = useRef<HTMLDivElement>(null);
   const [fetchPage, setFetchPage] = useState(0);
   const [isLastPage, setIsLastPage] = useState(false);
+  const params = useParams();
 
   // todo common function for this and filteredresults. redux?
   const fetchArticlesData = async () => {
     let fetchUrl = "http://localhost:3001/articoli?";
+    if (params.section) {
+      fetchUrl += `section=${params.section}&`;
+    }
     // todo this is horrible, find a way to implement an offset
     fetchPage === 0 ? (fetchUrl += "size=11") : (fetchUrl += `size=11&page=${fetchPage}`);
     try {
@@ -85,7 +89,7 @@ function UltimiEventi() {
                   key={article.id}
                   // * terrible hack. implement offset in get
                   className={`small-card ${
-                    // ! smarter conditions
+                    // ^ smarter conditions
                     articlesData.length > 11 &&
                     index === articlesData.length - 2 &&
                     !(articlesData.length % 2) &&

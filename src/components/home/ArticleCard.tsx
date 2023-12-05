@@ -1,6 +1,6 @@
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
-import "../../styles/HomeCard.scss";
+import "../../styles/ArticleCard.scss";
 import ArticleDateAuthorTag from "../shared-components/ArticleDateAuthorTag";
 import ArticleCategories from "../shared-components/ArticleCategories";
 import { useNavigate } from "react-router-dom";
@@ -18,13 +18,13 @@ const stripHtml = (htmlString: string) => {
   return strippedString;
 };
 
-function HomeCard({ imgSrc, categories, title, date, author, tags, description, articleId }: IArticleProps) {
+function ArticleCard({ imgSrc, categories, title, date, author, tags, description, articleId }: IArticleProps) {
   const navigate = useNavigate();
   if (!imgSrc) {
     imgSrc = defaultImg;
   }
   return (
-    <Card className="shadow h-100">
+    <Card className="shadow h-100 article-card">
       {imgSrc !== "big-card-no-image" && (
         <Card.Img
           variant="top"
@@ -49,4 +49,4 @@ function HomeCard({ imgSrc, categories, title, date, author, tags, description, 
   );
 }
 
-export default HomeCard;
+export default ArticleCard;

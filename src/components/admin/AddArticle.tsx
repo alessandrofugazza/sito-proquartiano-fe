@@ -222,10 +222,10 @@ export default function AddArticle() {
         body: formData,
       });
       if (re.ok) {
-        setHasAttemptedSubmit(false);
         console.log("done");
         setShowOutcomeToast(true);
         setTimeout(() => setShowOutcomeToast(false), 3000);
+        // todo fix form reset. I HATE THIS
         setArticle({
           title: "",
           content: "",
@@ -234,6 +234,7 @@ export default function AddArticle() {
           tags: [],
           section: "",
         });
+        setHasAttemptedSubmit(false);
       } else {
         setError({
           hasError: true,
@@ -261,7 +262,6 @@ export default function AddArticle() {
       setNewTag("");
     }
   };
-
   const handleRemoveTag = (tagToRemove: String) => {
     setArticle({
       ...article,
@@ -271,6 +271,21 @@ export default function AddArticle() {
 
   return (
     <>
+      {/* <Button
+        onClick={() => {
+          setArticle({
+            title: "",
+            content: "",
+            eventDate: "",
+            categories: [],
+            tags: [],
+            section: "",
+          });
+          // console.log(article);
+        }}
+      >
+        a
+      </Button> */}
       <Form onSubmit={handleSubmit} className="">
         <Row className="mb-5">
           <Col lg="6" className="d-flex flex-column gap-2">

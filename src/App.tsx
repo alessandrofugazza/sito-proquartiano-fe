@@ -27,11 +27,8 @@ import UltimiEventi from "./components/home/UltimiEventi";
 import EditAccount from "./components/admin/EditAccount";
 import PublishedArticles from "./components/admin/PublishedArticles";
 import FilteredResults from "./components/filtered-results/FilteredResults";
-import MercatinoDeiLibri from "./components/manifestazioni/MercatinoDeiLibri";
-import Sagra from "./components/manifestazioni/Sagra";
-import ConcorsoCorale from "./components/manifestazioni/ConcorsoCorale";
-import ManifestazionePrincipale from "./components/manifestazioni/ManifestazionePrincipale";
 import TestPage from "./components/TestPage";
+import Manifestazione from "./components/manifestazioni/Manifestazione";
 
 // todo clean up the goddamn interfaces
 // todo implement overlays somewhere
@@ -41,6 +38,7 @@ import TestPage from "./components/TestPage";
 // todo remove things like "comingUpData?"
 // todo PLACEHOLDERS
 // todo customize icons to make em look less bootstrapy
+// todo organize icons import
 function App() {
   return (
     <div className="App">
@@ -61,8 +59,8 @@ function App() {
             }
           />
           <Route
-            path="/manifestazioni/:manifestazione"
-            element={<RouteWrapper title="Mercatino dei libri" content={<ManifestazionePrincipale />} />}
+            path="/manifestazioni/:section"
+            element={<RouteWrapper title="Mercatino dei libri" content={<Manifestazione />} />}
           />
           <Route
             path="/rassegna-stampa"
@@ -127,7 +125,7 @@ function App() {
           />
           <Route
             path="/admins/profilo/articoli"
-            element={<RouteWrapper title="Pagina di profilo" breadcrumb={false} content={<PublishedArticles />} />}
+            element={<RouteWrapper title="Articoli pubblicati" breadcrumb={false} content={<PublishedArticles />} />}
           />
           <Route
             path="/admins/profilo/aggiungi-articolo"

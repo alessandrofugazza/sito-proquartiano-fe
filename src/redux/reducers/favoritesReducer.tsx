@@ -1,9 +1,14 @@
 import { IArticleApiResponse } from "../../interfaces/IArticleApi";
 import { ADD_TO_FAVORITES, REMOVE_FROM_FAVORITES } from "../actions";
 
+interface IFavorite {
+  url: string;
+  title: string;
+}
+
 interface AddToFavoritesAction {
   type: typeof ADD_TO_FAVORITES;
-  payload: string;
+  payload: IFavorite;
 }
 
 interface RemoveFromFavoritesAction {
@@ -14,7 +19,7 @@ interface RemoveFromFavoritesAction {
 type FavoritesActions = AddToFavoritesAction | RemoveFromFavoritesAction;
 
 const initialState = {
-  content: [] as string[],
+  content: [] as IFavorite[],
 };
 
 const favoritesReducer = (state = initialState, action: FavoritesActions) => {

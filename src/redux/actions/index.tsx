@@ -11,14 +11,17 @@ export const SELECT_ARTICLE = "SELECT_ARTICLE";
 // export const GET_ARTICLES_ERROR_ON = "GET_ARTICLES_ERROR_ON";
 // export const GET_ARTICLES_ERROR_OFF = "GET_ARTICLES_ERROR_OFF";
 
-export const addToFavoritesAction = (currentUrl: string): ThunkAction<void, RootState, unknown, Action<string>> => {
+export const addToFavoritesAction = (
+  currentUrl: string,
+  currentTitle: string
+): ThunkAction<void, RootState, unknown, Action<string>> => {
   // learn wtf is going on here
   return (dispatch, getState) => {
     const currentState = getState();
-    const checkPageInFavorites = currentState.favorites.content.findIndex(url => url === currentUrl);
+    const checkPageInFavorites = currentState.favorites.content.findIndex(favorite => favorite.url === currentUrl);
 
     if (checkPageInFavorites === -1) {
-      dispatch({ type: ADD_TO_FAVORITES, payload: currentUrl });
+      dispatch({ type: ADD_TO_FAVORITES, payload: { url: currentUrl, title: currentTitle } });
     } else {
       console.log("already favorite");
     }

@@ -74,6 +74,8 @@
         }
     }
 
+
+
     // @media (max-width: 768px) {
 
     //     // .dropdown-menu {
@@ -84,4 +86,10 @@
     //         padding-inline: 10px;
     //     }
     // }
+}
+
+.user-icon {
+    &:hover {
+        cursor: pointer;
+    }
 }

@@ -11,7 +11,7 @@ export default function ArticleContent() {
       <img src={selectedArticle.img} alt="" className="img-fluid" />
       {selectedArticle.pdf && (
         <embed
-          src={selectedArticle.pdf}
+          src={selectedArticle.pdf.replace("http://", "https://")}
           type="application/pdf"
           width="100%"
           height="600"

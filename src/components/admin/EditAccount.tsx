@@ -8,7 +8,7 @@ interface IProfileData {
 export default function EditAccount() {
   const [profileData, setProfileData] = useState<IProfileData | null>(null);
   const fetchProfileData = async () => {
-    const re = await fetch("http://localhost:3001/admins/profilo", {
+    const re = await fetch(`${process.env.REACT_APP_API_URL}/admins/profilo`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("loginToken")}`,
       },

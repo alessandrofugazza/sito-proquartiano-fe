@@ -71,7 +71,7 @@ export default function AddArticle() {
 
       [{ color: [] }, { background: [] }], // dropdown with defaults from theme
       // [{ font: [] }],
-      // [{ align: [] }],
+      [{ align: [] }],
 
       ["clean"],
     ],
@@ -165,7 +165,7 @@ export default function AddArticle() {
 
   // todo fetch with pagination
   const fetchMostUsedTags = async () => {
-    const re = await fetch("http://localhost:3001/tags/most-used", {
+    const re = await fetch(`${process.env.REACT_APP_API_URL}/tags/most-used`, {
       headers: {
         Authorization: `Bearer ${localStorage.getItem("loginToken")}`,
       },
@@ -214,7 +214,7 @@ export default function AddArticle() {
     }
 
     try {
-      const re = await fetch("http://localhost:3001/articoli", {
+      const re = await fetch(`${process.env.REACT_APP_API_URL}/articoli`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("loginToken")}`,

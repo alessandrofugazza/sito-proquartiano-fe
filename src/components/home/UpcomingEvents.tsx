@@ -23,7 +23,7 @@ export default function UpcomingEvents() {
 
   const [value, onChange] = useState<Value>(new Date());
   const fetchComingUp = async () => {
-    const re = await fetch("http://localhost:3001/articoli/coming-up/all");
+    const re = await fetch(`${process.env.REACT_APP_API_URL}/articoli/coming-up/all`);
     const data = await re.json();
     setComingUpData(data);
   };

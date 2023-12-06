@@ -13,7 +13,7 @@ export default function Article() {
   const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
   const dispatch = useDispatch();
-  const fetchUrl = "http://localhost:3001/articoli/" + params.id;
+  const fetchUrl = `${process.env.REACT_APP_API_URL}/articoli/` + params.id;
   const fetchArticleData = async () => {
     try {
       const re = await fetch(fetchUrl);

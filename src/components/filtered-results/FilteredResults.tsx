@@ -21,7 +21,7 @@ export default function FilteredResults({ title = "" }: IFilteredResultsProps) {
   // const [fetchPage, setFetchPage] = useState(0);
 
   const fetchArticlesData = async () => {
-    const fetchUrl = `http://localhost:3001${location.pathname}${location.search}&page=${fetchPage}`;
+    const fetchUrl = `${process.env.REACT_APP_API_URL}${location.pathname}${location.search}&page=${fetchPage}`;
     // const pagedFetchUrl = `${fetchUrl}&page=${fetchPage}`;
     try {
       const re = await fetch(fetchUrl);

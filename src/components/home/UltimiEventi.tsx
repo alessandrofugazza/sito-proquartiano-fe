@@ -19,7 +19,7 @@ function UltimiEventi() {
 
   // todo common function for this and filteredresults. redux?
   const fetchArticlesData = async () => {
-    let fetchUrl = "http://localhost:3001/articoli?";
+    let fetchUrl = `${process.env.REACT_APP_API_URL}/articoli?`;
     if (params.section) {
       fetchUrl += `section=${params.section}&`;
     }

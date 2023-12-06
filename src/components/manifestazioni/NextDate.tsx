@@ -9,7 +9,7 @@ export default function NextDate() {
   const params = useParams();
   const [nextEvent, setNextEvent] = useState<IArticleApiResponse | null>(null);
   const fetchNextDate = async () => {
-    const re = await fetch(`http://localhost:3001/articoli/coming-up?sectionName=${params.section}&size=1`);
+    const re = await fetch(`${process.env.REACT_APP_API_URL}/articoli/coming-up?sectionName=${params.section}&size=1`);
     const nextEventData = await re.json();
     setNextEvent(nextEventData.content[0]);
   };

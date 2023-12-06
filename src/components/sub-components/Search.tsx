@@ -22,7 +22,7 @@ export default function Search() {
     e.preventDefault();
     setIsLoading(true);
     setSearch(query);
-    const fetchUrl = `http://localhost:3001/articoli/search?q=${query}`;
+    const fetchUrl = `${process.env.REACT_APP_API_URL}/articoli/search?q=${query}`;
     try {
       const re = await fetch(fetchUrl);
       if (re.ok) {

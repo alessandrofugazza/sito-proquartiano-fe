@@ -25,12 +25,13 @@ function NavigationBar() {
   const location = useLocation();
 
   // TODO: this whole thing is horrible but have no idea how to implement it otherwise
-  const widthBreakpoint1: number = 1346;
-  const widthBreakpoint2: number = 1285;
-  const widthBreakpoint3: number = 1170;
-  const widthBreakpoint4: number = 1080;
-  const widthBreakpoint5: number = 952;
-  const widthBreakpoint6: number = 863;
+  const temp = 43;
+  const widthBreakpoint1: number = 1346 + temp;
+  const widthBreakpoint2: number = 1285 + temp;
+  const widthBreakpoint3: number = 1170 + temp;
+  const widthBreakpoint4: number = 1080 + temp;
+  const widthBreakpoint5: number = 952 + temp;
+  const widthBreakpoint6: number = 863 + temp;
 
   useEffect(() => {
     const handleResize = () => {
@@ -55,13 +56,14 @@ function NavigationBar() {
         <div className="ms-3 user-icon" onClick={handleShow}>
           <i className="bi bi-person-circle text-white fs-3"></i>
         </div>
+        {/* // ! closing offcanvas causes navbar to transition */}
         <Offcanvas show={show} onHide={handleClose} {...props}>
           <Offcanvas.Header closeButton>
             <Offcanvas.Title>Area utenti</Offcanvas.Title>
           </Offcanvas.Header>
           <Offcanvas.Body>
             <ButtonGroup vertical>
-              <Button variant="link" className="text-start">
+              <Button variant="link" className="text-start" onClick={() => navigate("auth/login")}>
                 Login / Registrazione
               </Button>
               <Button

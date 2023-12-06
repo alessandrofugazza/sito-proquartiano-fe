@@ -32,25 +32,27 @@ function ArticleDateAuthorTag({ date, author, tags }: ArticleDateAuthorTagProps)
       </div>
       <div>
         <i className="bi bi-calendar-event"></i>
-        <span>{formattedDate}</span>
+        <span className="date">{formattedDate}</span>
       </div>
-      <div>
-        <i className="bi bi-tags-fill"></i>
-        {tags.map((tag, index) => (
-          <span key={tag}>
-            <span
-              className="tag"
-              onClick={e => {
-                e.stopPropagation();
-                navitate(`/articoli?tag=${tag}`);
-              }}
-            >
-              {tag}
+      {tags.length > 0 && (
+        <div>
+          <i className="bi bi-tags-fill"></i>
+          {tags.map((tag, index) => (
+            <span key={tag} className="span-container">
+              <span
+                className="tag"
+                onClick={e => {
+                  e.stopPropagation();
+                  navitate(`/articoli?tag=${tag}`);
+                }}
+              >
+                {tag}
+              </span>
+              {index < tags.length - 1 && ", "}
             </span>
-            {index < tags.length - 1 && ", "}
-          </span>
-        ))}
-      </div>
+          ))}
+        </div>
+      )}
     </div>
   );
 }

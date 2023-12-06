@@ -1,4 +1,4 @@
-import HomeCard from "./HomeCard";
+import HomeCard from "./ArticleCard";
 import { Button, Col, Row } from "react-bootstrap";
 import { useEffect, useRef, useState } from "react";
 import { IArticleApiResponse, IArticlesApiResponse } from "../../interfaces/IArticleApi";
@@ -6,151 +6,134 @@ import { useLocation, useParams } from "react-router-dom";
 import HomePagination from "./HomePagination";
 
 function UltimiEventi() {
-  const [articlesData, setArticlesData] = useState<IArticlesApiResponse | null>(null);
+  const [articlesData, setArticlesData] = useState<IArticleApiResponse[] | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-  const [hasError, setHasError] = useState(false);
-  const location = useLocation();
-  const [recentEventsPage, setRecentEventsPage] = useState(0);
+  const [error, setError] = useState({
+    hasError: false,
+    errorMessage: "",
+  });
   const ultimiEventiRef = useRef<HTMLDivElement>(null);
+  const [fetchPage, setFetchPage] = useState(0);
+  const [isLastPage, setIsLastPage] = useState(false);
+  const params = useParams();
 
-  // const handleInputChange = () => {
-  //   setRecentEventsPage()
-  // }
-
-  let fetchUrl = "http://localhost:3001/articoli?size=11";
+  // todo common function for this and filteredresults. redux?
   const fetchArticlesData = async () => {
+    let fetchUrl = `${process.env.REACT_APP_API_URL}/articoli?`;
+    if (params.section) {
+      fetchUrl += `section=${params.section}&`;
+    }
+    // todo this is horrible, find a way to implement an offset
+    fetchPage === 0 ? (fetchUrl += "size=11") : (fetchUrl += `size=11&page=${fetchPage}`);
     try {
       const re = await fetch(fetchUrl);
       if (re.ok) {
-        const data = await re.json();
-        setArticlesData(data);
+        const newData = await re.json();
+        if (newData.last === true) {
+          setIsLastPage(true);
+        }
+        setArticlesData(oldData => [...(oldData || []), ...newData.content]);
       } else {
-        setHasError(true);
+        setError({
+          hasError: true,
+          errorMessage: `Error ${re.status}: ${re.statusText}`,
+        });
       }
     } catch (error) {
-      setHasError(true);
+      setError({
+        hasError: true,
+        errorMessage: "Errore nel reperimento dati.",
+      });
     } finally {
       setIsLoading(false);
     }
   };
   useEffect(() => {
     fetchArticlesData();
-  }, []);
+  }, [fetchPage]);
   return (
-    <div className="recent-events">
+    <Col lg={{ span: 10, offset: 1 }} className="recent-events">
       {/* {fetchUrlPath && (
         <h1 className="text-center my-3 h2">{`Ultimi eventi con ${fetchUrlPath} "${params.categoryOrTagName}"`}</h1>
       )}*/}
 
       <h3 className="text-center" style={{ marginTop: "2em" }} ref={ultimiEventiRef}>
-        Ultimi eventi
+        Ultime notizie
       </h3>
 
-      {/* // todo should i implement this? */}
-      {/* <HomePagination currentPage={recentEventsPage} /> */}
+      {/* // ? should i implement this? */}
+      {/* <HomePagination fetchPage={recentEventsPage} /> */}
 
       {articlesData && !isLoading && (
         <>
-          {recentEventsPage === 0 && (
-            <>
-              <Row className="mt-5 mb-4">
-                <Col>
+          <Row className="mt-5 mb-4">
+            <Col className="big-card">
+              <HomeCard
+                imgSrc={articlesData[0].img ? articlesData[0].img : "big-card-no-image"} // todo bad hack but will do for now, check api response
+                date={articlesData[0].date}
+                author={articlesData[0].author.signature}
+                tags={articlesData[0].tags.map(tag => tag.name)}
+                categories={articlesData[0].categories.map(category => category.name)}
+                title={articlesData[0].title}
+                description={articlesData[0].content}
+                articleId={articlesData[0].id}
+                // ? is pdfsrc needed here
+                pdfSrc=""
+              />
+            </Col>
+          </Row>
+          <Row xs={1} md={2} className="gy-4">
+            {articlesData.slice(1).map((article, index) => {
+              return (
+                <Col
+                  key={article.id}
+                  // * terrible hack. implement offset in get
+                  className={`small-card ${
+                    // ^ smarter conditions
+                    articlesData.length > 11 &&
+                    index === articlesData.length - 2 &&
+                    !(articlesData.length % 2) &&
+                    !isLastPage
+                      ? "d-none"
+                      : ""
+                  }`}
+                >
                   <HomeCard
-                    imgSrc={articlesData.content[0].img}
-                    date={articlesData.content[0].date}
-                    author={articlesData.content[0].author.signature}
-                    tags={articlesData.content[0].tags.map(tag => tag.name)}
-                    categories={articlesData.content[0].categories.map(category => category.name)}
-                    title={articlesData.content[0].title}
-                    description={articlesData.content[0].content}
-                    articleId={articlesData.content[0].id}
+                    imgSrc={article.img}
+                    date={article.date}
+                    author={article.author.signature}
+                    tags={article.tags.map(tag => tag.name)}
+                    categories={article.categories.map(category => category.name)}
+                    title={article.title}
+                    description={article.content}
+                    articleId={article.id}
+                    pdfSrc=""
                   />
                 </Col>
-              </Row>
-              <Row xs={1} md={2} className="gy-4">
-                {articlesData.content.slice(1).map(article => {
-                  return (
-                    <Col key={article.id}>
-                      <HomeCard
-                        imgSrc={article.img}
-                        date={article.date}
-                        author={article.author.signature}
-                        tags={article.tags.map(tag => tag.name)}
-                        categories={article.categories.map(category => category.name)}
-                        title={article.title}
-                        description={article.content}
-                        articleId={article.id}
-                      />
-                    </Col>
-                  );
-                })}
-              </Row>
-            </>
-          )}
-          {recentEventsPage > 0 && (
-            <Row xs={1} md={2} className="gy-4">
-              {articlesData.content.map(article => {
-                return (
-                  <Col key={article.id}>
-                    <HomeCard
-                      imgSrc={article.img}
-                      date={article.date}
-                      author={article.author.signature}
-                      tags={article.tags.map(tag => tag.name)}
-                      categories={article.categories.map(category => category.name)}
-                      title={article.title}
-                      description={article.content}
-                      articleId={article.id}
-                    />
-                  </Col>
-                );
-              })}
-            </Row>
-          )}
-          {/* todo better syntax */}
-          {/* todo scroll needs to wait for fetch */}
-          {/* todo handle no more results */}
-          <div className="d-flex justify-content-between mt-5 ">
-            <Button
-              className="recent-events-nav-btn"
-              variant="link"
-              onClick={() => {
-                const nextPage = recentEventsPage + 1;
-                setRecentEventsPage(nextPage);
-                fetchUrl = `http://localhost:3001/articoli?page=${nextPage - 1}`;
-                fetchArticlesData();
-                if (ultimiEventiRef.current) {
-                  ultimiEventiRef.current.scrollIntoView({ behavior: "smooth" });
-                }
-              }}
-            >
-              <div className="d-flex gap-2 align-items-center">
-                <i className="bi bi-arrow-left-circle fs-5"></i> <span>Precedente</span>
-              </div>
-            </Button>
-            {recentEventsPage > 1 && (
+              );
+            })}
+          </Row>
+
+          {!isLastPage ? (
+            <div className="d-flex mt-5">
               <Button
-                className="recent-events-nav-btn"
+                className="recent-events-nav-btn mx-auto fs-5"
                 variant="link"
                 onClick={() => {
-                  const nextPage = recentEventsPage - 1;
-                  setRecentEventsPage(nextPage);
-                  fetchUrl = `http://localhost:3001/articoli?page=${nextPage - 1}`;
-                  fetchArticlesData();
-                  if (ultimiEventiRef.current) {
-                    ultimiEventiRef.current.scrollIntoView({ behavior: "smooth" });
-                  }
+                  setFetchPage(fetchPage + 1);
                 }}
               >
-                <div className="d-flex gap-2 align-items-center">
-                  <span>Successivo</span> <i className="bi bi-arrow-right-circle fs-5"></i>
-                </div>
+                Carica altro
               </Button>
-            )}
-          </div>
+            </div>
+          ) : (
+            <div className="d-flex mt-5">
+              <span className="recent-events-nav-btn mx-auto fs-5">Fine dei risultati</span>
+            </div>
+          )}
         </>
       )}
-    </div>
+    </Col>
   );
 }
 

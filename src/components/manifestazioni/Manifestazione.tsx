@@ -1,15 +1,11 @@
-interface ManifestazioneProps {
-  title: string;
-  description: string;
-}
+import NextDate from "./NextDate";
 
-function Manifestazione({title, description}: ManifestazioneProps) {
-  return(
+function Manifestazione() {
+  return (
     <>
-      <h1>{title}</h1>
-      <p>{description}</p>
+      <NextDate />
     </>
-  )
+  );
 }
 
 export default Manifestazione;

@@ -1,0 +1,157 @@
+@import './variables';
+
+.calendar {
+    .react-calendar {
+        // todo this
+        font-family: system-ui,
+            -apple-system,
+            "Segoe UI",
+            Roboto,
+            "Helvetica Neue",
+            "Noto Sans",
+            "Liberation Sans",
+            Arial,
+            sans-serif,
+            "Apple Color Emoji",
+            "Segoe UI Emoji",
+            "Segoe UI Symbol",
+            "Noto Color Emoji";
+        border-color: #d7d7d3;
+
+
+        .react-calendar__navigation__label__labelText {
+            text-transform: capitalize;
+        }
+
+        .react-calendar__navigation__label {
+            background-color: #fff !important;
+            font-weight: 600;
+            color: black
+        }
+
+        .react-calendar__navigation__next2-button,
+        .react-calendar__navigation__prev2-button {
+            display: none;
+        }
+
+        .react-calendar__tile {
+            font-weight: 600;
+            position: relative;
+
+            &:hover {
+                background-color: initial;
+            }
+
+            &.react-calendar__tile--active {
+                background-color: initial;
+            }
+
+            &.react-calendar__tile--now {
+                background-color: #006edc;
+                color: white !important;
+            }
+
+            &:not(:disabled) {
+                color: black;
+            }
+
+            &:disabled {
+                // todo hardcoded color is bad
+                color: rgb(117, 117, 117);
+
+                &:hover {
+                    background-color: #f0f0f0;
+                }
+            }
+
+            &:not(.eventful-day) {
+                cursor: default;
+            }
+
+            &.eventful-day {
+
+                &::after {
+                    content: "";
+                    position: absolute;
+                    width: 30px;
+                    height: 30px;
+                    border-radius: 50%;
+                    border: 2px solid #ff3b3b;
+                    top: 50%;
+                    left: 50%;
+                    transform: translate(-50%, -50%);
+                }
+
+
+                &:focus {
+
+                    &:after {
+                        transition: background-color 0.5s ease;
+                        border-radius: 50%;
+                        background-color: #ff3b3b;
+                    }
+
+                    abbr {
+                        transition: color 0.5s ease;
+                        position: relative;
+                        color: white;
+                        z-index: 999;
+                    }
+                }
+            }
+        }
+
+        .react-calendar__tile--now {
+            background-color: transparent !important;
+
+            &::after {
+                content: "";
+                background-color: #006edc;
+                position: absolute;
+                width: 30px;
+                height: 30px;
+                border-radius: 50%;
+                border: 2px solid #006edc;
+                top: 50%;
+                left: 50%;
+                transform: translate(-50%, -50%);
+            }
+
+            abbr {
+                position: relative;
+                color: white;
+                z-index: 999;
+            }
+        }
+
+    }
+
+    .list-group-item {
+        transition: border-color 0.3s ease, box-shadow 0.3s ease;
+
+        &:hover {
+            cursor: pointer;
+            border-color: #666;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+        }
+
+        // .upcoming-event-title {
+        //     overflow: hidden;
+        //     text-overflow: ellipsis;
+        //     display: -webkit-box;
+        //     -webkit-line-clamp: 1;
+        //     -webkit-box-orient: vertical;
+        // }
+    }
+
+}
+
+.popover-body {
+    a:not(:hover) {
+        color: black;
+    }
+
+    a:hover {
+        color: $pqRed;
+    }
+}

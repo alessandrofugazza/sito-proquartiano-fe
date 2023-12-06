@@ -1,8 +1,18 @@
+@import './variables';
+
 .date-author-tags {
     font-size: 0.75rem;
     color: #494949c9;
 
     .bi {
         margin-right: 5px;
+    }
+
+    span:not(.date, .span-container) {
+        &:hover {
+            color: $pqRed;
+            text-decoration: underline;
+            cursor: pointer;
+        }
     }
 }

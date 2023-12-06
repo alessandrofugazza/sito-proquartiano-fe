@@ -1,25 +1,23 @@
-import ArticleCategories from "./shared-components/ArticleCategories";
-import ArticleDateAuthorTag from "./shared-components/ArticleDateAuthorTag";
+import { useSelector } from "react-redux";
+import { RootState } from "../redux/store";
+import "../styles/Article.scss";
 
-interface IArticleContentProps {
-  author: string;
-  date: string;
-  content: string;
-  categories: string[];
-  tags: string[];
-  img: string;
-  // pdf: string;
-}
+export default function ArticleContent() {
+  const selectedArticle = useSelector((state: RootState) => state.selectedArticle.content);
 
-export default function ArticleContent({ author, date, content, categories, tags, img }: IArticleContentProps) {
   return (
-    <>
-      <ArticleCategories categories={categories} />
-      <ArticleDateAuthorTag date={date} author={author} tags={tags} />
-      <p>{content}</p>
-      <img src={img} alt="" className="img-fluid" />
-      {/* <embed src={pdf} type="application/pdf" width="600" height="400" /> */}
-      {/* <iframe src={pdf} width="600" height="400"></iframe> */}
-    </>
+    <div>
+      <div dangerouslySetInnerHTML={{ __html: selectedArticle.content }} />
+      <img src={selectedArticle.img} alt="" className="img-fluid" />
+      {selectedArticle.pdf && (
+        <embed
+          src={selectedArticle.pdf}
+          type="application/pdf"
+          width="100%"
+          height="600"
+          style={{ border: "none" }}
+        ></embed>
+      )}
+    </div>
   );
 }

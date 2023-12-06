@@ -27,8 +27,18 @@ import UltimiEventi from "./components/home/UltimiEventi";
 import EditAccount from "./components/admin/EditAccount";
 import PublishedArticles from "./components/admin/PublishedArticles";
 import FilteredResults from "./components/filtered-results/FilteredResults";
+import TestPage from "./components/TestPage";
+import Manifestazione from "./components/manifestazioni/Manifestazione";
 
-// todo add redux somewhere
+// todo clean up the goddamn interfaces
+// todo implement overlays somewhere
+// todo use link instead of usenavigate
+// todo use mixins and the like
+// ^ better component import https://react-bootstrap.netlify.app/docs/getting-started/introduction/#importing-components
+// todo remove things like "comingUpData?"
+// todo PLACEHOLDERS
+// todo customize icons to make em look less bootstrapy
+// todo organize icons import
 function App() {
   return (
     <div className="App">
@@ -36,6 +46,7 @@ function App() {
         <ScrollToTop />
         <NavigationBar />
         <Routes>
+          {/* // todo make component for routes */}
           <Route path="/" element={<Home />} />
           <Route
             path="/manifestazioni"
@@ -46,6 +57,10 @@ function App() {
                 content={<Manifestazioni />}
               />
             }
+          />
+          <Route
+            path="/manifestazioni/:section"
+            element={<RouteWrapper title="Mercatino dei libri" content={<Manifestazione />} />}
           />
           <Route
             path="/rassegna-stampa"
@@ -110,14 +125,17 @@ function App() {
           />
           <Route
             path="/admins/profilo/articoli"
-            element={<RouteWrapper title="Pagina di profilo" breadcrumb={false} content={<PublishedArticles />} />}
+            element={<RouteWrapper title="Articoli pubblicati" breadcrumb={false} content={<PublishedArticles />} />}
           />
           <Route
             path="/admins/profilo/aggiungi-articolo"
             element={<RouteWrapper title="Aggiungi articolo" content={<AddArticle />} />}
           />
           <Route path="/articoli/:id" element={<Article />} />
-          <Route path="/articoli" element={<RouteWrapper title="" breadcrumb={false} content={<UltimiEventi />} />} />
+          <Route
+            path="/articoli"
+            element={<RouteWrapper title="" breadcrumb={false} content={<FilteredResults />} />}
+          />
           <Route
             path="/test-page"
             element={
@@ -125,7 +143,7 @@ function App() {
                 title="Test page"
                 description="If you are reading this and you are not me, you shouldn't be here."
                 breadcrumb={false}
-                content={<FilteredResults />}
+                content={<TestPage />}
               />
             }
           />

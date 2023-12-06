@@ -11,7 +11,7 @@ export default function AdminLogin() {
   };
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const re = await fetch("http://localhost:3001/auth/login", {
+    const re = await fetch(`${process.env.REACT_APP_API_URL}/auth/login`, {
       method: "POST",
       body: JSON.stringify(loginForm),
       headers: {

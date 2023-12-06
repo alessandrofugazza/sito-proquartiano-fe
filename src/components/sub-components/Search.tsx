@@ -2,8 +2,9 @@ import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import { useState } from "react";
-import { InputGroup, Modal } from "react-bootstrap";
+import { Collapse, InputGroup, ListGroup, Modal } from "react-bootstrap";
 import { IArticlesApiResponse } from "../../interfaces/IArticleApi";
+import SingleFilteredResult from "../filtered-results/SingleFilteredResult";
 
 export default function Search() {
   const [isLoading, setIsLoading] = useState(false);
@@ -12,6 +13,7 @@ export default function Search() {
   const [search, setSearch] = useState("");
   const [foundArticles, setFoundArticles] = useState<IArticlesApiResponse | null>(null);
   const [lgShow, setLgShow] = useState(false);
+  const [showDropdown, setShowDropdown] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(e.target.value);
@@ -20,7 +22,7 @@ export default function Search() {
     e.preventDefault();
     setIsLoading(true);
     setSearch(query);
-    const fetchUrl = `http://localhost:3001/articoli/search?q=${query}`;
+    const fetchUrl = `${process.env.REACT_APP_API_URL}/articoli/search?q=${query}`;
     try {
       const re = await fetch(fetchUrl);
       if (re.ok) {
@@ -39,17 +41,26 @@ export default function Search() {
 
   return (
     <>
-      <Form className="ms-auto" onSubmit={handleSubmit}>
+      <Form className="ms-auto mt-2 mb-3 my-md-0" onSubmit={handleSubmit}>
         <Row>
           <Col xs="auto">
             <InputGroup>
+              {/* // todo advanced search */}
               <Form.Control
                 type="search"
                 value={query}
                 onChange={handleChange}
                 placeholder="Cerca qualcosa ..."
                 className="mr-sm-2"
+                // onClick={() => setShowDropdown(true)}
+                // onBlur={() => setShowDropdown(false)}
               />
+              {/* <Collapse in={showDropdown}>
+                <ListGroup className="position-absolute" style={{ top: "100%", width: "100%" }}>
+                  <ListGroup.Item>Ricerca avanzata</ListGroup.Item>
+                </ListGroup>
+              </Collapse> */}
+
               <InputGroup.Text className="search-icon" onClick={handleSubmit}>
                 <i className="bi bi-search"></i>
               </InputGroup.Text>
@@ -61,12 +72,27 @@ export default function Search() {
         </Row>
       </Form>
       <Modal size="lg" show={lgShow} onHide={() => setLgShow(false)} aria-labelledby="example-modal-sizes-title-lg">
-        <Modal.Header closeButton>
+        <Modal.Header closeButton className="px-4">
           <Modal.Title id="example-modal-sizes-title-lg">{`Risultati per "${search}"`}</Modal.Title>
         </Modal.Header>
-        <Modal.Body>
+        <Modal.Body className="px-4">
           {foundArticles?.content.map(article => {
-            return <p key={article.id}>{article.title}</p>;
+            return (
+              <div className="my-4" key={article.id}>
+                <SingleFilteredResult
+                  key={article.id}
+                  imgSrc={article.img}
+                  date={article.date}
+                  author={article.author.signature}
+                  tags={article.tags.map(tag => tag.name)}
+                  categories={article.categories.map(category => category.name)}
+                  title={article.title}
+                  description={article.content}
+                  articleId={article.id}
+                  pdfSrc=""
+                />
+              </div>
+            );
           })}
         </Modal.Body>
       </Modal>

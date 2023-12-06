@@ -1,20 +1,23 @@
 import { useState } from "react";
-import { Toast } from "react-bootstrap";
+import { Toast, ToastContainer } from "react-bootstrap";
 import "../../styles/OutcomeToast.scss";
 
 interface IOutcomeToast {
   showToast: boolean;
+  isSuccess: boolean;
 }
 
-export default function OutcomeToast({ showToast }: IOutcomeToast) {
+export default function OutcomeToast({ showToast, isSuccess }: IOutcomeToast) {
   // const [show, setShow] = useState(false);
   return (
-    <Toast className="outcome-toast" show={showToast}>
-      <Toast.Header>
-        <img src="holder.js/20x20?text=%20" className="rounded me-2" alt="" />
-        <strong className="me-auto">Bootstrap</strong>
-      </Toast.Header>
-      <Toast.Body>Operazione effettuata con successo.</Toast.Body>
-    </Toast>
+    <ToastContainer>
+      <Toast className="outcome-toast" show={showToast}>
+        <Toast.Header>
+          <i className="bi bi-check2 fs-3 me-1"></i>
+          <strong className="me-auto">Successo!</strong>
+        </Toast.Header>
+        <Toast.Body>Operazione effettuata con successo.</Toast.Body>
+      </Toast>
+    </ToastContainer>
   );
 }

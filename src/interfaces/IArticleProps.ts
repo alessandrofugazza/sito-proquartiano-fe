@@ -1,5 +1,6 @@
 export interface IArticleProps {
   imgSrc: string;
+  pdfSrc: string;
   categories: string[];
   title: string;
   date: string;

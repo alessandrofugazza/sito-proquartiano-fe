@@ -62,6 +62,20 @@
 
     }
 
+    form {
+        .form-control {
+            width: 180px;
+        }
+
+        .search-icon {
+            &:hover {
+                cursor: pointer;
+            }
+        }
+    }
+
+
+
     // @media (max-width: 768px) {
 
     //     // .dropdown-menu {
@@ -74,14 +88,8 @@
     // }
 }
 
-form {
-    .form-control {
-        width: 180px;
-    }
-
-    .search-icon {
-        &:hover {
-            cursor: pointer;
-        }
+.user-icon {
+    &:hover {
+        cursor: pointer;
     }
 }

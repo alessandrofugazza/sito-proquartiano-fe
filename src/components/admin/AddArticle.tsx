@@ -1,37 +1,114 @@
-import React, { useState } from "react";
-import { CloseButton, Col, InputGroup, Row } from "react-bootstrap";
+import React, { useEffect, useRef, useState } from "react";
+import { Alert, CloseButton, Col, Collapse, InputGroup, ListGroup, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Article from "../Article";
 import OutcomeToast from "../shared-components/OutcomeToast";
+import ReactQuill from "react-quill";
+import "react-quill/dist/quill.snow.css";
+import "../../styles/AddArticle.scss";
 
-interface Article {
-  authorId: string;
+interface IArticlePostBody {
   title: string;
-  // date: string;
+  eventDate: string;
   content: string;
   categories: string[];
   tags: string[];
-  // img: File | null;
-  // pdf: File | null;
+  section: string;
 }
 
+interface IValidation {
+  title: boolean;
+  // date: boolean;
+  content: boolean;
+  categories: boolean;
+}
+
+const stripHtml = (html: string) => {
+  // const temporalDivElement = document.createElement("div");
+  // temporalDivElement.innerHTML = html;
+  // const textOnly = temporalDivElement.textContent || temporalDivElement.innerText || "";
+  // return textOnly.replace(/\s+/g, " ").trim();
+  const strippedContent = html.replace(/<[^>]*>?/gm, "");
+
+  // Check if the remaining string is just whitespace or empty
+  return strippedContent.trim();
+};
+
+// ^ this component is a mess
 export default function AddArticle() {
+  // let hasAttemptedSubmit = false;
+  const [hasAttemptedSubmit, setHasAttemptedSubmit] = useState(false);
   const [hasAlert, setHasAlert] = useState(false);
   const [alert, setAlert] = useState({ message: "", status: "", variant: "success" });
   const [showPreview, setShowPreview] = useState(false);
-  const [article, setArticle] = useState<Article>({
-    authorId: "",
+  const [article, setArticle] = useState<IArticlePostBody>({
     title: "",
-    // date: "",
+    eventDate: "",
     content: "",
     categories: [],
     tags: [],
+    section: "",
   });
   const [img, setImg] = useState<File | null>(null);
+  const [pdf, setPdf] = useState<File | null>(null);
   const [newTag, setNewTag] = useState("");
-  const [validated, setValidated] = useState(false);
+  const [validated, setValidated] = useState<IValidation>({
+    title: false,
+    content: false,
+    categories: false,
+  });
   const [showOutcomeToast, setShowOutcomeToast] = useState(false);
+  const [showDropdown, setShowDropdown] = useState(false);
+  const modules = {
+    toolbar: [
+      ["bold", "italic", "underline", "strike"], // toggled buttons
+      ["blockquote"],
+      ["link"],
+      [{ list: "ordered" }, { list: "bullet" }],
+
+      [{ size: ["small", false, "large", "huge"] }], // custom dropdown
+
+      [{ color: [] }, { background: [] }], // dropdown with defaults from theme
+      // [{ font: [] }],
+      [{ align: [] }],
+
+      ["clean"],
+    ],
+  };
+
+  const titleValidationCheck = () => {
+    const isTitleBlank = article.title.trim().length === 0;
+    if (isTitleBlank) {
+      window.alert("title ng");
+      setValidated({ ...validated, title: false });
+      return false;
+    }
+    setValidated({ ...validated, title: true });
+    return true;
+  };
+
+  const contentValidationCheck = () => {
+    const isContentValid = article.content.trim().length > 0 || img !== null || pdf !== null;
+    if (!isContentValid) {
+      window.alert("content ng");
+      setValidated({ ...validated, content: false });
+      return false;
+    }
+    setValidated({ ...validated, content: true });
+    return true;
+  };
+
+  const categoriesValidationCheck = () => {
+    const isCategoriesEmpty = article.categories.length === 0;
+    if (isCategoriesEmpty) {
+      window.alert("categories ng");
+      setValidated({ ...validated, categories: false });
+      return false;
+    }
+    setValidated({ ...validated, categories: true });
+    return true;
+  };
 
   const handleInputChange = (propertyName: string, propertyValue: string | string[]) => {
     setArticle({ ...article, [propertyName]: propertyValue });
@@ -55,41 +132,89 @@ export default function AddArticle() {
     setNewTag(e.target.value);
   };
 
+  // todo multiple images handling
+  // todo same function for both
   const handleImgChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files && e.target.files.length > 0) {
+      if (hasAttemptedSubmit && validated.content === false) {
+        setValidated({ ...validated, content: true });
+      }
       setImg(e.target.files[0]);
     } else {
+      if (hasAttemptedSubmit && validated.content === true && stripHtml(article.content).length === 0 && pdf === null) {
+        setValidated({ ...validated, content: false });
+      }
       setImg(null);
     }
   };
+  const handlePdfChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
+      if (hasAttemptedSubmit && validated.content === false) {
+        setValidated({ ...validated, content: true });
+      }
+      setPdf(e.target.files[0]);
+    } else {
+      if (hasAttemptedSubmit && validated.content === true && stripHtml(article.content).length === 0 && img === null) {
+        setValidated({ ...validated, content: false });
+      }
+      setPdf(null);
+    }
+  };
+
+  const [mostUsedTags, setMostUsedTags] = useState([]);
+
+  // todo fetch with pagination
+  const fetchMostUsedTags = async () => {
+    const re = await fetch(`${process.env.REACT_APP_API_URL}/tags/most-used`, {
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("loginToken")}`,
+      },
+    });
+    const data = await re.json();
+    setMostUsedTags(data);
+  };
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState({
+    hasError: false,
+    errorMessage: "",
+  });
+  useEffect(() => {
+    fetchMostUsedTags();
+  }, []);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setShowOutcomeToast(true);
-    setTimeout(() => setShowOutcomeToast(false), 3000);
-    const form = e.currentTarget;
-    if (form.checkValidity() === false) {
-      e.stopPropagation();
-      console.log("invalid");
+
+    if (!hasAttemptedSubmit) {
+      setHasAttemptedSubmit(true);
     }
 
-    console.log("saved");
-    setArticle({
-      authorId: "",
-      title: "",
-      content: "",
-      categories: [],
-      tags: [],
+    const isTitleValid = titleValidationCheck();
+    const isContentValid = contentValidationCheck();
+    const areCategoriesValid = categoriesValidationCheck();
+
+    setValidated({
+      title: isTitleValid,
+      content: isContentValid,
+      categories: areCategoriesValid,
     });
-    setValidated(true);
+
+    if (!isTitleValid || !isContentValid || !areCategoriesValid) {
+      window.alert("Validation failed");
+      return;
+    }
+
     const formData = new FormData();
     formData.append("article", JSON.stringify(article));
     if (img) {
       formData.append("img", img);
     }
+    if (pdf) {
+      formData.append("pdf", pdf);
+    }
 
     try {
-      const re = await fetch("http://localhost:3001/articoli", {
+      const re = await fetch(`${process.env.REACT_APP_API_URL}/articoli`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${localStorage.getItem("loginToken")}`,
@@ -98,13 +223,34 @@ export default function AddArticle() {
       });
       if (re.ok) {
         console.log("done");
+        setShowOutcomeToast(true);
+        setTimeout(() => setShowOutcomeToast(false), 3000);
+        // todo fix form reset. I HATE THIS
+        setArticle({
+          title: "",
+          content: "",
+          eventDate: "",
+          categories: [],
+          tags: [],
+          section: "",
+        });
+        setHasAttemptedSubmit(false);
       } else {
-        console.log("error");
+        setError({
+          hasError: true,
+          errorMessage: `Error ${re.status}: ${re.statusText}`,
+        });
       }
     } catch (error) {
-      console.log("error");
+      setError({
+        hasError: true,
+        errorMessage: "Errore nel reperimento dati.",
+      });
+    } finally {
+      setIsLoading(false);
     }
   };
+  const [showOutcome, setShowOutcome] = useState(true);
 
   const addNewTag = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
@@ -116,7 +262,6 @@ export default function AddArticle() {
       setNewTag("");
     }
   };
-
   const handleRemoveTag = (tagToRemove: String) => {
     setArticle({
       ...article,
@@ -126,63 +271,168 @@ export default function AddArticle() {
 
   return (
     <>
-      <Form noValidate validated={validated} onSubmit={handleSubmit} className="">
-        <Row>
-          <Col lg="6">
-            <InputGroup hasValidation className="mb-3">
-              <InputGroup.Text id="title">Titolo</InputGroup.Text>
+      {/* <Button
+        onClick={() => {
+          setArticle({
+            title: "",
+            content: "",
+            eventDate: "",
+            categories: [],
+            tags: [],
+            section: "",
+          });
+          // console.log(article);
+        }}
+      >
+        a
+      </Button> */}
+      <Form onSubmit={handleSubmit} className="">
+        <Row className="mb-5">
+          <Col lg="6" className="d-flex flex-column gap-2">
+            <InputGroup className="mb-3">
+              <InputGroup.Text as="label" htmlFor="form-title" className="fw-semibold" id="title">
+                Titolo
+              </InputGroup.Text>
               <Form.Control
                 placeholder="Inserisci un titolo"
                 type="text"
-                aria-label="Titolo"
+                aria-label="title"
                 aria-describedby="title"
                 value={article.title}
-                onChange={e => handleInputChange("title", e.target.value)}
-                required
+                onChange={e => {
+                  // ^ functions?
+                  if (hasAttemptedSubmit && validated.title === false && e.target.value.trim().length > 0) {
+                    setValidated({ ...validated, title: true });
+                  } else if (hasAttemptedSubmit && validated.title === true && e.target.value.trim().length === 0) {
+                    setValidated({ ...validated, title: false });
+                  }
+                  handleInputChange("title", e.target.value);
+                }}
+                id="form-title"
+                className={hasAttemptedSubmit ? (validated.title ? "validated" : "invalid") : ""}
               />
             </InputGroup>
-            {/* <Form.Group className="mb-3 d-flex flex-column" controlId="title">
-              <Form.Label>formData dell'evento (opzionale)</Form.Label>
-              <input type="date" value={article.date} onChange={e => handleInputChange("date", e.target.value)} />
-            </Form.Group> */}
+            <hr className="my-0" />
+            <Form.Group className="my-3 d-flex flex-column" controlId="form-date">
+              <Form.Label>
+                <span className="fw-semibold">Data dell'evento</span> (opzionale)
+              </Form.Label>
+              <input
+                type="date"
+                value={article.eventDate}
+                onChange={e => handleInputChange("eventDate", e.target.value)}
+                id="form-date"
+              />
+            </Form.Group>
+            <hr className="my-0" />
+            <div className="my-3">
+              <Form.Label htmlFor="form-section">
+                <span className="fw-semibold">Sezione</span> (opzionale)
+              </Form.Label>
+              <Form.Select
+                value={article.section}
+                onChange={e => handleInputChange("section", e.target.value)}
+                id="form-section"
+              >
+                <option>Nessuna</option>
+                <option>Mercatino dei libri</option>
+                <option>Sagra di Quartiano</option>
+                <option>Concorso corale</option>
+              </Form.Select>
+            </div>
+            <hr className="d-lg-none my-0" />
           </Col>
           <Col lg="3">
-            <Form.Group className="mb-3" controlId="categories">
-              <Form.Label>Categorie</Form.Label>
-              {/* TODO: get these from backend */}
+            <Form.Group className="mb-3 mt-3 mt-lg-0" controlId="categories">
+              <Form.Label className="fw-semibold">Categorie</Form.Label>
+              {/* // TODO: get these from backend */}
+              {/* // todo map */}
               <Form.Check
                 type="checkbox"
                 label="Associazione"
                 id="associazione"
                 checked={article.categories.includes("associazione")}
-                onChange={e => handleCategoriesChange("associazione", e.target.checked)}
+                onChange={e => {
+                  if (hasAttemptedSubmit && validated.categories === false && e.target.checked === true) {
+                    setValidated({ ...validated, categories: true });
+                  } else if (
+                    hasAttemptedSubmit &&
+                    validated.categories === true &&
+                    e.target.checked === false &&
+                    article.categories.length === 1
+                  ) {
+                    setValidated({ ...validated, categories: false });
+                  }
+                  handleCategoriesChange("associazione", e.target.checked);
+                }}
+                className={hasAttemptedSubmit ? (validated.categories ? "validated" : "invalid") : ""}
               />
               <Form.Check
                 type="checkbox"
                 label="Concorso cori"
                 id="concorsoCori"
                 checked={article.categories.includes("concorso cori")}
-                onChange={e => handleCategoriesChange("concorso cori", e.target.checked)}
+                onChange={e => {
+                  if (hasAttemptedSubmit && validated.categories === false && e.target.checked === true) {
+                    setValidated({ ...validated, categories: true });
+                  } else if (
+                    hasAttemptedSubmit &&
+                    validated.categories === true &&
+                    e.target.checked === false &&
+                    article.categories.length === 1
+                  ) {
+                    setValidated({ ...validated, categories: false });
+                  }
+                  handleCategoriesChange("concorso cori", e.target.checked);
+                }}
+                className={hasAttemptedSubmit ? (validated.categories ? "validated" : "invalid") : ""}
               />
               <Form.Check
                 type="checkbox"
                 label="Manifestazioni"
                 id="manifestazioni"
                 checked={article.categories.includes("manifestazioni")}
-                onChange={e => handleCategoriesChange("manifestazioni", e.target.checked)}
+                onChange={e => {
+                  if (hasAttemptedSubmit && validated.categories === false && e.target.checked === true) {
+                    setValidated({ ...validated, categories: true });
+                  } else if (
+                    hasAttemptedSubmit &&
+                    validated.categories === true &&
+                    e.target.checked === false &&
+                    article.categories.length === 1
+                  ) {
+                    setValidated({ ...validated, categories: false });
+                  }
+                  handleCategoriesChange("manifestazioni", e.target.checked);
+                }}
+                className={hasAttemptedSubmit ? (validated.categories ? "validated" : "invalid") : ""}
               />
               <Form.Check
                 type="checkbox"
                 label="Rassegna stampa"
                 id="rassegnaStampa"
                 checked={article.categories.includes("rassegna stampa")}
-                onChange={e => handleCategoriesChange("rassegna stampa", e.target.checked)}
+                onChange={e => {
+                  if (hasAttemptedSubmit && validated.categories === false && e.target.checked === true) {
+                    setValidated({ ...validated, categories: true });
+                  } else if (
+                    hasAttemptedSubmit &&
+                    validated.categories === true &&
+                    e.target.checked === false &&
+                    article.categories.length === 1
+                  ) {
+                    setValidated({ ...validated, categories: false });
+                  }
+                  handleCategoriesChange("rassegna stampa", e.target.checked);
+                }}
+                className={hasAttemptedSubmit ? (validated.categories ? "validated" : "invalid") : ""}
               />
             </Form.Group>
+            <hr className="d-lg-none mt-4 mb-3" />
           </Col>
           <Col lg="3">
-            <Form.Group className="mb-3" controlId="tags">
-              <Form.Label>Tags</Form.Label>
+            <Form.Group className="mb-3 position-relative" controlId="tags">
+              <Form.Label className="fw-semibold">Tags</Form.Label>
               <Form.Control
                 placeholder="Inserisci un nuovo tag"
                 type="text"
@@ -191,7 +441,33 @@ export default function AddArticle() {
                 value={newTag}
                 onChange={handleNewTagChange}
                 onKeyDown={addNewTag}
+                onClick={() => setShowDropdown(true)}
+                onBlur={() => {
+                  setTimeout(() => setShowDropdown(false), 50);
+                }}
               />
+              <Collapse in={showDropdown}>
+                <ListGroup className="position-absolute z-3" style={{ top: "100%", width: "100%" }}>
+                  <ListGroup.Item className="fw-semibold px-2 py-1 tag-suggestion-label" style={{ fontSize: "0.8rem" }}>
+                    tags più usati &gt;&gt;&gt;
+                  </ListGroup.Item>
+                  {mostUsedTags.map(tag => (
+                    <ListGroup.Item
+                      style={{ fontSize: "0.8rem" }}
+                      className={`px-2 py-1 tag-suggestion ${article.tags.includes(tag) ? "d-none" : ""}`}
+                      key={tag}
+                      onClick={() => {
+                        setArticle({
+                          ...article,
+                          tags: [...article.tags, tag],
+                        });
+                      }}
+                    >
+                      {tag}
+                    </ListGroup.Item>
+                  ))}
+                </ListGroup>
+              </Collapse>
             </Form.Group>
             <div className="d-flex gap-2 flex-wrap">
               {article.tags.map(tag => (
@@ -203,44 +479,70 @@ export default function AddArticle() {
                   key={tag}
                 >
                   {tag}
-                  <CloseButton onClick={() => handleRemoveTag(tag)} />
+                  <CloseButton className="ms-2" onClick={() => handleRemoveTag(tag)} />
                 </Button>
               ))}
             </div>
           </Col>
         </Row>
-        <Row>
+        {/* // todo file compression? */}
+        <Row className="mb-3">
           <Col>
             <Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
-              <Form.Label>Contenuto</Form.Label>
-              <Form.Control
-                className="w-100"
-                as="textarea"
-                rows={10}
-                value={article.content}
-                onChange={e => handleInputChange("content", e.target.value)}
-              />
+              <Form.Label className="fw-semibold">Contenuto</Form.Label>
+              <div className="w-100">
+                {/* // ? semibold? */}
+                <ReactQuill
+                  value={article.content}
+                  onChange={content => {
+                    if (hasAttemptedSubmit && validated.content === false && stripHtml(content).length > 0) {
+                      setValidated({ ...validated, content: true });
+                    } else if (
+                      hasAttemptedSubmit &&
+                      validated.content === true &&
+                      stripHtml(content).length === 0 &&
+                      img === null &&
+                      pdf === null
+                    ) {
+                      setValidated({ ...validated, content: false });
+                    }
+                    handleInputChange("content", content);
+                  }}
+                  modules={modules}
+                  className={hasAttemptedSubmit ? (validated.content ? "validated" : "invalid") : ""}
+                />
+              </div>
             </Form.Group>
           </Col>
         </Row>
         <Row>
-          <Form.Group controlId="formFile" className="mb-3">
-            <Form.Label>Aggiungi un'immagine</Form.Label>
-            <Form.Control type="file" style={{ width: "auto" }} onChange={handleImgChange} />
-          </Form.Group>
-          {/* <Form.Group controlId="formFile" className="mb-3">
-            <Form.Label>Aggiungi un file pdf</Form.Label>
+          <Form.Group controlId="formFile" className="mb-4">
+            <Form.Label className="fw-semibold">Aggiungi un'immagine</Form.Label>
             <Form.Control
+              accept=".jpeg, .jpg, .png"
               type="file"
               style={{ width: "auto" }}
-              onChange={e => handleInputChange("pdf", e.target.value)}
+              onChange={handleImgChange}
+              className={hasAttemptedSubmit ? (validated.content ? "validated" : "invalid") : ""}
             />
-          </Form.Group> */}
+          </Form.Group>
+          <Form.Group controlId="formFile" className="mb-4">
+            <Form.Label className="fw-semibold">Aggiungi un file pdf</Form.Label>
+            <Form.Control
+              accept=".pdf"
+              type="file"
+              style={{ width: "auto" }}
+              onChange={handlePdfChange}
+              className={hasAttemptedSubmit ? (validated.content ? "validated" : "invalid") : ""}
+            />
+          </Form.Group>
         </Row>
         {/* <Button variant="danger" type="button" onClick={() => setShowPreview(true)}>
           Anteprima
         </Button> */}
-        <Button variant="danger" type="submit">
+        {/* // todo add confirm */}
+        {/* // todo style the btn */}
+        <Button variant="danger" type="submit" className="mt-3">
           Aggiungi articolo
         </Button>
       </Form>
@@ -254,7 +556,20 @@ export default function AddArticle() {
           </Modal.Body>
         </Modal>
       )} */}
-      <OutcomeToast showToast={showOutcomeToast} />
+      {/* // todo add placeholder */}
+      <Alert
+        variant={`${error.hasError ? "danger" : "success"}`}
+        className="mt-5"
+        onClose={() => setShowOutcome(false)}
+        dismissible
+      >
+        <Alert.Heading className="d-flex align-items-center">
+          <i className={`bi ${error.hasError ? "bi-x" : "bi-check2"} fs-1 me-3`}></i>
+          <span>{error.hasError ? "Errore!" : "Successo!"}</span>
+        </Alert.Heading>
+        <p>{error.hasError ? "L'operazione non è andata a buon fine" : "Operazione effettuata con successo."}</p>
+      </Alert>
+      {/* <OutcomeToast showToast={showOutcomeToast} isSuccess={true} /> */}
     </>
   );
 }

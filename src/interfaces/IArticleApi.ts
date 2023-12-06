@@ -7,7 +7,9 @@ export interface IArticleApiResponse {
     title: string;
     author: IAuthor;
     date: string;
+    eventDate: string;
     content: string;
+    section: string;
     categories: ICategory[];
     tags: ITag[];
     img: string,

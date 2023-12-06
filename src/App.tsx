@@ -112,7 +112,7 @@ function App() {
             element={<RouteWrapper title="Info cookies" content={<InfoCookies />} />}
           />
           <Route
-            path="auth/login"
+            path="/auth/login"
             element={<RouteWrapper title="Login" content={<AdminLogin />} breadcrumb={false} />}
           />
           <Route

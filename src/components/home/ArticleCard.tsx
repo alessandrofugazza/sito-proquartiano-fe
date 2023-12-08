@@ -24,14 +24,12 @@ function ArticleCard({ imgSrc, categories, title, date, author, tags, descriptio
     imgSrc = defaultImg;
   }
   return (
-    <Card className="shadow h-100 article-card" onClick={() => navigate(`/articoli/${articleId}`)}>
-      {imgSrc !== "big-card-no-image" && (
-        <Card.Img
-          variant="top"
-          src={imgSrc}
-          className={`img-fluid p-2 border-bottom ${imgSrc === defaultImg ? "default-img" : ""}`}
-        />
-      )}
+    <Card className={`shadow h-100 article-card `} onClick={() => navigate(`/articoli/${articleId}`)}>
+      <Card.Img
+        variant="top"
+        src={imgSrc}
+        className={`img-fluid p-2 border-bottom ${imgSrc === defaultImg ? "default-img" : ""}`}
+      />
       <Card.Body className="d-flex flex-column">
         <ArticleCategories categories={categories} />
         <Card.Title className="my-2">{title}</Card.Title>

@@ -19,7 +19,7 @@ export default function NextDate() {
   const formatNextEventDate = (dateString: string) => {
     const date = new Date(dateString);
     // learn
-    const options: Intl.DateTimeFormatOptions = { day: "numeric", month: "long" };
+    const options: Intl.DateTimeFormatOptions = { day: "numeric", month: "long", year: "numeric" };
     const formattedDate = new Intl.DateTimeFormat("it-IT", options).format(date);
 
     return formattedDate;

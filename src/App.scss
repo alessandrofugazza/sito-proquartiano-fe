@@ -49,25 +49,71 @@
     color: #494949c9;
   }
 
-  .big-card img {
-    max-height: 400px;
-    object-fit: cover;
-  }
 
-  .small-card img {
-    max-height: 200px;
-    object-fit: contain;
+  .recent-events {
+    img {
+      object-fit: contain;
+      max-height: 200px;
 
-    &:not(.default-img) {
-      object-position: top;
-      object-fit: cover;
+      &:not(.default-img) {
+        object-position: top;
+        object-fit: cover;
+      }
 
+      @media (max-width: 769px) {
+        &.default-img {
+          display: none;
+        }
+      }
     }
 
+    .big-card {
+      @media (min-width: 768px) {
+        img {
+          max-height: 400px;
+
+          &.default-img {
+            display: none;
+          }
+        }
+
+      }
+    }
+
+    .article-card {
+
+      @media(max-width: 769px) {
+        .default-img {
+          display: none;
+
+        }
+      }
+
+      transition: border-color 0.3s ease,
+      box-shadow 0.3s ease;
+
+      &:hover {
+        cursor: pointer;
+        border-color: #666;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+      }
+
+      .card-text {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+      }
+
+
+    }
   }
 
-  // align-items: center;
-  // justify-content: center;
-  // font-size: calc(10px + 2vmin);
-  // color: white;
 }
+
+
+// align-items: center;
+// justify-content: center;
+// font-size: calc(10px + 2vmin);
+// color: white;

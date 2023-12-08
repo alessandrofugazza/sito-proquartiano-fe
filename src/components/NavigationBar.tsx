@@ -65,7 +65,7 @@ function NavigationBar() {
             <ButtonGroup vertical>
               {/* // todo BAD but works for 0.1  */}
               {localStorage.getItem("loginToken") ? (
-                <Button variant="link" className="text-start" onClick={() => navigate("admins/profilo")}>
+                <Button variant="link" className="text-start" onClick={() => navigate("admins")}>
                   Area amministratore
                 </Button>
               ) : (

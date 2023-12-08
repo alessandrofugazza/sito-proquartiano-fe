@@ -116,19 +116,25 @@ function App() {
             element={<RouteWrapper title="Login" content={<AdminLogin />} breadcrumb={false} />}
           />
           <Route
-            path="/admins/profilo"
-            element={<RouteWrapper title="Pagina di profilo" breadcrumb={false} content={<Profilo />} />}
+            path="/admins"
+            element={
+              <RouteWrapper
+                title="Pagina di profilo"
+                description={`Benvenuto, ${localStorage.getItem("username")}`}
+                content={<Profilo />}
+              />
+            }
           />
           <Route
-            path="/admins/profilo/modifica"
-            element={<RouteWrapper title="Pagina di profilo" breadcrumb={false} content={<EditAccount />} />}
+            path="/admins/modifica"
+            element={<RouteWrapper title="Pagina di profilo" content={<EditAccount />} />}
           />
           <Route
-            path="/admins/profilo/articoli"
-            element={<RouteWrapper title="Articoli pubblicati" breadcrumb={false} content={<PublishedArticles />} />}
+            path="/admins/articoli"
+            element={<RouteWrapper title="Articoli pubblicati" content={<PublishedArticles />} />}
           />
           <Route
-            path="/admins/profilo/aggiungi-articolo"
+            path="/admins/aggiungi-articolo"
             element={<RouteWrapper title="Aggiungi articolo" content={<AddArticle />} />}
           />
           <Route path="/articoli/:id" element={<Article />} />

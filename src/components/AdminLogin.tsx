@@ -36,6 +36,7 @@ export default function AdminLogin() {
       if (re.ok) {
         const rePayload = await re.json();
         localStorage.setItem("loginToken", rePayload.accessToken);
+        localStorage.setItem("username", rePayload.username);
       } else {
         setHasError(true);
       }

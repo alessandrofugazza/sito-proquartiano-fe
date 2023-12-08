@@ -49,6 +49,23 @@
     color: #494949c9;
   }
 
+  .big-card img {
+    max-height: 400px;
+    object-fit: cover;
+  }
+
+  .small-card img {
+    max-height: 200px;
+    object-fit: contain;
+
+    &:not(.default-img) {
+      object-position: top;
+      object-fit: cover;
+
+    }
+
+  }
+
   // align-items: center;
   // justify-content: center;
   // font-size: calc(10px + 2vmin);

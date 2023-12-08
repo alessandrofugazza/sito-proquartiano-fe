@@ -24,7 +24,7 @@ function ArticleCard({ imgSrc, categories, title, date, author, tags, descriptio
     imgSrc = defaultImg;
   }
   return (
-    <Card className="shadow h-100 article-card">
+    <Card className="shadow h-100 article-card" onClick={() => navigate(`/articoli/${articleId}`)}>
       {imgSrc !== "big-card-no-image" && (
         <Card.Img
           variant="top"
@@ -36,11 +36,16 @@ function ArticleCard({ imgSrc, categories, title, date, author, tags, descriptio
         <ArticleCategories categories={categories} />
         <Card.Title className="my-2">{title}</Card.Title>
         <ArticleDateAuthorTag date={date} author={author} tags={tags} />
-        <Card.Text as="div" className="my-3">
+        <Card.Text as="div" className="mt-3 mb-4">
           <div style={{ whiteSpace: "pre-line" }}>{stripHtml(description).trim()}</div>
         </Card.Text>
         <div className="text-end mt-auto">
-          <Button variant="danger" size="sm" onClick={() => navigate(`/articoli/${articleId}`)}>
+          <Button
+            variant="danger"
+            className="navigation-button"
+            size="sm"
+            onClick={() => navigate(`/articoli/${articleId}`)}
+          >
             Leggi tutto
           </Button>
         </div>

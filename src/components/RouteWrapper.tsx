@@ -85,7 +85,7 @@ function RouteWrapper({ title, description = "", content, breadcrumb = true, isA
             <hr className="my-4" />
           </div>
         )}
-        <div className="mt-3 mb-4">{content}</div>
+        <div className="mt-3 mb-5">{content}</div>
         {title && <NavigationButtons />}
       </Container>
     </main>

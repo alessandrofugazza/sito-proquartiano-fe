@@ -7,8 +7,8 @@ export default function ArticleContent() {
 
   return (
     <div>
-      <div dangerouslySetInnerHTML={{ __html: selectedArticle.content }} />
-      <img src={selectedArticle.img} alt="" className="img-fluid" />
+      <img src={selectedArticle.img} alt="" className="img-fluid d-block mx-auto" style={{ maxHeight: "100vh" }} />
+      <div dangerouslySetInnerHTML={{ __html: selectedArticle.content }} className="my-5" />
       {selectedArticle.pdf && (
         <embed
           src={selectedArticle.pdf.replace("http://", "https://")}

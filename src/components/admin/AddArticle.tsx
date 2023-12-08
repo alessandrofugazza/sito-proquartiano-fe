@@ -58,7 +58,7 @@ export default function AddArticle() {
     content: false,
     categories: false,
   });
-  const [showOutcomeToast, setShowOutcomeToast] = useState(false);
+  // const [showOutcomeToast, setShowOutcomeToast] = useState(false);
   const [showDropdown, setShowDropdown] = useState(false);
   const modules = {
     toolbar: [
@@ -80,7 +80,6 @@ export default function AddArticle() {
   const titleValidationCheck = () => {
     const isTitleBlank = article.title.trim().length === 0;
     if (isTitleBlank) {
-      window.alert("title ng");
       setValidated({ ...validated, title: false });
       return false;
     }
@@ -91,7 +90,6 @@ export default function AddArticle() {
   const contentValidationCheck = () => {
     const isContentValid = article.content.trim().length > 0 || img !== null || pdf !== null;
     if (!isContentValid) {
-      window.alert("content ng");
       setValidated({ ...validated, content: false });
       return false;
     }
@@ -102,7 +100,6 @@ export default function AddArticle() {
   const categoriesValidationCheck = () => {
     const isCategoriesEmpty = article.categories.length === 0;
     if (isCategoriesEmpty) {
-      window.alert("categories ng");
       setValidated({ ...validated, categories: false });
       return false;
     }
@@ -173,7 +170,7 @@ export default function AddArticle() {
     const data = await re.json();
     setMostUsedTags(data);
   };
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState({
     hasError: false,
     errorMessage: "",
@@ -200,7 +197,8 @@ export default function AddArticle() {
     });
 
     if (!isTitleValid || !isContentValid || !areCategoriesValid) {
-      window.alert("Validation failed");
+      setError({ hasError: true, errorMessage: "" });
+      setShowOutcome(true);
       return;
     }
 
@@ -212,7 +210,9 @@ export default function AddArticle() {
     if (pdf) {
       formData.append("pdf", pdf);
     }
-
+    setShowOutcome(false);
+    setIsLoading(true);
+    setError({ hasError: false, errorMessage: "" });
     try {
       const re = await fetch(`${process.env.REACT_APP_API_URL}/articoli`, {
         method: "POST",
@@ -223,8 +223,8 @@ export default function AddArticle() {
       });
       if (re.ok) {
         console.log("done");
-        setShowOutcomeToast(true);
-        setTimeout(() => setShowOutcomeToast(false), 3000);
+        // setShowOutcomeToast(true);
+        // setTimeout(() => setShowOutcomeToast(false), 3000);
         // todo fix form reset. I HATE THIS
         setArticle({
           title: "",
@@ -248,9 +248,10 @@ export default function AddArticle() {
       });
     } finally {
       setIsLoading(false);
+      setShowOutcome(true);
     }
   };
-  const [showOutcome, setShowOutcome] = useState(true);
+  const [showOutcome, setShowOutcome] = useState(false);
 
   const addNewTag = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
@@ -432,7 +433,9 @@ export default function AddArticle() {
           </Col>
           <Col lg="3">
             <Form.Group className="mb-3 position-relative" controlId="tags">
-              <Form.Label className="fw-semibold">Tags</Form.Label>
+              <Form.Label>
+                <span className="fw-semibold">Tags</span> (opzionale)
+              </Form.Label>
               <Form.Control
                 placeholder="Inserisci un nuovo tag"
                 type="text"
@@ -445,6 +448,7 @@ export default function AddArticle() {
                 onBlur={() => {
                   setTimeout(() => setShowDropdown(false), 50);
                 }}
+                autoComplete="off"
               />
               <Collapse in={showDropdown}>
                 <ListGroup className="position-absolute z-3" style={{ top: "100%", width: "100%" }}>
@@ -542,7 +546,7 @@ export default function AddArticle() {
         </Button> */}
         {/* // todo add confirm */}
         {/* // todo style the btn */}
-        <Button variant="danger" type="submit" className="mt-3">
+        <Button variant="danger" type="submit" className="mt-3 navigation-button">
           Aggiungi articolo
         </Button>
       </Form>
@@ -557,18 +561,20 @@ export default function AddArticle() {
         </Modal>
       )} */}
       {/* // todo add placeholder */}
-      <Alert
-        variant={`${error.hasError ? "danger" : "success"}`}
-        className="mt-5"
-        onClose={() => setShowOutcome(false)}
-        dismissible
-      >
-        <Alert.Heading className="d-flex align-items-center">
-          <i className={`bi ${error.hasError ? "bi-x" : "bi-check2"} fs-1 me-3`}></i>
-          <span>{error.hasError ? "Errore!" : "Successo!"}</span>
-        </Alert.Heading>
-        <p>{error.hasError ? "L'operazione non è andata a buon fine" : "Operazione effettuata con successo."}</p>
-      </Alert>
+      {showOutcome && (
+        <Alert
+          variant={`${error.hasError ? "danger" : "success"}`}
+          className="mt-5"
+          onClose={() => setShowOutcome(false)}
+          dismissible
+        >
+          <Alert.Heading className="d-flex align-items-center">
+            <i className={`bi ${error.hasError ? "bi-x" : "bi-check2"} fs-1 me-3`}></i>
+            <span>{error.hasError ? "Errore!" : "Successo!"}</span>
+          </Alert.Heading>
+          <p>{error.hasError ? "L'operazione non è andata a buon fine" : "Operazione effettuata con successo."}</p>
+        </Alert>
+      )}
       {/* <OutcomeToast showToast={showOutcomeToast} isSuccess={true} /> */}
     </>
   );

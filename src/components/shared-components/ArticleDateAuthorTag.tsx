@@ -18,8 +18,8 @@ function ArticleDateAuthorTag({ date, author, tags }: ArticleDateAuthorTagProps)
   });
 
   return (
-    <div className="d-flex gap-2 date-author-tags">
-      <div>
+    <div className="d-flex flex-wrap  date-author-tags">
+      <div style={{ marginRight: "0.8em" }}>
         <i className="bi bi-person-fill"></i>
         <span
           onClick={e => {
@@ -30,7 +30,7 @@ function ArticleDateAuthorTag({ date, author, tags }: ArticleDateAuthorTagProps)
           {author}
         </span>
       </div>
-      <div>
+      <div style={{ marginRight: "0.8em" }}>
         <i className="bi bi-calendar-event"></i>
         <span className="date">{formattedDate}</span>
       </div>

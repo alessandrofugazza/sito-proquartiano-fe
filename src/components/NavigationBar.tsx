@@ -63,9 +63,16 @@ function NavigationBar() {
           </Offcanvas.Header>
           <Offcanvas.Body>
             <ButtonGroup vertical>
-              <Button variant="link" className="text-start" onClick={() => navigate("auth/login")}>
-                Login / Registrazione
-              </Button>
+              {/* // todo BAD but works for 0.1  */}
+              {localStorage.getItem("loginToken") ? (
+                <Button variant="link" className="text-start" onClick={() => navigate("admins/profilo")}>
+                  Area amministratore
+                </Button>
+              ) : (
+                <Button variant="link" className="text-start" onClick={() => navigate("auth/login")}>
+                  Login / Registrazione
+                </Button>
+              )}
               <Button
                 variant="link"
                 className="text-start"

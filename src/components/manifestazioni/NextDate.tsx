@@ -29,7 +29,7 @@ export default function NextDate() {
       <h2 className="h3">{`Prossima data: ${nextEvent ? formatNextEventDate(nextEvent.eventDate) : ""}`}</h2>
       {nextEvent ? (
         <>
-          <div>
+          <div className="big-card">
             <ArticleCard
               imgSrc={nextEvent.img ? nextEvent.img : "big-card-no-image"}
               date={nextEvent.date}

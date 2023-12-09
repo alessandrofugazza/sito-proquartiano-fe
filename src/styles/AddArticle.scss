@@ -39,3 +39,15 @@
         background-color: rgb(248, 249, 250);
     }
 }
+
+.form-category label {
+    user-select: none;
+}
+
+.form-category label,
+// todo lil space between label and checkbox
+.form-category input,
+#form-date,
+#form-section {
+    cursor: pointer;
+}

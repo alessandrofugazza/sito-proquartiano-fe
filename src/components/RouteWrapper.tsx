@@ -67,7 +67,9 @@ function RouteWrapper({ title, description = "", content, breadcrumb = true, isA
             </OverlayTrigger>
             {breadcrumb && <MyBreadcrumb />}
             <header className="position-relative">
-              <h1 className="mt-5 mb-3">{title}</h1>
+              <h1 className=" mb-3" style={{ marginTop: "1em" }}>
+                {title}
+              </h1>
               {isArticle && (
                 <>
                   <ArticleCategories categories={selectedArticle.categories.map(category => category.name)} />

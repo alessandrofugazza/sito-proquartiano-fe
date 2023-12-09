@@ -29,46 +29,41 @@ export default function SingleFilteredResult({
   description,
   articleId,
 }: IArticleProps) {
-  const navigate = useNavigate();
   if (!imgSrc) {
     imgSrc = defaultImg;
   }
-
+  const navigate = useNavigate();
   // ? link or navigate
   return (
     <Col xs={12}>
       {/* // todo responsive cahnges to img top */}
-      <Card className="flex-row shadow single-filtered-result" style={{ height: "200px" }}>
+      <Card
+        className="flex-row shadow single-filtered-result"
+        style={{ height: "210px" }}
+        onClick={() => navigate(`${articleId}`)}
+      >
         <Col className="d-flex" xs={2}>
-          <Link className="d-flex" to={`/articoli/${articleId}`}>
-            <Card.Img
-              variant="top"
-              src={imgSrc}
-              className="img-fluid "
-              style={{ objectFit: "contain", padding: "10px" }}
-              // style={{ objectFit: "contain", padding: "10px", width: "18%" }}
-            />
-          </Link>
+          <Card.Img
+            variant="top"
+            src={imgSrc}
+            className="img-fluid "
+            style={{ objectFit: "contain", padding: "10px" }}
+            // style={{ objectFit: "contain", padding: "10px", width: "18%" }}
+          />
         </Col>
         <Col xs={10} className="d-flex">
           <Card.Body className="d-flex flex-column ">
-            <Card.Title>
-              <Link to={`/articoli/${articleId}`} style={{ color: "initial" }}>
-                {title}
-              </Link>
-            </Card.Title>
+            <Card.Title>{title}</Card.Title>
             <ArticleCategories categories={categories} />
             <ArticleDateAuthorTag date={date} author={author} tags={tags} />
-            <Card.Text as="div">
-              {/* todo understand what this style does */}
+            <Card.Text as="div" className="my-1">
+              {/* // todo understand what this style does */}
               <div style={{ whiteSpace: "pre-line" }}>{stripHtml(description)}</div>
             </Card.Text>
             <div className="mt-auto text-end">
-              <Link to={`/articoli/${articleId}`}>
-                <Button variant="danger" size="sm">
-                  Leggi tutto
-                </Button>
-              </Link>
+              <Button variant="danger" size="sm" className="navigation-button">
+                Leggi tutto
+              </Button>
             </div>
           </Card.Body>
         </Col>

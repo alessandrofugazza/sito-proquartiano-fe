@@ -1,10 +1,11 @@
 import Form from "react-bootstrap/Form";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Collapse, InputGroup, ListGroup, Modal } from "react-bootstrap";
 import { IArticlesApiResponse } from "../../interfaces/IArticleApi";
 import SingleFilteredResult from "../filtered-results/SingleFilteredResult";
+import { useLocation, useNavigate } from "react-router";
 
 export default function Search() {
   const [isLoading, setIsLoading] = useState(false);
@@ -35,10 +36,15 @@ export default function Search() {
     } catch (error) {
       setHasError(true);
     } finally {
+      setQuery("");
       setIsLoading(false);
     }
   };
-
+  const navigate = useNavigate();
+  const location = useLocation();
+  useEffect(() => {
+    setLgShow(false);
+  }, [location.search]);
   return (
     <>
       <Form className="ms-auto mt-2 mb-3 my-md-0" onSubmit={handleSubmit}>
@@ -71,6 +77,7 @@ export default function Search() {
                 </Col> */}
         </Row>
       </Form>
+      {/* // todo clicking on articletagcategories doesnt close modal if url doesnt change */}
       <Modal size="lg" show={lgShow} onHide={() => setLgShow(false)} aria-labelledby="example-modal-sizes-title-lg">
         <Modal.Header closeButton className="px-4">
           <Modal.Title id="example-modal-sizes-title-lg">{`Risultati per "${search}"`}</Modal.Title>
@@ -78,7 +85,12 @@ export default function Search() {
         <Modal.Body className="px-4">
           {foundArticles?.content.map(article => {
             return (
-              <div className="my-4" key={article.id}>
+              <div
+                className="my-4"
+                key={article.id}
+                // todo aweful
+                onClick={() => navigate(`articoli/${article.id}`)}
+              >
                 <SingleFilteredResult
                   key={article.id}
                   imgSrc={article.img}

@@ -25,7 +25,7 @@ export default function NextDate() {
     return formattedDate;
   };
   return (
-    <>
+    <div className="manifestazione">
       <h2 className="h3">{`Prossima data: ${nextEvent ? formatNextEventDate(nextEvent.eventDate) : ""}`}</h2>
       {nextEvent ? (
         <>
@@ -42,7 +42,6 @@ export default function NextDate() {
               pdfSrc=""
             />
           </div>
-          <UltimiEventi />
         </>
       ) : (
         <Alert variant="light">
@@ -50,6 +49,6 @@ export default function NextDate() {
           <p>La data della prossima manifestazione non è ancora stata stabilita.</p>
         </Alert>
       )}
-    </>
+    </div>
   );
 }

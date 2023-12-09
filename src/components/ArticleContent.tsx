@@ -7,8 +7,13 @@ export default function ArticleContent() {
 
   return (
     <div>
-      <img src={selectedArticle.img} alt="" className="img-fluid d-block mx-auto" style={{ maxHeight: "100vh" }} />
-      <div dangerouslySetInnerHTML={{ __html: selectedArticle.content }} className="my-5" />
+      {selectedArticle.img && (
+        <img src={selectedArticle.img} alt="" className="img-fluid d-block mx-auto" style={{ maxHeight: "100vh" }} />
+      )}
+      <div
+        dangerouslySetInnerHTML={{ __html: selectedArticle.content }}
+        className={`${selectedArticle.img ? "mt-5" : ""} ${selectedArticle.pdf ? "mb-5" : ""} `}
+      />
       {selectedArticle.pdf && (
         <embed
           src={selectedArticle.pdf.replace("http://", "https://")}

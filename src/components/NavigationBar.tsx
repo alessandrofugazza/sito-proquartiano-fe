@@ -80,22 +80,36 @@ function NavigationBar() {
                 aria-controls="example-collapse-text"
                 aria-expanded={open}
               >
-                Preferiti<i className="bi bi-caret-down-fill"></i>
+                <div>
+                  <span>Preferiti</span>
+                  {/* // ? use ::after */}
+                  <i className="bi bi-caret-down-fill ms-1" style={{ fontSize: "0.8rem" }}></i>
+                </div>
               </Button>
               <Collapse in={open}>
                 <div id="example-collapse-text px-0 ">
                   {/* // todo where the fuck is the left padding coming from */}
                   <ButtonGroup vertical className="ps-2 border-start">
-                    {favorites.map(favorite => (
-                      <Button
-                        onClick={() => navigate(favorite.url)}
-                        variant="link"
-                        key={favorite.url}
-                        className="text-start"
-                      >
-                        {favorite.title}
-                      </Button>
-                    ))}
+                    {favorites.length > 0 ? (
+                      favorites.map(favorite => (
+                        <Button
+                          onClick={() => navigate(favorite.url)}
+                          variant="link"
+                          key={favorite.url}
+                          className="text-start"
+                        >
+                          {favorite.title}
+                        </Button>
+                      ))
+                    ) : (
+                      // todo this
+                      <p>
+                        <Button variant="light" className="text-start">
+                          Per aggiungere una pagina ai preferiti, cliccare sulla stellina in alto a destra presente in
+                          ogni pagina
+                        </Button>
+                      </p>
+                    )}
                   </ButtonGroup>
                 </div>
               </Collapse>

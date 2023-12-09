@@ -366,7 +366,9 @@ export default function AddArticle() {
                   }
                   handleCategoriesChange("associazione", e.target.checked);
                 }}
-                className={hasAttemptedSubmit ? (validated.categories ? "validated" : "invalid") : ""}
+                className={`form-category ${
+                  hasAttemptedSubmit ? (validated.categories ? "validated" : "invalid") : ""
+                }`}
               />
               <Form.Check
                 type="checkbox"
@@ -386,7 +388,9 @@ export default function AddArticle() {
                   }
                   handleCategoriesChange("concorso cori", e.target.checked);
                 }}
-                className={hasAttemptedSubmit ? (validated.categories ? "validated" : "invalid") : ""}
+                className={`form-category ${
+                  hasAttemptedSubmit ? (validated.categories ? "validated" : "invalid") : ""
+                }`}
               />
               <Form.Check
                 type="checkbox"
@@ -406,7 +410,9 @@ export default function AddArticle() {
                   }
                   handleCategoriesChange("manifestazioni", e.target.checked);
                 }}
-                className={hasAttemptedSubmit ? (validated.categories ? "validated" : "invalid") : ""}
+                className={`form-category ${
+                  hasAttemptedSubmit ? (validated.categories ? "validated" : "invalid") : ""
+                }`}
               />
               <Form.Check
                 type="checkbox"
@@ -426,7 +432,9 @@ export default function AddArticle() {
                   }
                   handleCategoriesChange("rassegna stampa", e.target.checked);
                 }}
-                className={hasAttemptedSubmit ? (validated.categories ? "validated" : "invalid") : ""}
+                className={`form-category ${
+                  hasAttemptedSubmit ? (validated.categories ? "validated" : "invalid") : ""
+                }`}
               />
             </Form.Group>
             <hr className="d-lg-none mt-4 mb-3" />

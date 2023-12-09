@@ -17,7 +17,26 @@ export default function FilteredResults({ title = "" }: IFilteredResultsProps) {
   const [hasError, setHasError] = useState(false);
   const location = useLocation();
   const [isLastPage, setIsLastPage] = useState(false);
-
+  const queryParams = new URLSearchParams(location.search);
+  const tag = queryParams.get("tag");
+  const categoria = queryParams.get("categoria");
+  const autore = queryParams.get("autore");
+  function titleCase(str: string) {
+    return str
+      .split(" ")
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(" ");
+  }
+  // todo STUPID HACKS FOR 0.1
+  let queryParamTitle = "";
+  if (tag) {
+    queryParamTitle = `Tag: ${tag}`;
+  } else if (categoria) {
+    const titleCasedCategory = titleCase(categoria);
+    queryParamTitle = `Categoria: ${titleCasedCategory}`;
+  } else if (autore) {
+    queryParamTitle = `Autore: ${autore}`;
+  }
   // const [fetchPage, setFetchPage] = useState(0);
 
   const fetchArticlesData = async () => {
@@ -52,7 +71,9 @@ export default function FilteredResults({ title = "" }: IFilteredResultsProps) {
   }, [location.search]);
   return (
     <>
-      {title && <h1>{title}</h1>}
+      <div className="d-flex justify-content-center mt-3">
+        {title ? <h1>{title}</h1> : <h1 className="h2 mb-5">{queryParamTitle}</h1>}
+      </div>
       <Row className="gy-4">
         {articlesData &&
           !isLoading &&

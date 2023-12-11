@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { IArticleApiResponse } from "../../interfaces/IArticleApi";
-import { Button, ButtonGroup } from "react-bootstrap";
+import { Button, ButtonGroup, Modal, ModalProps } from "react-bootstrap";
 import { useNavigate } from "react-router";
 import "../../styles/PublishedArticles.scss";
 
@@ -8,8 +8,8 @@ export default function PublishedArticles() {
   const [articlesData, setArticlesData] = useState<IArticleApiResponse[] | null>(null);
   const [isLastPage, setIsLastPage] = useState(false);
   const navigate = useNavigate();
-  const deleteArticle = async (id: string) => {
-    const re = await fetch(`${process.env.REACT_APP_API_URL}/articoli/${id}`, {
+  const deleteArticle = async () => {
+    const re = await fetch(`${process.env.REACT_APP_API_URL}/articoli/${selectedArticle}`, {
       method: "DELETE",
       headers: {
         Authorization: `Bearer ${localStorage.getItem("loginToken")}`,
@@ -35,6 +35,37 @@ export default function PublishedArticles() {
   useEffect(() => {
     fetchArticles();
   }, []);
+  const [selectedArticle, setSelectedArticle] = useState("");
+  function MyVerticallyCenteredModal(props: ModalProps) {
+    return (
+      <Modal {...props} size="lg" aria-labelledby="contained-modal-title-vcenter" centered>
+        <Modal.Header closeButton>
+          <Modal.Title id="contained-modal-title-vcenter">Conferma</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <p>Sei sicuro di voler effettuare questa operazione?</p>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="primary" onClick={props.onHide}>
+            Annulla
+          </Button>
+          <Button
+            variant="danger"
+            onClick={() => {
+              deleteArticle();
+              if (props.onHide) {
+                props.onHide();
+              }
+            }}
+          >
+            Conforma
+          </Button>
+        </Modal.Footer>
+      </Modal>
+    );
+  }
+  const [modalShow, setModalShow] = useState(false);
+
   return (
     <>
       <ButtonGroup className="flex-column">
@@ -60,13 +91,15 @@ export default function PublishedArticles() {
                 className="bi bi-x fs-3"
                 onClick={e => {
                   e.stopPropagation();
-                  deleteArticle(article.id);
+                  setSelectedArticle(article.id);
+                  setModalShow(true);
                 }}
               ></i>
             </span>
           </Button>
         ))}
       </ButtonGroup>
+      <MyVerticallyCenteredModal show={modalShow} onHide={() => setModalShow(false)} />
     </>
   );
 }

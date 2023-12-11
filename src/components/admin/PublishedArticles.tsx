@@ -8,7 +8,14 @@ export default function PublishedArticles() {
   const [articlesData, setArticlesData] = useState<IArticleApiResponse[] | null>(null);
   const [isLastPage, setIsLastPage] = useState(false);
   const navigate = useNavigate();
-
+  const deleteArticle = async (id: string) => {
+    const re = await fetch(`${process.env.REACT_APP_API_URL}/articoli/${id}`, {
+      method: "DELETE",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("loginToken")}`,
+      },
+    });
+  };
   const fetchArticles = async () => {
     const re = await fetch(
       `${process.env.REACT_APP_API_URL}/articoli?autore=${localStorage.getItem("username")}&page=0`,
@@ -42,8 +49,20 @@ export default function PublishedArticles() {
           >
             {article.title}
             <span className="edit-buttons d-flex gap-1 align-items-center">
-              <i className="bi bi-pencil-square fs-5"></i>
-              <i className="bi bi-x fs-3"></i>
+              <i
+                className="bi bi-pencil-square fs-5"
+                onClick={e => {
+                  e.stopPropagation();
+                  navigate(`/admins/articoli/${article.id}`);
+                }}
+              ></i>
+              <i
+                className="bi bi-x fs-3"
+                onClick={e => {
+                  e.stopPropagation();
+                  deleteArticle(article.id);
+                }}
+              ></i>
             </span>
           </Button>
         ))}

@@ -29,6 +29,7 @@ import PublishedArticles from "./components/admin/PublishedArticles";
 import FilteredResults from "./components/filtered-results/FilteredResults";
 import TestPage from "./components/TestPage";
 import Manifestazione from "./components/manifestazioni/Manifestazione";
+import EditArticle from "./components/admin/EditArticle";
 
 // todo clean up the goddamn interfaces
 // todo implement overlays somewhere
@@ -132,6 +133,10 @@ function App() {
           <Route
             path="/admins/articoli"
             element={<RouteWrapper title="Articoli pubblicati" content={<PublishedArticles />} />}
+          />
+          <Route
+            path="/admins/articoli/:id"
+            element={<RouteWrapper title="Modifica articolo" content={<AddArticle />} />}
           />
           <Route
             path="/admins/aggiungi-articolo"

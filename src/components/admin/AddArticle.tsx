@@ -7,15 +7,8 @@ import OutcomeToast from "../shared-components/OutcomeToast";
 import ReactQuill from "react-quill";
 import "react-quill/dist/quill.snow.css";
 import "../../styles/AddArticle.scss";
-
-interface IArticlePostBody {
-  title: string;
-  eventDate: string;
-  content: string;
-  categories: string[];
-  tags: string[];
-  section: string;
-}
+import { IArticlePostBody } from "../../interfaces/IArticlePostBody";
+import { useParams } from "react-router";
 
 interface IValidation {
   title: boolean;
@@ -38,6 +31,40 @@ const stripHtml = (html: string) => {
 // ^ this component is a mess
 export default function AddArticle() {
   // let hasAttemptedSubmit = false;
+  const params = useParams();
+  const [hasError, setHasError] = useState(false);
+
+  // ! sometimes input fields get emptied on load
+  useEffect(() => {
+    const fetchArticleData = async () => {
+      try {
+        const re = await fetch(`${process.env.REACT_APP_API_URL}/articoli/` + params.id);
+        if (re.ok) {
+          const data = await re.json();
+          const categoryNames = data.categories.map((category: { id: string; name: string }) => category.name);
+          const tagNames = data.tags.map((tag: { id: string; name: string }) => tag.name);
+          setArticle({
+            title: data.title || "",
+            eventDate: data.eventDate || "",
+            content: data.content || "",
+            categories: categoryNames || [],
+            tags: tagNames || [],
+            section: data.section || "",
+          });
+        } else {
+          setHasError(true);
+        }
+      } catch (error) {
+        setHasError(true);
+      } finally {
+        // setIsLoading(false);
+      }
+    };
+    if (params.id) {
+      fetchArticleData();
+    }
+  }, [params.id]);
+
   const [hasAttemptedSubmit, setHasAttemptedSubmit] = useState(false);
   const [hasAlert, setHasAlert] = useState(false);
   const [alert, setAlert] = useState({ message: "", status: "", variant: "success" });
@@ -311,6 +338,7 @@ export default function AddArticle() {
                 }}
                 id="form-title"
                 className={hasAttemptedSubmit ? (validated.title ? "validated" : "invalid") : ""}
+                autoComplete="off"
               />
             </InputGroup>
             <hr className="my-0" />

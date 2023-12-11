@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { IArticleApiResponse } from "../../interfaces/IArticleApi";
 import { Button, ButtonGroup } from "react-bootstrap";
 import { useNavigate } from "react-router";
+import "../../styles/PublishedArticles.scss";
 
 export default function PublishedArticles() {
   const [articlesData, setArticlesData] = useState<IArticleApiResponse[] | null>(null);
@@ -31,13 +32,19 @@ export default function PublishedArticles() {
     <>
       <ButtonGroup className="flex-column">
         {articlesData?.map(article => (
+          // todo add tooltips
           <Button
-            onClick={() => navigate(`articoli/${article.id}`)}
+            onClick={() => navigate(`/articoli/${article.id}`)}
             variant="link"
             key={article.id}
-            className="text-start"
+            className="text-start d-flex gap-3 align-items-center"
+            style={{ height: "2em" }} // ^ fuck
           >
             {article.title}
+            <span className="edit-buttons d-flex gap-1 align-items-center">
+              <i className="bi bi-pencil-square fs-5"></i>
+              <i className="bi bi-x fs-3"></i>
+            </span>
           </Button>
         ))}
       </ButtonGroup>

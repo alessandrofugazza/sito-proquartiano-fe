@@ -1,0 +1,10 @@
+@import './variables';
+
+.edit-buttons {
+    visibility: hidden;
+    // color: $depressedGrey;
+}
+
+button:hover .edit-buttons {
+    visibility: visible;
+}

@@ -33,7 +33,14 @@ export default function AddArticle() {
   // let hasAttemptedSubmit = false;
   const params = useParams();
   const [hasError, setHasError] = useState(false);
-
+  const [incomingArticle, setIncomingArticle] = useState<IArticlePostBody>({
+    title: "",
+    eventDate: "",
+    content: "",
+    categories: [],
+    tags: [],
+    section: "",
+  });
   // ! sometimes input fields get emptied on load
   useEffect(() => {
     const fetchArticleData = async () => {
@@ -43,7 +50,7 @@ export default function AddArticle() {
           const data = await re.json();
           const categoryNames = data.categories.map((category: { id: string; name: string }) => category.name);
           const tagNames = data.tags.map((tag: { id: string; name: string }) => tag.name);
-          setArticle({
+          setIncomingArticle({
             title: data.title || "",
             eventDate: data.eventDate || "",
             content: data.content || "",
@@ -297,18 +304,71 @@ export default function AddArticle() {
     });
   };
 
+  // todo im going to hell for this
+  const [i, setI] = useState(0);
+  useEffect(() => {
+    load();
+  }, [incomingArticle, i]);
+
+  const load = () => {
+    if (i === 0) {
+      setTimeout(() => {
+        setArticle(prevArticle => ({
+          ...prevArticle,
+          title: incomingArticle.title,
+        }));
+        setI(1);
+      }, 500);
+    } else if (i === 1) {
+      setTimeout(() => {
+        setArticle(prevArticle => ({
+          ...prevArticle,
+          categories: incomingArticle.categories,
+        }));
+        setI(2);
+      }, 500);
+    } else if (i === 2) {
+      setTimeout(() => {
+        setArticle(prevArticle => ({
+          ...prevArticle,
+          tags: incomingArticle.tags,
+        }));
+        setI(3);
+      }, 500);
+    } else if (i === 3) {
+      setTimeout(() => {
+        setArticle(prevArticle => ({
+          ...prevArticle,
+          eventDate: incomingArticle.eventDate,
+        }));
+        setI(4);
+      }, 500);
+    } else if (i === 4) {
+      setTimeout(() => {
+        setArticle(prevArticle => ({
+          ...prevArticle,
+          section: incomingArticle.section,
+        }));
+        setI(5);
+      }, 500);
+    } else if (i === 5) {
+      setTimeout(() => {
+        setArticle(prevArticle => ({
+          ...prevArticle,
+          content: incomingArticle.content,
+        }));
+        setI(6);
+      }, 500);
+    }
+  };
+
   return (
     <>
       {/* <Button
         onClick={() => {
-          setArticle({
-            title: "",
-            content: "",
-            eventDate: "",
-            categories: [],
-            tags: [],
-            section: "",
-          });
+          // console.log(incomingArticle);
+          // load();
+          // console.log(i);
           // console.log(article);
         }}
       >

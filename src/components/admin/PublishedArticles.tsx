@@ -58,7 +58,7 @@ export default function PublishedArticles() {
               }
             }}
           >
-            Conforma
+            Conferma
           </Button>
         </Modal.Footer>
       </Modal>

@@ -7,9 +7,10 @@ export default function ArticleContent() {
 
   return (
     <div>
-      {selectedArticle.img && (
-        <img src={selectedArticle.img} alt="" className="img-fluid d-block mx-auto" style={{ maxHeight: "100vh" }} />
-      )}
+      {selectedArticle.img &&
+        selectedArticle.img.map(img => (
+          <img src={img} key={img} alt="" className="img-fluid d-block mx-auto" style={{ maxHeight: "100vh" }} />
+        ))}
       <div
         dangerouslySetInnerHTML={{ __html: selectedArticle.content }}
         className={`${selectedArticle.img ? "mt-5" : ""} ${selectedArticle.pdf ? "mb-5" : ""} `}

@@ -3,7 +3,7 @@ import { SELECT_ARTICLE } from "../actions";
 
 interface selectedArticleAction {
   type: typeof SELECT_ARTICLE;
-  payload: IArticleApiResponse; // Replace with your actual payload type
+  payload: IArticleApiResponse;
 }
 
 const initialState = {

@@ -12,7 +12,7 @@ export interface IArticleApiResponse {
     section: string;
     categories: ICategory[];
     tags: ITag[];
-    img: string,
+    img: string[],
     pdf: string
 }
 

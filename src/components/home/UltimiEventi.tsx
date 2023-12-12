@@ -69,7 +69,7 @@ function UltimiEventi() {
           <Row className="mt-5 mb-4">
             <Col className="big-card">
               <HomeCard
-                imgSrc={articlesData[0].img} // todo bad hack but will do for now, check api response
+                imgSrc={articlesData[0].img[0]} // todo bad hack but will do for now, check api response
                 date={articlesData[0].date}
                 author={articlesData[0].author.signature}
                 tags={articlesData[0].tags.map(tag => tag.name)}
@@ -99,7 +99,7 @@ function UltimiEventi() {
                   }`}
                 >
                   <HomeCard
-                    imgSrc={article.img}
+                    imgSrc={article.img[0]}
                     date={article.date}
                     author={article.author.signature}
                     tags={article.tags.map(tag => tag.name)}

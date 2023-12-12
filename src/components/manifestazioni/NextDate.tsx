@@ -31,7 +31,7 @@ export default function NextDate() {
         <>
           <div className="big-card">
             <ArticleCard
-              imgSrc={nextEvent.img ? nextEvent.img : "big-card-no-image"}
+              imgSrc={nextEvent.img[0] ? nextEvent.img[0] : "big-card-no-image"}
               date={nextEvent.date}
               author={nextEvent.author.signature}
               tags={nextEvent.tags.map(tag => tag.name)}

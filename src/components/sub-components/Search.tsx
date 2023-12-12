@@ -93,7 +93,7 @@ export default function Search() {
               >
                 <SingleFilteredResult
                   key={article.id}
-                  imgSrc={article.img}
+                  imgSrc={article.img[0]}
                   date={article.date}
                   author={article.author.signature}
                   tags={article.tags.map(tag => tag.name)}

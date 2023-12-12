@@ -29,18 +29,23 @@ const stripHtml = (html: string) => {
   return strippedContent.trim();
 };
 
+interface IArticlePostBodyAndFiles extends IArticlePostBody {
+  img?: File[];
+}
+
 // ^ this component is a mess
 export default function AddArticle() {
   // let hasAttemptedSubmit = false;
   const params = useParams();
   const [hasError, setHasError] = useState(false);
-  const [incomingArticle, setIncomingArticle] = useState<IArticlePostBody>({
+  const [incomingArticle, setIncomingArticle] = useState<IArticlePostBodyAndFiles>({
     title: "",
     eventDate: "",
     content: "",
     categories: [],
     tags: [],
     section: "",
+    img: [],
   });
   // ! sometimes input fields get emptied on load
   useEffect(() => {
@@ -58,6 +63,7 @@ export default function AddArticle() {
             categories: categoryNames || [],
             tags: tagNames || [],
             section: data.section || "",
+            img: data.img || "",
           });
         } else {
           setHasError(true);
@@ -242,9 +248,12 @@ export default function AddArticle() {
     const formData = new FormData();
     formData.append("article", JSON.stringify(article));
     if (img && img.length > 0) {
-      img.forEach((file, index) => {
-        formData.append(`img[${index}]`, file);
+      img.forEach(file => {
+        formData.append("img", file);
       });
+      // img.forEach((file, index) => {
+      //   formData.append(`img[${index}]`, file);
+      // });
     }
     if (pdf) {
       formData.append("pdf", pdf);

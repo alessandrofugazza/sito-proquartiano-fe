@@ -13,7 +13,7 @@ export interface IArticleApiResponse {
     categories: ICategory[];
     tags: ITag[];
     img: string[],
-    pdf: string
+    pdf: string[]
 }
 
 export interface IAuthor {

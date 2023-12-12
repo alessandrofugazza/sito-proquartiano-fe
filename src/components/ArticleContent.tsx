@@ -15,15 +15,17 @@ export default function ArticleContent() {
         dangerouslySetInnerHTML={{ __html: selectedArticle.content }}
         className={`${selectedArticle.img ? "mt-5" : ""} ${selectedArticle.pdf ? "mb-5" : ""} `}
       />
-      {selectedArticle.pdf && (
-        <embed
-          src={selectedArticle.pdf.replace("http://", "https://")}
-          type="application/pdf"
-          width="100%"
-          height="600"
-          style={{ border: "none" }}
-        ></embed>
-      )}
+      {selectedArticle.pdf &&
+        selectedArticle.pdf.map(pdf => (
+          <embed
+            key={pdf}
+            src={pdf.replace("http://", "https://")}
+            type="application/pdf"
+            width="100%"
+            height="600"
+            style={{ border: "none" }}
+          ></embed>
+        ))}
     </div>
   );
 }

@@ -31,6 +31,7 @@ const stripHtml = (html: string) => {
 
 interface IArticlePostBodyAndFiles extends IArticlePostBody {
   img?: File[];
+  pdf?: File[];
 }
 
 // ^ this component is a mess
@@ -46,8 +47,8 @@ export default function AddArticle() {
     tags: [],
     section: "",
     img: [],
+    pdf: [],
   });
-  // ! sometimes input fields get emptied on load
   useEffect(() => {
     const fetchArticleData = async () => {
       try {
@@ -63,7 +64,8 @@ export default function AddArticle() {
             categories: categoryNames || [],
             tags: tagNames || [],
             section: data.section || "",
-            img: data.img || "",
+            img: data.img || [],
+            pdf: data.pdf || [],
           });
         } else {
           setHasError(true);
@@ -92,7 +94,7 @@ export default function AddArticle() {
     section: "",
   });
   const [img, setImg] = useState<File[]>([]);
-  const [pdf, setPdf] = useState<File | null>(null);
+  const [pdf, setPdf] = useState<File[]>([]);
   const [newTag, setNewTag] = useState("");
   const [validated, setValidated] = useState<IValidation>({
     title: false,
@@ -192,12 +194,14 @@ export default function AddArticle() {
       if (hasAttemptedSubmit && validated.content === false) {
         setValidated({ ...validated, content: true });
       }
-      setPdf(e.target.files[0]);
+      const newFiles = Array.from(e.target.files);
+      const updatedFiles = [...pdf, ...newFiles];
+      setPdf(updatedFiles);
     } else {
       if (hasAttemptedSubmit && validated.content === true && stripHtml(article.content).length === 0 && img === null) {
         setValidated({ ...validated, content: false });
       }
-      setPdf(null);
+      setPdf([]);
     }
   };
 
@@ -251,12 +255,11 @@ export default function AddArticle() {
       img.forEach(file => {
         formData.append("img", file);
       });
-      // img.forEach((file, index) => {
-      //   formData.append(`img[${index}]`, file);
-      // });
     }
-    if (pdf) {
-      formData.append("pdf", pdf);
+    if (pdf && pdf.length > 0) {
+      pdf.forEach(file => {
+        formData.append("pdf", file);
+      });
     }
     setShowOutcome(false);
     setIsLoading(true);
@@ -672,15 +675,44 @@ export default function AddArticle() {
             </label>
             <div></div>
           </Form.Group>
-          <Form.Group controlId="formFile" className="mb-4">
-            <Form.Label className="fw-semibold">Aggiungi un file pdf</Form.Label>
+          <Form.Group className="mb-4">
+            <Form.Label
+              className={`fw-semibold ${hasAttemptedSubmit ? (validated.content ? "validated" : "invalid") : ""}`}
+            >
+              Aggiungi un file pdf
+            </Form.Label>
             <Form.Control
+              className="d-none"
               accept=".pdf"
               type="file"
               style={{ width: "auto" }}
               onChange={handlePdfChange}
-              className={hasAttemptedSubmit ? (validated.content ? "validated" : "invalid") : ""}
+              id="custom-pdf-input"
             />
+            <label htmlFor="custom-pdf-input" className="d-flex gap-4 img-input-label" style={{ width: "fit-content" }}>
+              {pdf.map((file, index) => (
+                <Image
+                  key={index}
+                  src={URL.createObjectURL(file)}
+                  alt={`preview-${index}`}
+                  thumbnail
+                  style={{ height: "250px", width: "auto" }}
+                />
+              ))}
+              <div className="position-relative">
+                <Image src={placeholder} thumbnail style={{ height: "250px", width: "190px", borderStyle: "dashed" }} />
+                {/* // todo ::after? and center this */}
+                <i
+                  className="bi bi-plus-circle-fill text-success fs-2"
+                  style={{
+                    position: "absolute",
+                    top: "50%",
+                    left: "50%",
+                    transform: "translate(-50%, -50%)",
+                  }}
+                ></i>
+              </div>
+            </label>
           </Form.Group>
         </Row>
         {/* <Button variant="danger" type="button" onClick={() => setShowPreview(true)}>

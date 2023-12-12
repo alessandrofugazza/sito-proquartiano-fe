@@ -1,5 +1,5 @@
 import { Button, Card, Col, Row } from "react-bootstrap";
-import { IArticleProps } from "../../interfaces/IArticleProps";
+import { IArticlePreviewProps } from "../../interfaces/IArticlePreviewProps";
 import ArticleCategories from "../shared-components/ArticleCategories";
 import ArticleDateAuthorTag from "../shared-components/ArticleDateAuthorTag";
 import { Link, useNavigate } from "react-router-dom";
@@ -28,7 +28,7 @@ export default function SingleFilteredResult({
   tags,
   description,
   articleId,
-}: IArticleProps) {
+}: IArticlePreviewProps) {
   if (!imgSrc) {
     imgSrc = defaultImg;
   }

@@ -101,7 +101,6 @@ export default function Search() {
                   title={article.title}
                   description={article.content}
                   articleId={article.id}
-                  pdfSrc=""
                 />
               </div>
             );

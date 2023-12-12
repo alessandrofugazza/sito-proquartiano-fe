@@ -26,7 +26,7 @@ export default function SingleFilteredResult({
   date,
   author,
   tags,
-  description,
+  content,
   articleId,
 }: IArticlePreviewProps) {
   if (!imgSrc) {
@@ -58,7 +58,7 @@ export default function SingleFilteredResult({
             <ArticleDateAuthorTag date={date} author={author} tags={tags} />
             <Card.Text as="div" className="my-1">
               {/* // todo understand what this style does */}
-              <div style={{ whiteSpace: "pre-line" }}>{stripHtml(description)}</div>
+              <div style={{ whiteSpace: "pre-line" }}>{stripHtml(content)}</div>
             </Card.Text>
             <div className="mt-auto text-end">
               <Button variant="danger" size="sm" className="navigation-button">

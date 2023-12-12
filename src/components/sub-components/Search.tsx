@@ -99,7 +99,7 @@ export default function Search() {
                   tags={article.tags.map(tag => tag.name)}
                   categories={article.categories.map(category => category.name)}
                   title={article.title}
-                  description={article.content}
+                  content={article.content}
                   articleId={article.id}
                 />
               </div>

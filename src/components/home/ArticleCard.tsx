@@ -4,7 +4,7 @@ import "../../styles/ArticleCard.scss";
 import ArticleDateAuthorTag from "../shared-components/ArticleDateAuthorTag";
 import ArticleCategories from "../shared-components/ArticleCategories";
 import { useNavigate } from "react-router-dom";
-import { IArticleProps } from "../../interfaces/IArticleProps";
+import { IArticlePreviewProps } from "../../interfaces/IArticlePreviewProps";
 import defaultImg from "../../assets/img/default-img.png";
 
 const stripHtml = (htmlString: string) => {
@@ -18,7 +18,7 @@ const stripHtml = (htmlString: string) => {
   return strippedString;
 };
 
-function ArticleCard({ imgSrc, categories, title, date, author, tags, description, articleId }: IArticleProps) {
+function ArticleCard({ imgSrc, categories, title, date, author, tags, content, articleId }: IArticlePreviewProps) {
   const navigate = useNavigate();
   if (!imgSrc) {
     imgSrc = defaultImg;
@@ -35,7 +35,7 @@ function ArticleCard({ imgSrc, categories, title, date, author, tags, descriptio
         <Card.Title className="my-2">{title}</Card.Title>
         <ArticleDateAuthorTag date={date} author={author} tags={tags} />
         <Card.Text as="div" className="mt-3 mb-4">
-          <div style={{ whiteSpace: "pre-line" }}>{stripHtml(description).trim()}</div>
+          <div style={{ whiteSpace: "pre-line" }}>{stripHtml(content).trim()}</div>
         </Card.Text>
         <div className="text-end mt-auto">
           <Button

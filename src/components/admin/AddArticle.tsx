@@ -10,6 +10,8 @@ import "../../styles/AddArticle.scss";
 import { IArticlePostBody } from "../../interfaces/IArticlePostBody";
 import { useParams } from "react-router";
 import placeholder from "../../assets/img/placeholder.png";
+import { useDispatch } from "react-redux";
+import { SET_PREVIEW } from "../../redux/actions";
 
 interface IValidation {
   title: boolean;
@@ -80,11 +82,29 @@ export default function AddArticle() {
       fetchArticleData();
     }
   }, [params.id]);
-
+  const dispatch = useDispatch();
+  const setPreview = () => {
+    console.log(img);
+    dispatch({
+      type: SET_PREVIEW,
+      payload: {
+        title: article.title,
+        author: localStorage.getItem("username"),
+        date: new Date().toISOString(),
+        eventDate: article.eventDate,
+        content: article.content,
+        section: article.section,
+        categories: article.categories,
+        tags: article.tags,
+        img: img.map(img => URL.createObjectURL(img)),
+        pdf: pdf.map(pdf => URL.createObjectURL(pdf)),
+      },
+    });
+  };
   const [hasAttemptedSubmit, setHasAttemptedSubmit] = useState(false);
   const [hasAlert, setHasAlert] = useState(false);
   const [alert, setAlert] = useState({ message: "", status: "", variant: "success" });
-  const [showPreview, setShowPreview] = useState(false);
+  // const [showPreview, setShowPreview] = useState(false);
   const [article, setArticle] = useState<IArticlePostBody>({
     title: "",
     eventDate: "",
@@ -381,7 +401,7 @@ export default function AddArticle() {
 
   return (
     <>
-      <Button
+      {/* <Button
         onClick={() => {
           // console.log(incomingArticle);
           // load();
@@ -391,7 +411,7 @@ export default function AddArticle() {
         }}
       >
         a
-      </Button>
+      </Button> */}
       <Form onSubmit={handleSubmit} className="">
         <Row className="mb-5">
           <Col lg="6" className="d-flex flex-column gap-2">
@@ -715,14 +735,16 @@ export default function AddArticle() {
             </label>
           </Form.Group>
         </Row>
-        {/* <Button variant="danger" type="button" onClick={() => setShowPreview(true)}>
-          Anteprima
-        </Button> */}
-        {/* // todo add confirm */}
-        {/* // todo style the btn */}
-        <Button variant="danger" type="submit" className="mt-3 navigation-button">
-          Aggiungi articolo
-        </Button>
+        <div className="mt-3 d-flex gap-2">
+          <Button variant="danger" type="button" className="navigation-button" onClick={() => setPreview()}>
+            Anteprima
+          </Button>
+          {/* // todo add confirm */}
+          {/* // todo style the btn */}
+          <Button variant="danger" type="submit" className="navigation-button">
+            Aggiungi articolo
+          </Button>
+        </div>
       </Form>
       {/* {showPreview && (
         <Modal show={showPreview} fullscreen={true} onHide={() => setShowPreview(false)}>

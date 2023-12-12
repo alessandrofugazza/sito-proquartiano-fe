@@ -37,9 +37,8 @@ export default function NextDate() {
               tags={nextEvent.tags.map(tag => tag.name)}
               categories={nextEvent.categories.map(category => category.name)}
               title={nextEvent.title}
-              description={nextEvent.content}
+              content={nextEvent.content}
               articleId={nextEvent.id}
-              pdfSrc=""
             />
           </div>
         </>

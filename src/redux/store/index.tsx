@@ -4,6 +4,7 @@ import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import { persistStore, persistReducer } from "redux-persist";
 import favoritesReducer from "../reducers/favoritesReducer";
 import selectedArticleReducer from "../reducers/selectArticleReducer";
+import setPreviewReducer from "../reducers/setPreviewReducer";
 
 const persistConfig = {
   key: "root",
@@ -19,6 +20,7 @@ const persistConfig = {
 const rootReducer = combineReducers({
   favorites: favoritesReducer,
   selectedArticle: selectedArticleReducer,
+  previewData: setPreviewReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

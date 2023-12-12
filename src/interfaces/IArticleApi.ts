@@ -12,8 +12,8 @@ export interface IArticleApiResponse {
     section: string;
     categories: ICategory[];
     tags: ITag[];
-    img: string[],
-    pdf: string[]
+    img: string[];
+    pdf: string[];
 }
 
 export interface IAuthor {

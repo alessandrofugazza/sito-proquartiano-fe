@@ -75,10 +75,8 @@ function UltimiEventi() {
                 tags={articlesData[0].tags.map(tag => tag.name)}
                 categories={articlesData[0].categories.map(category => category.name)}
                 title={articlesData[0].title}
-                description={articlesData[0].content}
+                content={articlesData[0].content}
                 articleId={articlesData[0].id}
-                // ? is pdfsrc needed here
-                pdfSrc=""
               />
             </Col>
           </Row>
@@ -105,9 +103,8 @@ function UltimiEventi() {
                     tags={article.tags.map(tag => tag.name)}
                     categories={article.categories.map(category => category.name)}
                     title={article.title}
-                    description={article.content}
+                    content={article.content}
                     articleId={article.id}
-                    pdfSrc=""
                   />
                 </Col>
               );

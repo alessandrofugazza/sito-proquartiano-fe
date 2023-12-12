@@ -1,10 +1,12 @@
 import { Action, ThunkAction } from "@reduxjs/toolkit";
 import { IArticleApiResponse } from "../../interfaces/IArticleApi";
 import { RootState } from "../store";
+import { IArticlePreviewProps } from "../../interfaces/IArticlePreviewProps";
 
 export const ADD_TO_FAVORITES = "ADD_TO_FAVORITES";
 export const REMOVE_FROM_FAVORITES = "REMOVE_FROM_FAVORITES";
 export const SELECT_ARTICLE = "SELECT_ARTICLE";
+export const SET_PREVIEW = "SET_PREVIEW";
 // export const GET_ARTICLES = "GET_ARTICLES";
 // export const GET_ARTICLES_LOADING_ON = "GET_ARTICLES_LOADING_ON";
 // export const GET_ARTICLES_LOADING_OFF = "GET_ARTICLES_LOADING_OFF";
@@ -39,5 +41,13 @@ export const selectArticleAction = (
 ): ThunkAction<void, RootState, unknown, Action<string>> => {
   return (dispatch, getState) => {
     dispatch({ type: SELECT_ARTICLE, payload: selectedArticle });
+  };
+};
+
+export const setPreviewAction = (
+  previewData: IArticlePreviewProps
+): ThunkAction<void, RootState, unknown, Action<string>> => {
+  return (dispatch, getState) => {
+    dispatch({ type: SET_PREVIEW, payload: previewData });
   };
 };

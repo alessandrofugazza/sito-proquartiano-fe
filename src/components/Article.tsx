@@ -6,6 +6,8 @@ import { Spinner } from "react-bootstrap";
 import ArticleContent from "./ArticleContent";
 import { useDispatch } from "react-redux";
 import { SELECT_ARTICLE, selectArticleAction } from "../redux/actions";
+import { useSelector } from "react-redux";
+import { RootState } from "../redux/store";
 
 export default function Article() {
   const params = useParams();
@@ -32,14 +34,31 @@ export default function Article() {
     }
   };
   useEffect(() => {
-    fetchArticleData();
+    if (params.id !== "preview") {
+      fetchArticleData();
+    } else {
+      setIsLoading(false);
+    }
+    // if (previewData) {
+    //   setArticleData(previewData);
+    //   dispatch({ type: SELECT_ARTICLE, payload: previewData });
+    // } else {
+    //   fetchArticleData();
+    // }
   }, []);
-
+  const previewData = useSelector((state: RootState) => state.previewData.content);
   return (
     <>
-      {isLoading && <Spinner variant="danger" />}
-      {articleData && (
-        <RouteWrapper title={articleData.title} content={<ArticleContent />} breadcrumb={false} isArticle={true} />
+      {/* // TODO THIS IS ASS BUT ITS FINE FOR NOW */}
+      {params.id === "preview" ? (
+        <RouteWrapper title={previewData.title} content={<ArticleContent />} breadcrumb={false} isArticle={true} />
+      ) : (
+        <>
+          {isLoading && <Spinner variant="danger" />}
+          {articleData && (
+            <RouteWrapper title={articleData.title} content={<ArticleContent />} breadcrumb={false} isArticle={true} />
+          )}
+        </>
       )}
     </>
   );

@@ -10,7 +10,7 @@ import ArticleCategories from "./shared-components/ArticleCategories";
 import ArticleDateAuthorTag from "./shared-components/ArticleDateAuthorTag";
 import { useState } from "react";
 import { OverlayTrigger, Tooltip, TooltipProps } from "react-bootstrap";
-import { useLocation } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import "../styles/Favorites.scss";
 
 interface RouteWrapperProps {
@@ -32,10 +32,12 @@ function RouteWrapper({
   hasFavorites = true,
 }: RouteWrapperProps) {
   const selectedArticle = useSelector((state: RootState) => state.selectedArticle.content);
+  const previewData = useSelector((state: RootState) => state.previewData.content);
   const dispatch = useDispatch();
   const favorites = useSelector((state: RootState) => state.favorites.content);
   const location = useLocation();
   const currentUrl = location.pathname;
+  const params = useParams();
   const [isFavorite, setIsFavorite] = useState(favorites.some(favorite => favorite.url === currentUrl));
   const handleAddToFavorites = () => {
     if (isFavorite) {
@@ -82,13 +84,21 @@ function RouteWrapper({
               </h1>
               {isArticle && (
                 <>
-                  <ArticleCategories categories={selectedArticle.categories.map(category => category.name)} />
+                  {params.id === "preview" ? (
+                    <ArticleCategories categories={previewData.categories} />
+                  ) : (
+                    <ArticleCategories categories={selectedArticle.categories.map(category => category.name)} />
+                  )}
                   <div className="my-1"></div>
-                  <ArticleDateAuthorTag
-                    date={selectedArticle.date}
-                    author={selectedArticle.author.signature}
-                    tags={selectedArticle.tags.map(tag => tag.name)}
-                  />
+                  {params.id === "preview" ? (
+                    <ArticleDateAuthorTag date={previewData.date} author={previewData.author} tags={previewData.tags} />
+                  ) : (
+                    <ArticleDateAuthorTag
+                      date={selectedArticle.date}
+                      author={selectedArticle.author.signature}
+                      tags={selectedArticle.tags.map(tag => tag.name)}
+                    />
+                  )}
                   {/* // todo make tooltip disappear after click */}
                 </>
               )}

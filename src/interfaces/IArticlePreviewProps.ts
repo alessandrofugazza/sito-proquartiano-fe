@@ -5,6 +5,6 @@ export interface IArticlePreviewProps {
   date: string;
   author: string;
   tags: string[];
-  description: string;
+  content: string;
   articleId: string;
 }

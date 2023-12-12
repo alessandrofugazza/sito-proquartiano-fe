@@ -1,4 +1,4 @@
-export interface IArticleProps {
+export interface IAddArticlePreviewProps {
   img: string[];
   pdf: string[];
   categories: string[];
@@ -6,6 +6,5 @@ export interface IArticleProps {
   date: string;
   author: string;
   tags: string[];
-  description: string;
-  articleId: string;
+  content: string;
 }

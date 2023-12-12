@@ -19,10 +19,18 @@ interface RouteWrapperProps {
   content: React.ReactNode;
   breadcrumb?: boolean;
   isArticle?: boolean;
+  hasFavorites?: boolean;
 }
 
 // * too much article related stuff in component used by every route
-function RouteWrapper({ title, description = "", content, breadcrumb = true, isArticle = false }: RouteWrapperProps) {
+function RouteWrapper({
+  title,
+  description = "",
+  content,
+  breadcrumb = true,
+  isArticle = false,
+  hasFavorites = true,
+}: RouteWrapperProps) {
   const selectedArticle = useSelector((state: RootState) => state.selectedArticle.content);
   const dispatch = useDispatch();
   const favorites = useSelector((state: RootState) => state.favorites.content);
@@ -58,13 +66,15 @@ function RouteWrapper({ title, description = "", content, breadcrumb = true, isA
         {/* // ? this title condition */}
         {title && (
           <div className="position-relative">
-            <OverlayTrigger placement="left" delay={{ show: 250, hide: 400 }} overlay={renderTooltip}>
-              <i
-                // todo customize border of filled star
-                className={`bi ${isFavorite ? "bi-star-fill" : "bi-star"} fs-4 position-absolute top-0 end-0`}
-                onClick={handleAddToFavorites}
-              ></i>
-            </OverlayTrigger>
+            {hasFavorites && (
+              <OverlayTrigger placement="left" delay={{ show: 250, hide: 400 }} overlay={renderTooltip}>
+                <i
+                  // todo customize border of filled star
+                  className={`bi ${isFavorite ? "bi-star-fill" : "bi-star"} fs-4 position-absolute top-0 end-0`}
+                  onClick={handleAddToFavorites}
+                ></i>
+              </OverlayTrigger>
+            )}
             {breadcrumb && <MyBreadcrumb />}
             <header className="position-relative">
               <h1 className=" mb-3" style={{ marginTop: "1em" }}>

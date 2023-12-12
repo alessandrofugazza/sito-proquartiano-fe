@@ -40,6 +40,8 @@ import EditArticle from "./components/admin/EditArticle";
 // todo PLACEHOLDERS
 // todo customize icons to make em look less bootstrapy
 // todo organize icons import
+// todo use Image component
+// todo backoffice preview for recruiters
 function App() {
   return (
     <div className="App">
@@ -136,11 +138,18 @@ function App() {
           />
           <Route
             path="/admins/articoli/:id"
-            element={<RouteWrapper title="Modifica articolo" content={<AddArticle />} />}
+            element={
+              <RouteWrapper
+                title="Modifica articolo"
+                content={<AddArticle />}
+                breadcrumb={false}
+                hasFavorites={false}
+              />
+            }
           />
           <Route
             path="/admins/aggiungi-articolo"
-            element={<RouteWrapper title="Aggiungi articolo" content={<AddArticle />} />}
+            element={<RouteWrapper title="Aggiungi articolo" content={<AddArticle />} hasFavorites={false} />}
           />
           <Route path="/articoli/:id" element={<Article />} />
           <Route

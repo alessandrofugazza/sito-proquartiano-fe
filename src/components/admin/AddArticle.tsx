@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Alert, CloseButton, Col, Collapse, InputGroup, ListGroup, Row } from "react-bootstrap";
+import { Alert, CloseButton, Col, Collapse, Image, InputGroup, ListGroup, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Article from "../Article";
@@ -9,6 +9,7 @@ import "react-quill/dist/quill.snow.css";
 import "../../styles/AddArticle.scss";
 import { IArticlePostBody } from "../../interfaces/IArticlePostBody";
 import { useParams } from "react-router";
+import placeholder from "../../assets/img/placeholder.png";
 
 interface IValidation {
   title: boolean;
@@ -84,7 +85,7 @@ export default function AddArticle() {
     tags: [],
     section: "",
   });
-  const [img, setImg] = useState<File | null>(null);
+  const [img, setImg] = useState<File[]>([]);
   const [pdf, setPdf] = useState<File | null>(null);
   const [newTag, setNewTag] = useState("");
   const [validated, setValidated] = useState<IValidation>({
@@ -170,12 +171,14 @@ export default function AddArticle() {
       if (hasAttemptedSubmit && validated.content === false) {
         setValidated({ ...validated, content: true });
       }
-      setImg(e.target.files[0]);
+      const newFiles = Array.from(e.target.files);
+      const updatedFiles = [...img, ...newFiles];
+      setImg(updatedFiles);
     } else {
       if (hasAttemptedSubmit && validated.content === true && stripHtml(article.content).length === 0 && pdf === null) {
         setValidated({ ...validated, content: false });
       }
-      setImg(null);
+      setImg([]);
     }
   };
   const handlePdfChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -238,8 +241,10 @@ export default function AddArticle() {
 
     const formData = new FormData();
     formData.append("article", JSON.stringify(article));
-    if (img) {
-      formData.append("img", img);
+    if (img && img.length > 0) {
+      img.forEach((file, index) => {
+        formData.append(`img[${index}]`, file);
+      });
     }
     if (pdf) {
       formData.append("pdf", pdf);
@@ -364,16 +369,17 @@ export default function AddArticle() {
 
   return (
     <>
-      {/* <Button
+      <Button
         onClick={() => {
           // console.log(incomingArticle);
           // load();
           // console.log(i);
           // console.log(article);
+          console.log(img);
         }}
       >
         a
-      </Button> */}
+      </Button>
       <Form onSubmit={handleSubmit} className="">
         <Row className="mb-5">
           <Col lg="6" className="d-flex flex-column gap-2">
@@ -616,15 +622,46 @@ export default function AddArticle() {
           </Col>
         </Row>
         <Row>
-          <Form.Group controlId="formFile" className="mb-4">
-            <Form.Label className="fw-semibold">Aggiungi un'immagine</Form.Label>
+          <Form.Group className="mb-4">
+            <Form.Label
+              className={`fw-semibold ${hasAttemptedSubmit ? (validated.content ? "validated" : "invalid") : ""}`}
+            >
+              Aggiungi un'immagine
+            </Form.Label>
             <Form.Control
               accept=".jpeg, .jpg, .png"
               type="file"
               style={{ width: "auto" }}
               onChange={handleImgChange}
-              className={hasAttemptedSubmit ? (validated.content ? "validated" : "invalid") : ""}
+              className="d-none"
+              id="custom-img-input"
             />
+            <label htmlFor="custom-img-input" className="d-flex gap-4 img-input-label" style={{ width: "fit-content" }}>
+              {/* <i className="bi bi-plus-circle-fill text-success"></i> */}
+              {img.map((file, index) => (
+                <Image
+                  key={index}
+                  src={URL.createObjectURL(file)}
+                  alt={`preview-${index}`}
+                  thumbnail
+                  style={{ height: "250px", width: "auto" }}
+                />
+              ))}
+              <div className="position-relative">
+                <Image src={placeholder} thumbnail style={{ height: "250px", width: "190px", borderStyle: "dashed" }} />
+                {/* // todo ::after? and center this */}
+                <i
+                  className="bi bi-plus-circle-fill text-success fs-2"
+                  style={{
+                    position: "absolute",
+                    top: "50%",
+                    left: "50%",
+                    transform: "translate(-50%, -50%)",
+                  }}
+                ></i>
+              </div>
+            </label>
+            <div></div>
           </Form.Group>
           <Form.Group controlId="formFile" className="mb-4">
             <Form.Label className="fw-semibold">Aggiungi un file pdf</Form.Label>

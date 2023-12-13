@@ -43,6 +43,20 @@ interface IArticlePostBodyAndFiles extends IArticlePostBody {
 
 // ^ this component is a mess
 export default function AddArticle() {
+  // const handleAddImg = (e: React.ChangeEvent<HTMLInputElement>) => {
+  //   const newFiles = Array.from(e.target.files);
+  //   const updatedFiles = [...img, ...newFiles];
+  //   setImg(updatedFiles);
+  // };
+  const handleRemoveImg = (index: number) => {
+    const updatedImages = img.filter((_, i) => i !== index);
+    setImg(updatedImages);
+  };
+  const handleRemovePdf = (index: number) => {
+    const updatedPdfs = pdf.filter((_, i) => i !== index);
+    setPdf(updatedPdfs);
+  };
+
   // let hasAttemptedSubmit = false;
   const params = useParams();
   const [hasError, setHasError] = useState(false);
@@ -200,6 +214,9 @@ export default function AddArticle() {
   // todo multiple images handling
   // todo same function for both
   const handleImgChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length === 0) {
+      return;
+    }
     if (e.target.files && e.target.files.length > 0) {
       if (hasAttemptedSubmit && validated.content === false) {
         setValidated({ ...validated, content: true });
@@ -215,6 +232,9 @@ export default function AddArticle() {
     }
   };
   const handlePdfChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (hasAttemptedSubmit && validated.content === false) {
+      setValidated({ ...validated, content: true });
+    }
     if (e.target.files && e.target.files.length > 0) {
       if (hasAttemptedSubmit && validated.content === false) {
         setValidated({ ...validated, content: true });
@@ -673,14 +693,17 @@ export default function AddArticle() {
               className="d-none"
               id="custom-img-input"
             />
-            <label
-              htmlFor="custom-img-input"
-              className="d-flex gap-4 flex-wrap img-input-label"
-              style={{ width: "fit-content" }}
-            >
+            <div className="d-flex gap-4 flex-wrap img-input-label" style={{ width: "fit-content" }}>
               {/* <i className="bi bi-plus-circle-fill text-success"></i> */}
-              {img.map(file => (
-                <div key={URL.createObjectURL(file)} className="file-wrapper ">
+              {img.map((file, index) => (
+                <label
+                  onClick={e => {
+                    e.stopPropagation();
+                    handleRemoveImg(index);
+                  }}
+                  key={file.lastModified}
+                  className="file-wrapper"
+                >
                   <div className="added-file">
                     <Image
                       src={URL.createObjectURL(file)}
@@ -697,9 +720,9 @@ export default function AddArticle() {
                       transform: "translate(-50%, -50%)",
                     }}
                   ></i>
-                </div>
+                </label>
               ))}
-              <div className="file-wrapper">
+              <label htmlFor="custom-img-input" className="file-wrapper">
                 <div className="placeholder">
                   <Image
                     src={placeholder}
@@ -717,8 +740,8 @@ export default function AddArticle() {
                     transform: "translate(-50%, -50%)",
                   }}
                 ></i>
-              </div>
-            </label>
+              </label>
+            </div>
           </Form.Group>
           <Form.Group className="mb-4">
             <Form.Label
@@ -734,12 +757,8 @@ export default function AddArticle() {
               onChange={handlePdfChange}
               id="custom-pdf-input"
             />
-            <label
-              htmlFor="custom-pdf-input"
-              className="d-flex gap-4 flex-wrap img-input-label"
-              style={{ width: "fit-content" }}
-            >
-              {pdf.map(file => (
+            <div className="d-flex gap-4 flex-wrap img-input-label" style={{ width: "fit-content" }}>
+              {pdf.map((file, index) => (
                 // <Image
                 //   key={URL.createObjectURL(file)}
                 //   src={URL.createObjectURL(file)}
@@ -747,8 +766,12 @@ export default function AddArticle() {
                 //   thumbnail
                 //   style={{ height: "250px", width: "auto" }}
                 // />
-                <div
-                  key={URL.createObjectURL(file)}
+                <label
+                  onClick={e => {
+                    e.stopPropagation();
+                    handleRemovePdf(index);
+                  }}
+                  key={file.lastModified}
                   className="img-thumbnail file-wrapper "
                   style={{ height: "250px", width: "190px" }}
                 >
@@ -764,9 +787,9 @@ export default function AddArticle() {
                       transform: "translate(-50%, -50%)",
                     }}
                   ></i>
-                </div>
+                </label>
               ))}
-              <div className="file-wrapper">
+              <label htmlFor="custom-pdf-input" className="file-wrapper">
                 <div className="placeholder">
                   <Image
                     src={placeholder}
@@ -783,8 +806,8 @@ export default function AddArticle() {
                     transform: "translate(-50%, -50%)",
                   }}
                 ></i>
-              </div>
-            </label>
+              </label>
+            </div>
           </Form.Group>
         </Row>
         <div className="mt-3 d-flex gap-2">

@@ -88,7 +88,7 @@ export default function AddArticle() {
           const tagNames = data.tags.map((tag: { id: string; name: string }) => tag.name);
           setIncomingArticle({
             title: data.title || "",
-            eventDate: data.eventDate || "",
+            eventDate: new Date(data.eventDate) || null,
             content: data.content || "",
             categories: categoryNames || [],
             tags: tagNames || [],

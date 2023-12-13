@@ -440,10 +440,10 @@ export default function AddArticle() {
       <Form onSubmit={handleSubmit} className="">
         <Row className="mb-5">
           <Col lg="6" className="d-flex flex-column gap-2">
-            <InputGroup className="mb-3">
-              <InputGroup.Text as="label" htmlFor="form-title" className="fw-semibold" id="title">
+            <Form.Group className="mb-3">
+              <Form.Label htmlFor="form-title" className="fw-semibold" id="title">
                 Titolo
-              </InputGroup.Text>
+              </Form.Label>
               <Form.Control
                 placeholder="Inserisci un titolo"
                 type="text"
@@ -463,7 +463,7 @@ export default function AddArticle() {
                 className={hasAttemptedSubmit ? (validated.title ? "validated" : "invalid") : ""}
                 autoComplete="off"
               />
-            </InputGroup>
+            </Form.Group>
             <hr className="my-0" />
             <Form.Group className="my-3 d-flex flex-column" controlId="form-date">
               <Form.Label>

@@ -20,4 +20,14 @@ $border-radius-sm: .18rem;
 $link-color: $pqRed;
 $link-decoration: none;
 
+
 @import '~bootstrap/scss/bootstrap';
+
+// ? why do variables need to come before but this needs to come after
+.form-control:focus {
+    color: black;
+    background-color: white;
+    border-color: #d1d5db;
+    outline: none;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}

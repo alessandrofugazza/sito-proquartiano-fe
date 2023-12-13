@@ -68,7 +68,8 @@ function RouteWrapper({
         {/* // ? this title condition */}
         {title && (
           <div className="position-relative">
-            {hasFavorites && (
+            {/* // ^ params.id !== "preview" and the like */}
+            {hasFavorites && params.id !== "preview" && (
               <OverlayTrigger placement="left" delay={{ show: 250, hide: 400 }} overlay={renderTooltip}>
                 <i
                   // todo customize border of filled star

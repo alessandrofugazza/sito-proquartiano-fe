@@ -149,7 +149,7 @@ function App() {
           />
           <Route
             path="/admins/aggiungi-articolo"
-            element={<RouteWrapper title="Aggiungi articolo" content={<AddArticle />} hasFavorites={false} />}
+            element={<RouteWrapper title="Aggiungi articolo" content={<AddArticle />} />}
           />
           <Route path="/articoli/:id" element={<Article />} />
           <Route

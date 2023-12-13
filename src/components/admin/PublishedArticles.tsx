@@ -15,6 +15,11 @@ export default function PublishedArticles() {
         Authorization: `Bearer ${localStorage.getItem("loginToken")}`,
       },
     });
+    if (re.ok) {
+      setArticlesData(currentArticles =>
+        currentArticles ? currentArticles.filter(article => article.id !== selectedArticle) : []
+      );
+    }
   };
   const fetchArticles = async () => {
     const re = await fetch(

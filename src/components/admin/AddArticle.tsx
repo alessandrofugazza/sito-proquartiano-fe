@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Alert, CloseButton, Col, Collapse, Image, InputGroup, ListGroup, Row } from "react-bootstrap";
+import { Alert, CloseButton, Col, Collapse, Image, InputGroup, ListGroup, Modal, Row } from "react-bootstrap";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import Article from "../Article";
@@ -12,6 +12,11 @@ import { useParams } from "react-router";
 import placeholder from "../../assets/img/placeholder.png";
 import { useDispatch } from "react-redux";
 import { SET_PREVIEW } from "../../redux/actions";
+import PdfPreview from "../helpers/PdfPreview";
+import { Document, Page } from "react-pdf";
+import { pdfjs } from "react-pdf";
+
+pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
 
 interface IValidation {
   title: boolean;
@@ -104,7 +109,7 @@ export default function AddArticle() {
   const [hasAttemptedSubmit, setHasAttemptedSubmit] = useState(false);
   const [hasAlert, setHasAlert] = useState(false);
   const [alert, setAlert] = useState({ message: "", status: "", variant: "success" });
-  // const [showPreview, setShowPreview] = useState(false);
+  const [showPreview, setShowPreview] = useState(false);
   const [article, setArticle] = useState<IArticlePostBody>({
     title: "",
     eventDate: "",
@@ -668,19 +673,40 @@ export default function AddArticle() {
               className="d-none"
               id="custom-img-input"
             />
-            <label htmlFor="custom-img-input" className="d-flex gap-4 img-input-label" style={{ width: "fit-content" }}>
+            <label
+              htmlFor="custom-img-input"
+              className="d-flex gap-4 flex-wrap img-input-label"
+              style={{ width: "fit-content" }}
+            >
               {/* <i className="bi bi-plus-circle-fill text-success"></i> */}
-              {img.map((file, index) => (
-                <Image
-                  key={index}
-                  src={URL.createObjectURL(file)}
-                  alt={`preview-${index}`}
-                  thumbnail
-                  style={{ height: "250px", width: "auto" }}
-                />
+              {img.map(file => (
+                <div key={URL.createObjectURL(file)} className="file-wrapper ">
+                  <div className="added-file">
+                    <Image
+                      src={URL.createObjectURL(file)}
+                      thumbnail
+                      style={{ height: "250px", width: "190px", objectFit: "contain" }}
+                    />
+                  </div>
+                  <i
+                    className="bi bi-dash-circle-fill text-danger fs-2 d-none"
+                    style={{
+                      position: "absolute",
+                      top: "50%",
+                      left: "50%",
+                      transform: "translate(-50%, -50%)",
+                    }}
+                  ></i>
+                </div>
               ))}
-              <div className="position-relative">
-                <Image src={placeholder} thumbnail style={{ height: "250px", width: "190px", borderStyle: "dashed" }} />
+              <div className="file-wrapper">
+                <div className="placeholder">
+                  <Image
+                    src={placeholder}
+                    thumbnail
+                    style={{ height: "250px", width: "190px", borderStyle: "dashed" }}
+                  />
+                </div>
                 {/* // todo ::after? and center this */}
                 <i
                   className="bi bi-plus-circle-fill text-success fs-2"
@@ -693,7 +719,6 @@ export default function AddArticle() {
                 ></i>
               </div>
             </label>
-            <div></div>
           </Form.Group>
           <Form.Group className="mb-4">
             <Form.Label
@@ -709,19 +734,46 @@ export default function AddArticle() {
               onChange={handlePdfChange}
               id="custom-pdf-input"
             />
-            <label htmlFor="custom-pdf-input" className="d-flex gap-4 img-input-label" style={{ width: "fit-content" }}>
-              {pdf.map((file, index) => (
-                <Image
-                  key={index}
-                  src={URL.createObjectURL(file)}
-                  alt={`preview-${index}`}
-                  thumbnail
-                  style={{ height: "250px", width: "auto" }}
-                />
+            <label
+              htmlFor="custom-pdf-input"
+              className="d-flex gap-4 flex-wrap img-input-label"
+              style={{ width: "fit-content" }}
+            >
+              {pdf.map(file => (
+                // <Image
+                //   key={URL.createObjectURL(file)}
+                //   src={URL.createObjectURL(file)}
+                //   alt={`preview-${index}`}
+                //   thumbnail
+                //   style={{ height: "250px", width: "auto" }}
+                // />
+                <div
+                  key={URL.createObjectURL(file)}
+                  className="img-thumbnail file-wrapper "
+                  style={{ height: "250px", width: "190px" }}
+                >
+                  <div className="added-file">
+                    <PdfPreview file={file} />
+                  </div>
+                  <i
+                    className="bi bi-dash-circle-fill text-danger fs-2 d-none"
+                    style={{
+                      position: "absolute",
+                      top: "50%",
+                      left: "50%",
+                      transform: "translate(-50%, -50%)",
+                    }}
+                  ></i>
+                </div>
               ))}
-              <div className="position-relative">
-                <Image src={placeholder} thumbnail style={{ height: "250px", width: "190px", borderStyle: "dashed" }} />
-                {/* // todo ::after? and center this */}
+              <div className="file-wrapper">
+                <div className="placeholder">
+                  <Image
+                    src={placeholder}
+                    thumbnail
+                    style={{ height: "250px", width: "190px", borderStyle: "dashed" }}
+                  />
+                </div>
                 <i
                   className="bi bi-plus-circle-fill text-success fs-2"
                   style={{
@@ -736,7 +788,16 @@ export default function AddArticle() {
           </Form.Group>
         </Row>
         <div className="mt-3 d-flex gap-2">
-          <Button variant="danger" type="button" className="navigation-button" onClick={() => setPreview()}>
+          <Button
+            variant="danger"
+            type="button"
+            className="navigation-button"
+            onClick={() => {
+              setPreview();
+              window.open("/articoli/preview", "_blank");
+              // setShowPreview(true);
+            }}
+          >
             Anteprima
           </Button>
           {/* // todo add confirm */}

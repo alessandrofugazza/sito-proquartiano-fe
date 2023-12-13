@@ -52,7 +52,58 @@
     cursor: pointer;
 }
 
-.img-input-label {
+// .img-thumbnail {
+//     cursor: pointer;
+//     transition: opacity 0.3s ease-in-out;
+
+//     &:hover {
+//         opacity: 0.5;
+//     }
+// }
+
+
+
+.file-wrapper {
+    position: relative;
     cursor: pointer;
 
+    i {
+        pointer-events: none;
+    }
+
+
+    &:hover {
+
+        i {
+            display: block !important;
+        }
+    }
+
+    .added-file {
+        transition: opacity 0.3s ease-in-out;
+
+        &:hover {
+            opacity: 0.5;
+        }
+    }
+
+    .placeholder {
+        display: inline-block;
+        cursor: pointer;
+
+        &::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0);
+            transition: background 0.3s ease-in-out;
+        }
+
+        &:hover::after {
+            background: rgba(0, 0, 0, 0.2);
+        }
+    }
 }

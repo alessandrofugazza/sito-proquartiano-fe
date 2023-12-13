@@ -100,7 +100,9 @@ export default function AddArticle() {
           const categoryNames = data.categories.map((category: { id: string; name: string }) => category.name);
           const tagNames = data.tags.map((tag: { id: string; name: string }) => tag.name);
 
-          const imgBlobs = await Promise.all(data.img.map((imgUrl: string) => fetchImageAsBlob(imgUrl)));
+          const imgBlobs = data.img
+            ? await Promise.all(data.img.map((imgUrl: string) => fetchImageAsBlob(imgUrl)))
+            : [];
 
           const imgFiles = imgBlobs.map((blob, index) => {
             // if (blob) {
@@ -109,7 +111,9 @@ export default function AddArticle() {
             // return null;
           });
           // .filter(file => file !== null);
-          const pdfBlobs = await Promise.all(data.pdf.map((pdfUrl: string) => fetchImageAsBlob(pdfUrl)));
+          const pdfBlobs = data.pdf
+            ? await Promise.all(data.pdf.map((pdfUrl: string) => fetchImageAsBlob(pdfUrl)))
+            : [];
 
           const pdfFiles = pdfBlobs.map((blob, index) => {
             // if (blob) {
@@ -139,6 +143,7 @@ export default function AddArticle() {
           setHasError(true);
         }
       } catch (error) {
+        console.log(error);
         setHasError(true);
       } finally {
         // setIsLoading(false);
@@ -430,7 +435,7 @@ export default function AddArticle() {
           title: incomingArticle.title,
         }));
         setI(1);
-      }, 300);
+      }, 500);
     } else if (i === 1) {
       setTimeout(() => {
         setArticle(prevArticle => ({
@@ -438,7 +443,7 @@ export default function AddArticle() {
           categories: incomingArticle.categories,
         }));
         setI(2);
-      }, 300);
+      }, 500);
     } else if (i === 2) {
       setTimeout(() => {
         setArticle(prevArticle => ({
@@ -446,7 +451,7 @@ export default function AddArticle() {
           tags: incomingArticle.tags,
         }));
         setI(3);
-      }, 300);
+      }, 500);
     } else if (i === 3) {
       setTimeout(() => {
         setArticle(prevArticle => ({
@@ -454,7 +459,7 @@ export default function AddArticle() {
           eventDate: incomingArticle.eventDate,
         }));
         setI(4);
-      }, 300);
+      }, 500);
     } else if (i === 4) {
       setTimeout(() => {
         setArticle(prevArticle => ({
@@ -462,7 +467,7 @@ export default function AddArticle() {
           section: incomingArticle.section,
         }));
         setI(5);
-      }, 300);
+      }, 500);
     } else if (i === 5) {
       setTimeout(() => {
         setArticle(prevArticle => ({
@@ -470,18 +475,17 @@ export default function AddArticle() {
           content: incomingArticle.content,
         }));
         setI(6);
-      }, 300);
+      }, 500);
     } else if (i === 6) {
       setTimeout(() => {
         setImg(incomingArticle.img);
         setI(7);
-      }, 300);
+      }, 500);
     } else if (i === 7) {
       setTimeout(() => {
         setPdf(incomingArticle.pdf);
-
         setI(8);
-      }, 300);
+      }, 500);
     }
   };
 
@@ -526,6 +530,7 @@ export default function AddArticle() {
               />
             </Form.Group>
             <hr className="my-0" />
+            {/* // todo an overly complicated date picker */}
             <Form.Group className="my-3 d-flex flex-column" controlId="form-date">
               <Form.Label>
                 <span className="fw-semibold">Data dell'evento</span> (opzionale)

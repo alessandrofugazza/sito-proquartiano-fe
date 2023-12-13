@@ -61,6 +61,18 @@
 //     }
 // }
 
+.react-datepicker-wrapper input {
+    height: 38px; // todo 
+
+    &:focus-visible {
+        outline: initial;
+        // color: black;
+        // background-color: white;
+        // border-color: #d1d5db;
+        // outline: none;
+        // box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    }
+}
 
 
 .file-wrapper {

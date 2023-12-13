@@ -15,7 +15,9 @@ import { SET_PREVIEW } from "../../redux/actions";
 import PdfPreview from "../helpers/PdfPreview";
 import { Document, Page } from "react-pdf";
 import { pdfjs } from "react-pdf";
+import DatePicker from "react-datepicker";
 
+import "react-datepicker/dist/react-datepicker.css";
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
 
 interface IValidation {
@@ -48,6 +50,8 @@ export default function AddArticle() {
   //   const updatedFiles = [...img, ...newFiles];
   //   setImg(updatedFiles);
   // };
+  const [startDate, setStartDate] = useState<Date | null>(new Date());
+
   const handleRemoveImg = (index: number) => {
     const updatedImages = img.filter((_, i) => i !== index);
     setImg(updatedImages);
@@ -62,7 +66,7 @@ export default function AddArticle() {
   const [hasError, setHasError] = useState(false);
   const [incomingArticle, setIncomingArticle] = useState<IArticlePostBodyAndFiles>({
     title: "",
-    eventDate: "",
+    eventDate: null,
     content: "",
     categories: [],
     tags: [],
@@ -126,7 +130,7 @@ export default function AddArticle() {
   const [showPreview, setShowPreview] = useState(false);
   const [article, setArticle] = useState<IArticlePostBody>({
     title: "",
-    eventDate: "",
+    eventDate: null,
     content: "",
     categories: [],
     tags: [],
@@ -325,7 +329,7 @@ export default function AddArticle() {
         setArticle({
           title: "",
           content: "",
-          eventDate: "",
+          eventDate: null,
           categories: [],
           tags: [],
           section: "",
@@ -469,12 +473,13 @@ export default function AddArticle() {
               <Form.Label>
                 <span className="fw-semibold">Data dell'evento</span> (opzionale)
               </Form.Label>
-              <input
+              {/* <input
                 type="date"
                 value={article.eventDate}
                 onChange={e => handleInputChange("eventDate", e.target.value)}
                 id="form-date"
-              />
+              /> */}
+              <DatePicker selected={startDate} onChange={date => handleInputChange("eventDate", date)} />
             </Form.Group>
             <hr className="my-0" />
             <div className="my-3">

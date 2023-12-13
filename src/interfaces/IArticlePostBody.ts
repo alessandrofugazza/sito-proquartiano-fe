@@ -1,6 +1,6 @@
 export interface IArticlePostBody {
   title: string;
-  eventDate: string;
+  eventDate: Date | null;
   content: string;
   categories: string[];
   tags: string[];

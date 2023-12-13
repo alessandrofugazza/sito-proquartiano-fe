@@ -42,6 +42,7 @@ import EditArticle from "./components/admin/EditArticle";
 // todo organize icons import
 // todo use Image component
 // todo backoffice preview for recruiters
+// todo convert dates idk
 function App() {
   return (
     <div className="App">

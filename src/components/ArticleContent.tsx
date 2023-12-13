@@ -10,29 +10,29 @@ export default function ArticleContent() {
   return (
     <div>
       {params.id === "preview"
-        ? previewData.img.length > 0 &&
+        ? previewData.img?.length > 0 &&
           previewData.img.map(img => {
             return (
               <img src={img} key={img} alt="" className="img-fluid d-block mx-auto" style={{ maxHeight: "100vh" }} />
             );
           })
-        : selectedArticle.img.length > 0 &&
+        : selectedArticle.img?.length > 0 &&
           selectedArticle.img.map(img => (
             <img src={img} key={img} alt="" className="img-fluid d-block mx-auto" style={{ maxHeight: "100vh" }} />
           ))}
       {params.id === "preview" ? (
         <div
           dangerouslySetInnerHTML={{ __html: previewData.content }}
-          className={`${previewData.img.length > 0 ? "mt-5" : ""} ${previewData.pdf ? "mb-5" : ""} `}
+          className={`${previewData.img?.length > 0 ? "mt-5" : ""} ${previewData.pdf ? "mb-5" : ""} `}
         />
       ) : (
         <div
           dangerouslySetInnerHTML={{ __html: selectedArticle.content }}
-          className={`${selectedArticle.img.length > 0 ? "mt-5" : ""} ${selectedArticle.pdf ? "mb-5" : ""} `}
+          className={`${selectedArticle.img?.length > 0 ? "mt-5" : ""} ${selectedArticle.pdf ? "mb-5" : ""} `}
         />
       )}
       {params.id === "preview"
-        ? previewData.pdf.length > 0 && (
+        ? previewData.pdf?.length > 0 && (
             <div style={{ maxWidth: "70%", margin: "auto" }}>
               {previewData.pdf.map(pdf => {
                 return (
@@ -48,7 +48,7 @@ export default function ArticleContent() {
               })}
             </div>
           )
-        : selectedArticle.pdf.length > 0 && (
+        : selectedArticle.pdf?.length > 0 && (
             <div style={{ maxWidth: "70%", margin: "auto" }}>
               {selectedArticle.pdf.map(pdf => (
                 <embed

@@ -16,11 +16,12 @@ export default function NextDate() {
   useEffect(() => {
     fetchNextDate();
   }, [params.section]);
-  const formatNextEventDate = (dateString: string) => {
-    const date = new Date(dateString);
+  const formatNextEventDate = (date: string) => {
     // learn
+    const dateObj = new Date(date);
+
     const options: Intl.DateTimeFormatOptions = { day: "numeric", month: "long", year: "numeric" };
-    const formattedDate = new Intl.DateTimeFormat("it-IT", options).format(date);
+    const formattedDate = new Intl.DateTimeFormat("it-IT", options).format(dateObj);
 
     return formattedDate;
   };

@@ -16,9 +16,13 @@ import PdfPreview from "../helpers/PdfPreview";
 import { Document, Page } from "react-pdf";
 import { pdfjs } from "react-pdf";
 import DatePicker from "react-datepicker";
+import { registerLocale, setDefaultLocale } from "react-datepicker";
+import it from "date-fns/locale/it";
 
 import "react-datepicker/dist/react-datepicker.css";
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
+registerLocale("it", it);
+setDefaultLocale("it");
 
 interface IValidation {
   title: boolean;
@@ -193,7 +197,7 @@ export default function AddArticle() {
     return true;
   };
 
-  const handleInputChange = (propertyName: string, propertyValue: string | string[]) => {
+  const handleInputChange = (propertyName: string, propertyValue: string | string[] | Date | null) => {
     setArticle({ ...article, [propertyName]: propertyValue });
   };
 
@@ -479,7 +483,11 @@ export default function AddArticle() {
                 onChange={e => handleInputChange("eventDate", e.target.value)}
                 id="form-date"
               /> */}
-              <DatePicker selected={startDate} onChange={date => handleInputChange("eventDate", date)} />
+              <DatePicker
+                selected={article.eventDate}
+                onChange={date => handleInputChange("eventDate", date)}
+                className="w-100"
+              />
             </Form.Group>
             <hr className="my-0" />
             <div className="my-3">

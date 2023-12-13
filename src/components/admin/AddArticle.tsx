@@ -43,8 +43,8 @@ const stripHtml = (html: string) => {
 };
 
 interface IArticlePostBodyAndFiles extends IArticlePostBody {
-  img?: File[];
-  pdf?: File[];
+  img: File[];
+  pdf: File[];
 }
 
 // ^ this component is a mess
@@ -78,6 +78,19 @@ export default function AddArticle() {
     img: [],
     pdf: [],
   });
+  async function fetchImageAsBlob(imageUrl: string) {
+    try {
+      const response = await fetch(imageUrl);
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      const imageBlob = await response.blob();
+      return imageBlob;
+    } catch (error) {
+      console.error("Error fetching image:", error);
+      return null;
+    }
+  }
   useEffect(() => {
     const fetchArticleData = async () => {
       try {
@@ -86,6 +99,32 @@ export default function AddArticle() {
           const data = await re.json();
           const categoryNames = data.categories.map((category: { id: string; name: string }) => category.name);
           const tagNames = data.tags.map((tag: { id: string; name: string }) => tag.name);
+
+          const imgBlobs = await Promise.all(data.img.map((imgUrl: string) => fetchImageAsBlob(imgUrl)));
+
+          const imgFiles = imgBlobs.map((blob, index) => {
+            // if (blob) {
+            return new File([blob], `image-${index}`, { type: blob.type });
+            // }
+            // return null;
+          });
+          // .filter(file => file !== null);
+          const pdfBlobs = await Promise.all(data.pdf.map((pdfUrl: string) => fetchImageAsBlob(pdfUrl)));
+
+          const pdfFiles = pdfBlobs.map((blob, index) => {
+            // if (blob) {
+            return new File([blob], `pdf-${index}`, { type: blob.type });
+            // }
+            // return null;
+          });
+          // .filter(file => file !== null);
+
+          // const imgFiles = await data.img.map((imgUrl: string) => {
+          //   const imgBlob = fetchImageAsBlob(imgUrl);
+          //   const imgFile = new File([imgBlob!], imgUrl, { type: imgBlob!.type });
+          //   return imgFile;
+          // });
+
           setIncomingArticle({
             title: data.title || "",
             eventDate: new Date(data.eventDate) || null,
@@ -93,8 +132,8 @@ export default function AddArticle() {
             categories: categoryNames || [],
             tags: tagNames || [],
             section: data.section || "",
-            img: data.img || [],
-            pdf: data.pdf || [],
+            img: imgFiles || [],
+            pdf: pdfFiles || [],
           });
         } else {
           setHasError(true);
@@ -317,9 +356,11 @@ export default function AddArticle() {
     setShowOutcome(false);
     setIsLoading(true);
     setError({ hasError: false, errorMessage: "" });
+    const method = params.id ? "PUT" : "POST";
+    const fetchUrl = `${process.env.REACT_APP_API_URL}/articoli${params.id ? `/${params.id}` : ""}`;
     try {
-      const re = await fetch(`${process.env.REACT_APP_API_URL}/articoli`, {
-        method: "POST",
+      const re = await fetch(fetchUrl, {
+        method: `${method}`,
         headers: {
           Authorization: `Bearer ${localStorage.getItem("loginToken")}`,
         },
@@ -355,6 +396,7 @@ export default function AddArticle() {
       setShowOutcome(true);
     }
   };
+
   const [showOutcome, setShowOutcome] = useState(false);
 
   const addNewTag = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -388,7 +430,7 @@ export default function AddArticle() {
           title: incomingArticle.title,
         }));
         setI(1);
-      }, 500);
+      }, 300);
     } else if (i === 1) {
       setTimeout(() => {
         setArticle(prevArticle => ({
@@ -396,7 +438,7 @@ export default function AddArticle() {
           categories: incomingArticle.categories,
         }));
         setI(2);
-      }, 500);
+      }, 300);
     } else if (i === 2) {
       setTimeout(() => {
         setArticle(prevArticle => ({
@@ -404,7 +446,7 @@ export default function AddArticle() {
           tags: incomingArticle.tags,
         }));
         setI(3);
-      }, 500);
+      }, 300);
     } else if (i === 3) {
       setTimeout(() => {
         setArticle(prevArticle => ({
@@ -412,7 +454,7 @@ export default function AddArticle() {
           eventDate: incomingArticle.eventDate,
         }));
         setI(4);
-      }, 500);
+      }, 300);
     } else if (i === 4) {
       setTimeout(() => {
         setArticle(prevArticle => ({
@@ -420,7 +462,7 @@ export default function AddArticle() {
           section: incomingArticle.section,
         }));
         setI(5);
-      }, 500);
+      }, 300);
     } else if (i === 5) {
       setTimeout(() => {
         setArticle(prevArticle => ({
@@ -428,7 +470,18 @@ export default function AddArticle() {
           content: incomingArticle.content,
         }));
         setI(6);
-      }, 500);
+      }, 300);
+    } else if (i === 6) {
+      setTimeout(() => {
+        setImg(incomingArticle.img);
+        setI(7);
+      }, 300);
+    } else if (i === 7) {
+      setTimeout(() => {
+        setPdf(incomingArticle.pdf);
+
+        setI(8);
+      }, 300);
     }
   };
 
@@ -838,9 +891,11 @@ export default function AddArticle() {
           </Button>
           {/* // todo add confirm */}
           {/* // todo style the btn */}
-          <Button variant="danger" type="submit" className="navigation-button">
-            Aggiungi articolo
-          </Button>
+          {
+            <Button variant="danger" type="submit" className="navigation-button">
+              {params.id ? "Salva modifiche" : "Aggiungi articolo"}
+            </Button>
+          }
         </div>
       </Form>
       {/* {showPreview && (

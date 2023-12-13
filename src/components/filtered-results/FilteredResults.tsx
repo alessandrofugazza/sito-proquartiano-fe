@@ -81,7 +81,7 @@ export default function FilteredResults({ title = "" }: IFilteredResultsProps) {
             return (
               <SingleFilteredResult
                 key={article.id}
-                imgSrc={article.img[0]}
+                imgSrc={article.img ? article.img[0] : ""}
                 date={article.date}
                 author={article.author.signature}
                 tags={article.tags.map(tag => tag.name)}

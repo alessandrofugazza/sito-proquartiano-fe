@@ -435,7 +435,7 @@ export default function AddArticle() {
           title: incomingArticle.title,
         }));
         setI(1);
-      }, 500);
+      }, 200);
     } else if (i === 1) {
       setTimeout(() => {
         setArticle(prevArticle => ({
@@ -443,7 +443,7 @@ export default function AddArticle() {
           categories: incomingArticle.categories,
         }));
         setI(2);
-      }, 500);
+      }, 200);
     } else if (i === 2) {
       setTimeout(() => {
         setArticle(prevArticle => ({
@@ -451,7 +451,7 @@ export default function AddArticle() {
           tags: incomingArticle.tags,
         }));
         setI(3);
-      }, 500);
+      }, 200);
     } else if (i === 3) {
       setTimeout(() => {
         setArticle(prevArticle => ({
@@ -459,7 +459,7 @@ export default function AddArticle() {
           eventDate: incomingArticle.eventDate,
         }));
         setI(4);
-      }, 500);
+      }, 200);
     } else if (i === 4) {
       setTimeout(() => {
         setArticle(prevArticle => ({
@@ -467,7 +467,7 @@ export default function AddArticle() {
           section: incomingArticle.section,
         }));
         setI(5);
-      }, 500);
+      }, 200);
     } else if (i === 5) {
       setTimeout(() => {
         setArticle(prevArticle => ({
@@ -475,17 +475,17 @@ export default function AddArticle() {
           content: incomingArticle.content,
         }));
         setI(6);
-      }, 500);
+      }, 200);
     } else if (i === 6) {
       setTimeout(() => {
         setImg(incomingArticle.img);
         setI(7);
-      }, 500);
+      }, 200);
     } else if (i === 7) {
       setTimeout(() => {
         setPdf(incomingArticle.pdf);
         setI(8);
-      }, 500);
+      }, 200);
     }
   };
 

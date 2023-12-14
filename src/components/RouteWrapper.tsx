@@ -73,7 +73,7 @@ function RouteWrapper({
               <OverlayTrigger placement="left" delay={{ show: 250, hide: 400 }} overlay={renderTooltip}>
                 <i
                   // todo customize border of filled star
-                  className={`bi ${isFavorite ? "bi-star-fill" : "bi-star"} fs-4 position-absolute top-0 end-0`}
+                  className={`bi ${isFavorite ? "bi-bookmark-fill" : "bi-bookmark"} fs-4 position-absolute top-0 end-0`}
                   onClick={handleAddToFavorites}
                 ></i>
               </OverlayTrigger>

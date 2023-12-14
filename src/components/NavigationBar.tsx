@@ -105,8 +105,8 @@ function NavigationBar() {
                       // todo this
                       <p>
                         <Button variant="light" className="text-start">
-                          Per aggiungere una pagina ai preferiti, cliccare sulla stellina in alto a destra presente in
-                          ogni pagina
+                          Per aggiungere una pagina ai preferiti, cliccare sull'icona del segnalibro in alto a destra
+                          presente in ogni pagina
                         </Button>
                       </p>
                     )}

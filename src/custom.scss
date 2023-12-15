@@ -24,7 +24,7 @@ $link-decoration: none;
 @import '~bootstrap/scss/bootstrap';
 
 // ? why do variables need to come before but this needs to come after
-.form-control:focus {
+.form-control:not(.navbar-search):focus {
     color: black;
     background-color: white;
     border-color: #d1d5db;

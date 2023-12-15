@@ -57,7 +57,7 @@ export default function Search() {
                 value={query}
                 onChange={handleChange}
                 placeholder="Cerca qualcosa ..."
-                className="mr-sm-2"
+                className="mr-sm-2 navbar-search"
                 // onClick={() => setShowDropdown(true)}
                 // onBlur={() => setShowDropdown(false)}
               />

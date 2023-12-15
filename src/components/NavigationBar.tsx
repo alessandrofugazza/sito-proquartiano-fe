@@ -416,7 +416,10 @@ function NavigationBar() {
               )}
             </Nav>
             <Search />
-            <UserOffCanvas placement="end" name="right" />
+            {/* // ^ ugly as sin but will do for now */}
+            <Navbar as="div" className="p-0">
+              <UserOffCanvas placement="end" name="right" />
+            </Navbar>
           </Navbar.Collapse>
         </Container>
       </Navbar>

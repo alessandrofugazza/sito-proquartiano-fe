@@ -20,6 +20,7 @@ import { registerLocale, setDefaultLocale } from "react-datepicker";
 import it from "date-fns/locale/it";
 
 import "react-datepicker/dist/react-datepicker.css";
+import FacebookShare from "./FacebookShare";
 pdfjs.GlobalWorkerOptions.workerSrc = `//unpkg.com/pdfjs-dist@${pdfjs.version}/build/pdf.worker.min.js`;
 registerLocale("it", it);
 setDefaultLocale("it");
@@ -48,6 +49,8 @@ interface IArticlePostBodyAndFiles extends IArticlePostBody {
 }
 
 // ^ this component is a mess
+// todo fix validation
+// todo fix validation clear
 export default function AddArticle() {
   // const handleAddImg = (e: React.ChangeEvent<HTMLInputElement>) => {
   //   const newFiles = Array.from(e.target.files);
@@ -530,7 +533,7 @@ export default function AddArticle() {
               />
             </Form.Group>
             <hr className="my-0" />
-            {/* // todo an overly complicated date picker */}
+            {/* // todo an overly complicated date picker or at least fix border*/}
             <Form.Group className="my-3 d-flex flex-column" controlId="form-date">
               <Form.Label>
                 <span className="fw-semibold">Data dell'evento</span> (opzionale)
@@ -542,6 +545,12 @@ export default function AddArticle() {
                 id="form-date"
               /> */}
               <DatePicker
+                value={article.eventDate?.toLocaleDateString("it-IT", {
+                  day: "2-digit",
+                  month: "2-digit",
+                  year: "2-digit",
+                })}
+                minDate={new Date()}
                 selected={article.eventDate}
                 onChange={date => handleInputChange("eventDate", date)}
                 className="w-100"
@@ -881,6 +890,8 @@ export default function AddArticle() {
             </div>
           </Form.Group>
         </Row>
+        {/* // todo */}
+        <FacebookShare />
         <div className="mt-3 d-flex gap-2">
           <Button
             variant="danger"

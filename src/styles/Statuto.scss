@@ -1,0 +1,14 @@
+.quoted-text {
+    margin-bottom: 0;
+    position: relative;
+}
+
+// ^ god aweful way to position this
+.quoted-text::before {
+    content: "\F6B0";
+    font-family: "bootstrap-icons";
+    font-size: 48px;
+    position: absolute;
+    top: -20px;
+    left: -55px;
+}

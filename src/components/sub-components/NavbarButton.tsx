@@ -6,7 +6,6 @@ const getUrlSubpathFromString = (str: string) => {
   return str.toLowerCase().split(" ").join("-");
 };
 
-// ^ use with... for the funcitons
 export default function NavbarButton({
   mainSection,
   subsections,
@@ -30,7 +29,7 @@ export default function NavbarButton({
       {subsections.map(subsection => {
         const pathifiedSubsection = getUrlSubpathFromString(subsection);
         return (
-          <Dropdown.Item as={Link} to={`${pathifiedMainsection}/${pathifiedSubsection}`}>
+          <Dropdown.Item key={subsection} as={Link} to={`${pathifiedMainsection}/${pathifiedSubsection}`}>
             {subsection}
           </Dropdown.Item>
         );
@@ -53,6 +52,7 @@ export default function NavbarButton({
               <Dropdown.Item
                 as={Link}
                 to={`${pathifiedMainsection}/${pathifiedSubsection}`}
+                key={subsection}
                 className={`${
                   location.pathname.startsWith(`/${pathifiedMainsection}/${pathifiedSubsection}`) &&
                   "bg-danger fw-semibold"

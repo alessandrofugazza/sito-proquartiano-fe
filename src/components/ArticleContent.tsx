@@ -24,12 +24,14 @@ export default function ArticleContent() {
       {params.id === "preview" ? (
         <div
           dangerouslySetInnerHTML={{ __html: previewData.content }}
-          className={`${previewData.img?.length > 0 ? "mt-5" : ""} ${previewData.pdf ? "mb-5" : ""} `}
+          className={`content-container ${previewData.img?.length > 0 ? "mt-5" : ""} ${previewData.pdf ? "mb-5" : ""} `}
         />
       ) : (
         <div
           dangerouslySetInnerHTML={{ __html: selectedArticle.content }}
-          className={`${selectedArticle.img?.length > 0 ? "mt-5" : ""} ${selectedArticle.pdf ? "mb-5" : ""} `}
+          className={`content-container ${selectedArticle.img?.length > 0 ? "mt-5" : ""} ${
+            selectedArticle.pdf ? "mb-5" : ""
+          } `}
         />
       )}
       {params.id === "preview"

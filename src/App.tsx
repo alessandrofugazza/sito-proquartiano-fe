@@ -32,7 +32,6 @@ import Manifestazione from "./components/manifestazioni/Manifestazione";
 import EditArticle from "./components/admin/EditArticle";
 
 // todo clean up the goddamn interfaces
-// todo implement overlays somewhere
 // todo use link instead of usenavigate
 // todo use mixins and the like
 // ^ better component import https://react-bootstrap.netlify.app/docs/getting-started/introduction/#importing-components
@@ -43,6 +42,7 @@ import EditArticle from "./components/admin/EditArticle";
 // todo use Image component
 // todo backoffice preview for recruiters
 // todo convert dates idk
+// ? should we be worried about text wrap? probably not
 function App() {
   return (
     <div className="App">

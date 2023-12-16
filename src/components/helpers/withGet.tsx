@@ -1,7 +1,7 @@
 import { ComponentType, useState } from "react";
 import { IWithGetProps } from "../../interfaces/IWithGetProps";
 
-// ? what in the goddamn...?
+// learn what in the goddamn...?
 const withGet = <P extends IWithGetProps>(Component: ComponentType<P>) => {
   return (props: Omit<P, keyof IWithGetProps>) => {
     const [isLoading, setIsLoading] = useState(true);

@@ -21,6 +21,8 @@ import NavbarButton from "./sub-components/NavbarButton";
 interface UserOffCanvasProps extends OffcanvasProps {
   name: string;
 }
+
+// todo highlight dropdown btn when hovering over main button. why such a simple feature needs to be so complicated to implement
 function NavigationBar() {
   const [viewportWidth, setViewportWidth] = useState(window.innerWidth);
   const location = useLocation();

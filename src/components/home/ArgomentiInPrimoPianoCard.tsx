@@ -7,6 +7,7 @@ interface ArgomentiInPrimoPianoCardProps {
   link: string;
 }
 
+// todo make this a square
 function ArgomentiInPrimoPianoCard({ title, link }: ArgomentiInPrimoPianoCardProps) {
   return (
     <>

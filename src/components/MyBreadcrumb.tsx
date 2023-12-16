@@ -24,7 +24,7 @@ function MyBreadcrumb() {
           </div>
         );
       })}
-      <Breadcrumb.Item active>{page.charAt(0).toUpperCase() + page.slice(1)}</Breadcrumb.Item>
+      <Breadcrumb.Item active>{decodeURIComponent(page.charAt(0).toUpperCase() + page.slice(1))}</Breadcrumb.Item>
     </Breadcrumb>
   );
 }

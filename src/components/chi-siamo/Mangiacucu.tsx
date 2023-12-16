@@ -23,9 +23,9 @@ function Mangiacucu() {
       </div>
       <div
         style={{ height: "100px", background: "linear-gradient(45deg, #A30000 50%, #FCB900 50%)" }}
-        className="d-flex flex-column justify-content-center mb-3 mt-4"
+        className="d-flex flex-column justify-content-center mb-3 mt-4 rounded shadow-sm"
       >
-        <p className="ms-5 h3 mb-0" style={{ color: "#FCB900" }}>
+        <p className="ms-5 h3 mb-0" style={{ color: "#FCB900", textShadow: "0px 0px 18px #00000066" }}>
           Giallo e Rosso
         </p>
       </div>

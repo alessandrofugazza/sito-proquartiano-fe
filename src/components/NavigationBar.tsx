@@ -16,6 +16,7 @@ import { OffcanvasProps } from "react-bootstrap";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
 import { useNavigate } from "react-router-dom";
+import NavbarButton from "./sub-components/NavbarButton";
 
 interface UserOffCanvasProps extends OffcanvasProps {
   name: string;
@@ -149,50 +150,11 @@ function NavigationBar() {
                   </Button>
                 </Link>
               </Nav.Item>
-              <Nav.Item>
-                <Dropdown as={ButtonGroup}>
-                  <Link to="/manifestazioni">
-                    <Button
-                      variant="danger"
-                      className={`${location.pathname.startsWith("/manifestazioni") && "bg-danger"}`}
-                    >
-                      MANIFESTAZIONI
-                    </Button>
-                  </Link>
-                  <Dropdown.Toggle split variant="danger" />
-                  <Dropdown.Menu>
-                    <Dropdown.Item
-                      as={Link}
-                      to="manifestazioni/mercatino-dei-libri"
-                      className={`${
-                        location.pathname.startsWith("/manifestazioni/mercatino-dei-libri") && "bg-danger fw-semibold"
-                      }`}
-                    >
-                      Mercatino dei libri
-                    </Dropdown.Item>
-                    <Dropdown.Item
-                      as={Link}
-                      to="manifestazioni/sagra"
-                      className={`${location.pathname.startsWith("/manifestazioni/sagra") && "bg-danger fw-semibold"}`}
-                    >
-                      Sagra di Quartiano
-                    </Dropdown.Item>
-                    <Dropdown.Item
-                      as={Link}
-                      to="manifestazioni/concorso-corale"
-                      className={`${
-                        location.pathname.startsWith("/manifestazioni/concorso-corale") && "bg-danger fw-semibold"
-                      }`}
-                    >
-                      Concorso corale
-                    </Dropdown.Item>
-                    <NavDropdown.Divider />
-                    <Dropdown.Item as={Link} to="manifestazioni/">
-                      Altro
-                    </Dropdown.Item>
-                  </Dropdown.Menu>
-                </Dropdown>
-              </Nav.Item>
+              <NavbarButton
+                mainSection="manifestazioni"
+                subsections={["Mercatino dei libri", "Sagra di Quartiano", "Concorso corale"]}
+                altro
+              />
               {(viewportWidth > widthBreakpoint6 || viewportWidth < 768) && (
                 <Nav.Item>
                   <Link to="/rassegna-stampa">
@@ -206,138 +168,19 @@ function NavigationBar() {
                 </Nav.Item>
               )}
               {(viewportWidth > widthBreakpoint5 || viewportWidth < 768) && (
-                <Nav.Item>
-                  <Dropdown as={ButtonGroup}>
-                    <Link to="/news">
-                      <Button variant="danger" className={`${location.pathname.startsWith("/news") && "bg-danger"}`}>
-                        NEWS
-                      </Button>
-                    </Link>
-                    <Dropdown.Toggle split variant="danger" />
-                    <Dropdown.Menu>
-                      <Dropdown.Item
-                        as={Link}
-                        to="/news/archivio-news"
-                        className={`${location.pathname.startsWith("/news/archivio-news") && "bg-danger fw-semibold"}`}
-                      >
-                        Archivio News
-                      </Dropdown.Item>
-                    </Dropdown.Menu>
-                  </Dropdown>
-                </Nav.Item>
+                <NavbarButton mainSection="news" subsections={["Archivio News"]} />
               )}
               {(viewportWidth > widthBreakpoint4 || viewportWidth < 768) && (
-                <Nav.Item>
-                  <Dropdown as={ButtonGroup}>
-                    <Link to="/chi-siamo">
-                      <Button
-                        variant="danger"
-                        className={`${location.pathname.startsWith("/chi-siamo") && "bg-danger"}`}
-                      >
-                        CHI SIAMO
-                      </Button>
-                    </Link>
-                    <Dropdown.Toggle split variant="danger" />
-                    <Dropdown.Menu>
-                      <Dropdown.Item
-                        as={Link}
-                        to="/chi-siamo/mangiacucu"
-                        className={`${
-                          location.pathname.startsWith("/chi-siamo/mangiacucu") && "bg-danger fw-semibold"
-                        }`}
-                      >
-                        Mangiacucù
-                      </Dropdown.Item>
-                      <Dropdown.Item
-                        as={Link}
-                        to="/chi-siamo/statuto"
-                        className={`${location.pathname.startsWith("/chi-siamo/statuto") && "bg-danger fw-semibold"}`}
-                      >
-                        Statuto
-                      </Dropdown.Item>
-                    </Dropdown.Menu>
-                  </Dropdown>
-                </Nav.Item>
+                <NavbarButton mainSection="chi siamo" subsections={["Mangiacucù", "Statuto"]} />
               )}
               {(viewportWidth > widthBreakpoint3 || viewportWidth < 768) && (
-                <Nav.Item>
-                  <Dropdown as={ButtonGroup}>
-                    <Link to="/dove">
-                      <Button variant="danger" className={`${location.pathname.startsWith("/dove") && "bg-danger"}`}>
-                        DOVE
-                      </Button>
-                    </Link>
-                    <Dropdown.Toggle split variant="danger" />
-                    <Dropdown.Menu>
-                      <Dropdown.Item
-                        as={Link}
-                        to="/dove/come-raggiungerci"
-                        className={`${
-                          location.pathname.startsWith("/dove/come-raggiungerci") && "bg-danger fw-semibold"
-                        }`}
-                      >
-                        Come raggiungerci
-                      </Dropdown.Item>
-                    </Dropdown.Menu>
-                  </Dropdown>
-                </Nav.Item>
+                <NavbarButton mainSection="dove" subsections={["Come Raggiungerci"]} />
               )}
               {(viewportWidth > widthBreakpoint2 || viewportWidth < 768) && (
-                <Nav.Item>
-                  <Dropdown as={ButtonGroup}>
-                    <Link to="/contatti">
-                      <Button
-                        variant="danger"
-                        className={`${location.pathname.startsWith("/contatti") && "bg-danger"}`}
-                      >
-                        CONTATTI
-                      </Button>
-                    </Link>
-                    <Dropdown.Toggle split variant="danger" />
-                    <Dropdown.Menu>
-                      <Dropdown.Item
-                        as={Link}
-                        to="/contatti/link"
-                        className={`${location.pathname.startsWith("/contatti/link") && "bg-danger fw-semibold"}`}
-                      >
-                        Link
-                      </Dropdown.Item>
-                      <Dropdown.Item
-                        as={Link}
-                        to="/contatti/crediti"
-                        className={`${location.pathname.startsWith("/contatti/crediti") && "bg-danger fw-semibold"}`}
-                      >
-                        Crediti
-                      </Dropdown.Item>
-                    </Dropdown.Menu>
-                  </Dropdown>
-                </Nav.Item>
+                <NavbarButton mainSection="contatti" subsections={["Link", "Crediti"]} />
               )}
               {(viewportWidth > widthBreakpoint1 || viewportWidth < 768) && (
-                <Nav.Item>
-                  <Dropdown as={ButtonGroup}>
-                    <Link to="/info-privacy">
-                      <Button
-                        variant="danger"
-                        className={`${location.pathname.startsWith("/info-privacy") && "bg-danger"}`}
-                      >
-                        INFO PRIVACY
-                      </Button>
-                    </Link>
-                    <Dropdown.Toggle split variant="danger" />
-                    <Dropdown.Menu>
-                      <Dropdown.Item
-                        as={Link}
-                        to="/info-privacy/info-cookies"
-                        className={`${
-                          location.pathname.startsWith("/info-privacy/info-cookies") && "bg-danger fw-semibold"
-                        }`}
-                      >
-                        Info cookies
-                      </Dropdown.Item>
-                    </Dropdown.Menu>
-                  </Dropdown>
-                </Nav.Item>
+                <NavbarButton mainSection="info privacy" subsections={["Info Cookies", "Crediti"]} />
               )}
               {viewportWidth >= 768 && viewportWidth <= widthBreakpoint1 && (
                 <Nav.Item>
@@ -359,65 +202,25 @@ function NavigationBar() {
                         </>
                       )}
                       {viewportWidth <= widthBreakpoint5 && (
-                        <>
-                          <Dropdown.Item as={Link} to="/news" className="fw-semibold">
-                            News
-                          </Dropdown.Item>
-                          <Dropdown.Item as={Link} to="/news/archivio-news">
-                            Archivio News
-                          </Dropdown.Item>
-                          <NavDropdown.Divider />
-                        </>
+                        <NavbarButton mainSection="news" subsections={["Archivio News"]} isCollapsed />
                       )}
                       {viewportWidth <= widthBreakpoint4 && (
-                        <>
-                          <Dropdown.Item as={Link} to="/chi-siamo" className="fw-semibold">
-                            Chi siamo
-                          </Dropdown.Item>
-                          <Dropdown.Item as={Link} to="/chi-siamo/mangiacucu">
-                            Mangiacucù
-                          </Dropdown.Item>
-                          <Dropdown.Item as={Link} to="/chi-siamo/statuto">
-                            Statuto
-                          </Dropdown.Item>
-                          <NavDropdown.Divider />
-                        </>
+                        <NavbarButton mainSection="chi siamo" subsections={["Mangiacucù", "Statuto"]} isCollapsed />
                       )}
                       {viewportWidth <= widthBreakpoint3 && (
-                        <>
-                          <Dropdown.Item as={Link} to="/dove" className="fw-semibold">
-                            Dove
-                          </Dropdown.Item>
-                          <Dropdown.Item as={Link} to="/dove/come-raggiungerci">
-                            Come raggiungerci
-                          </Dropdown.Item>
-                          <NavDropdown.Divider />
-                        </>
+                        <NavbarButton mainSection="dove" subsections={["Come Raggiungerci"]} isCollapsed />
                       )}
 
                       {viewportWidth <= widthBreakpoint2 && (
-                        <>
-                          <Dropdown.Item as={Link} to="/contatti" className="fw-semibold">
-                            Contatti
-                          </Dropdown.Item>
-                          <Dropdown.Item as={Link} to="/contatti/link">
-                            Link
-                          </Dropdown.Item>
-                          <Dropdown.Item as={Link} to="/contatti/crediti">
-                            Crediti
-                          </Dropdown.Item>
-                          <NavDropdown.Divider />
-                        </>
+                        <NavbarButton mainSection="contatti" subsections={["Link", "Crediti"]} isCollapsed />
                       )}
                       {viewportWidth <= widthBreakpoint1 && (
-                        <>
-                          <Dropdown.Item as={Link} to="/info-privacy" className="fw-semibold">
-                            Info privacy
-                          </Dropdown.Item>
-                          <Dropdown.Item as={Link} to="/info-privacy/info-cookies">
-                            Info cookies
-                          </Dropdown.Item>
-                        </>
+                        <NavbarButton
+                          mainSection="info privacy"
+                          subsections={["Info Cookies", "Crediti"]}
+                          isCollapsed
+                          isLast
+                        />
                       )}
                     </Dropdown.Menu>
                     {/* <Dropdown.Menu>

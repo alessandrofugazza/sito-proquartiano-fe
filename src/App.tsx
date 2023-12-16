@@ -97,7 +97,7 @@ function App() {
             }
           />
           <Route path="/chi-siamo" element={<RouteWrapper title="Chi siamo" content={<ChiSiamo />} />} />
-          <Route path="/chi-siamo/mangiacucu" element={<RouteWrapper title="Mangiacucù" content={<Mangiacucu />} />} />
+          <Route path="/chi-siamo/mangiacucù" element={<RouteWrapper title="Mangiacucù" content={<Mangiacucu />} />} />
           <Route path="/chi-siamo/statuto" element={<RouteWrapper title="Statuto" content={<Statuto />} />} />
           <Route path="/dove" element={<RouteWrapper title="Dove" content={<Dove />} />} />
           <Route

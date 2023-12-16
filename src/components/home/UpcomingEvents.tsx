@@ -16,8 +16,9 @@ type ValuePiece = Date | null;
 
 type Value = ValuePiece | [ValuePiece, ValuePiece];
 
+// todo organize this clusterfuck of a component
+// ! overlay overlapping navbar
 function UpcomingEvents({ isLoading, setIsLoading, error, setError }: IWithGetProps) {
-  // todo organize this clusterfuck of a component
   const [comingUpData, setComingUpData] = useState<IArticleApiResponse[] | null>(null);
   const navigate = useNavigate();
   const [showPopover, setShowPopover] = useState(false);

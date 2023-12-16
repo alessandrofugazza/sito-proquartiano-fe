@@ -56,64 +56,75 @@ function NavigationBar() {
         <div className="ms-3 user-icon" onClick={handleShow}>
           <i className="bi bi-person-circle text-white fs-3"></i>
         </div>
-        {/* // ! closing offcanvas causes navbar to transition */}
         <Offcanvas show={show} onHide={handleClose} {...props}>
           <Offcanvas.Header closeButton>
             <Offcanvas.Title>Area utenti</Offcanvas.Title>
           </Offcanvas.Header>
           <Offcanvas.Body>
-            <ButtonGroup vertical>
-              {/* // todo BAD but works for 0.1  */}
-              {localStorage.getItem("loginToken") ? (
-                <Button variant="link" className="text-start" onClick={() => navigate("admins")}>
-                  Area amministratore
+            <div className="d-flex flex-column h-100">
+              <ButtonGroup vertical>
+                {/* // ! todo BAD but works for 0.1  */}
+                {localStorage.getItem("loginToken") ? (
+                  <Button variant="link" className="text-start" onClick={() => navigate("admins")}>
+                    Area amministratore
+                  </Button>
+                ) : (
+                  <Button variant="link" className="text-start" onClick={() => navigate("auth/login")}>
+                    Login / Registrazione
+                  </Button>
+                )}
+                <Button
+                  variant="link"
+                  className="text-start"
+                  onClick={() => setOpen(!open)}
+                  aria-controls="example-collapse-text"
+                  aria-expanded={open}
+                >
+                  <div>
+                    <span>Preferiti</span>
+                    {/* // ? use ::after */}
+                    <i className="bi bi-caret-down-fill ms-1" style={{ fontSize: "0.8rem" }}></i>
+                  </div>
                 </Button>
-              ) : (
-                <Button variant="link" className="text-start" onClick={() => navigate("auth/login")}>
-                  Login / Registrazione
-                </Button>
+                <Collapse in={open}>
+                  <div id="example-collapse-text px-0 ">
+                    {/* // todo where the fuck is the left padding coming from */}
+                    <ButtonGroup vertical className="ps-2 border-start">
+                      {favorites.length > 0 ? (
+                        favorites.map(favorite => (
+                          <Button
+                            onClick={() => navigate(favorite.url)}
+                            variant="link"
+                            key={favorite.url}
+                            className="text-start"
+                          >
+                            {favorite.title}
+                          </Button>
+                        ))
+                      ) : (
+                        // todo this
+                        <p>
+                          <Button variant="light" className="text-start">
+                            Per aggiungere una pagina ai preferiti, cliccare sull'icona del segnalibro in alto a destra
+                            presente in ogni pagina
+                          </Button>
+                        </p>
+                      )}
+                    </ButtonGroup>
+                  </div>
+                </Collapse>
+              </ButtonGroup>
+              {localStorage.getItem("loginToken") && (
+                <div
+                  className=" mt-auto d-flex align-items-center justify-content-end"
+                  style={{ cursor: "pointer" }}
+                  onClick={() => alert("lazy as fuck")}
+                >
+                  <Button variant="link">Logout</Button>
+                  <i className="bi bi-box-arrow-right text-danger"></i>
+                </div>
               )}
-              <Button
-                variant="link"
-                className="text-start"
-                onClick={() => setOpen(!open)}
-                aria-controls="example-collapse-text"
-                aria-expanded={open}
-              >
-                <div>
-                  <span>Preferiti</span>
-                  {/* // ? use ::after */}
-                  <i className="bi bi-caret-down-fill ms-1" style={{ fontSize: "0.8rem" }}></i>
-                </div>
-              </Button>
-              <Collapse in={open}>
-                <div id="example-collapse-text px-0 ">
-                  {/* // todo where the fuck is the left padding coming from */}
-                  <ButtonGroup vertical className="ps-2 border-start">
-                    {favorites.length > 0 ? (
-                      favorites.map(favorite => (
-                        <Button
-                          onClick={() => navigate(favorite.url)}
-                          variant="link"
-                          key={favorite.url}
-                          className="text-start"
-                        >
-                          {favorite.title}
-                        </Button>
-                      ))
-                    ) : (
-                      // todo this
-                      <p>
-                        <Button variant="light" className="text-start">
-                          Per aggiungere una pagina ai preferiti, cliccare sull'icona del segnalibro in alto a destra
-                          presente in ogni pagina
-                        </Button>
-                      </p>
-                    )}
-                  </ButtonGroup>
-                </div>
-              </Collapse>
-            </ButtonGroup>
+            </div>
           </Offcanvas.Body>
         </Offcanvas>
       </>

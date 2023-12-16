@@ -1,8 +1,8 @@
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import "../../styles/ArticleCard.scss";
-import ArticleDateAuthorTag from "../shared-components/ArticleDateAuthorTag";
-import ArticleCategories from "../shared-components/ArticleCategories";
+import ArticleDateAuthorTag from "./ArticleDateAuthorTag";
+import ArticleCategories from "./ArticleCategories";
 import { useNavigate } from "react-router-dom";
 import { IArticlePreviewProps } from "../../interfaces/IArticlePreviewProps";
 import defaultImg from "../../assets/img/default-img.png";

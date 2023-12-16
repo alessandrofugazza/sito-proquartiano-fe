@@ -72,14 +72,25 @@
       }
     }
 
+    .placeholder-img {
+      height: 200px;
+
+    }
+
     .big-card {
       @media (min-width: 768px) {
+
         img {
+          // ^ data duplication bad
           max-height: 400px;
 
           &.default-img {
             display: none;
           }
+        }
+
+        .placeholder-img {
+          height: 400px;
         }
 
       }

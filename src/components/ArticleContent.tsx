@@ -3,6 +3,7 @@ import { RootState } from "../redux/store";
 import "../styles/Article.scss";
 import { useParams } from "react-router-dom";
 
+// todo add some kind of background to imgs
 export default function ArticleContent() {
   const selectedArticle = useSelector((state: RootState) => state.selectedArticle.content);
   const previewData = useSelector((state: RootState) => state.previewData.content);

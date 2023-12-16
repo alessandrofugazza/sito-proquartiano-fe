@@ -2,7 +2,7 @@ import { Alert } from "react-bootstrap";
 import { IArticleApiResponse } from "../../interfaces/IArticleApi";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import ArticleCard from "../home/ArticleCard";
+import ArticleCard from "../shared-components/ArticleCard";
 import UltimiEventi from "../home/UltimiEventi";
 
 export default function NextDate() {

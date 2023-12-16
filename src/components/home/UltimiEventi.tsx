@@ -1,9 +1,10 @@
-import HomeCard from "./ArticleCard";
+import ArticleCard from "../shared-components/ArticleCard";
 import { Button, Col, Row } from "react-bootstrap";
 import { useEffect, useRef, useState } from "react";
 import { IArticleApiResponse, IArticlesApiResponse } from "../../interfaces/IArticleApi";
 import { useLocation, useParams } from "react-router-dom";
 import HomePagination from "./HomePagination";
+import ArticleCardPlaceholder from "../shared-components/ArticleCardPlaceholder";
 
 function UltimiEventi() {
   const [articlesData, setArticlesData] = useState<IArticleApiResponse[] | null>(null);
@@ -16,6 +17,7 @@ function UltimiEventi() {
   const [fetchPage, setFetchPage] = useState(0);
   const [isLastPage, setIsLastPage] = useState(false);
   const params = useParams();
+  const placeholderCounter = Array.from({ length: 10 });
 
   // todo common function for this and filteredresults. redux?
   const fetchArticlesData = async () => {
@@ -64,72 +66,83 @@ function UltimiEventi() {
       {/* // ? should i implement this? */}
       {/* <HomePagination fetchPage={recentEventsPage} /> */}
 
-      {articlesData && !isLoading && (
-        <>
-          <Row className="mt-5 mb-4">
-            <Col className="big-card">
-              <HomeCard
-                imgSrc={articlesData[0].img?.[0] || ""} // todo bad hack but will do for now, check api response
-                date={articlesData[0].date}
-                author={articlesData[0].author.signature}
-                tags={articlesData[0].tags?.map(tag => tag.name)}
-                categories={articlesData[0].categories.map(category => category.name)}
-                title={articlesData[0].title}
-                content={articlesData[0].content}
-                articleId={articlesData[0].id}
-              />
-            </Col>
-          </Row>
-          <Row xs={1} md={2} className="gy-4">
-            {articlesData.slice(1).map((article, index) => {
-              return (
-                <Col
-                  key={article.id}
-                  // * terrible hack. implement offset in get
-                  className={`small-card ${
-                    // ^ smarter conditions
-                    articlesData.length > 11 &&
-                    index === articlesData.length - 2 &&
-                    !(articlesData.length % 2) &&
-                    !isLastPage
-                      ? "d-none"
-                      : ""
-                  }`}
-                >
-                  <HomeCard
-                    imgSrc={article.img?.[0] || ""}
-                    date={article.date}
-                    author={article.author.signature}
-                    tags={article.tags.map(tag => tag.name)}
-                    categories={article.categories.map(category => category.name)}
-                    title={article.title}
-                    content={article.content}
-                    articleId={article.id}
-                  />
+      <>
+        <Row className="mt-5 mb-4">
+          <Col className="big-card">
+            {isLoading ? (
+              <ArticleCardPlaceholder />
+            ) : (
+              articlesData && (
+                <ArticleCard
+                  imgSrc={articlesData[0].img?.[0] || ""} // todo bad hack but will do for now, check api response
+                  date={articlesData[0].date}
+                  author={articlesData[0].author.signature}
+                  tags={articlesData[0].tags?.map(tag => tag.name)}
+                  categories={articlesData[0].categories.map(category => category.name)}
+                  title={articlesData[0].title}
+                  content={articlesData[0].content}
+                  articleId={articlesData[0].id}
+                />
+              )
+            )}
+          </Col>
+        </Row>
+        <Row xs={1} md={2} className="gy-4">
+          {isLoading
+            ? placeholderCounter.map((_, index) => (
+                <Col key={index} className={`small-card`}>
+                  <ArticleCardPlaceholder />
                 </Col>
-              );
-            })}
-          </Row>
+              ))
+            : articlesData &&
+              articlesData.slice(1).map((article, index) => {
+                return (
+                  <Col
+                    key={article.id}
+                    // * terrible hack. implement offset in get
+                    className={`small-card ${
+                      // ^ smarter conditions
+                      articlesData.length > 11 &&
+                      index === articlesData.length - 2 &&
+                      !(articlesData.length % 2) &&
+                      !isLastPage
+                        ? "d-none"
+                        : ""
+                    }`}
+                  >
+                    <ArticleCard
+                      imgSrc={article.img?.[0] || ""}
+                      date={article.date}
+                      author={article.author.signature}
+                      tags={article.tags.map(tag => tag.name)}
+                      categories={article.categories.map(category => category.name)}
+                      title={article.title}
+                      content={article.content}
+                      articleId={article.id}
+                    />
+                  </Col>
+                );
+              })}
+        </Row>
 
-          {!isLastPage ? (
-            <div className="d-flex mt-5">
-              <Button
-                className="recent-events-nav-btn mx-auto fs-5"
-                variant="link"
-                onClick={() => {
-                  setFetchPage(fetchPage + 1);
-                }}
-              >
-                Carica altro
-              </Button>
-            </div>
-          ) : (
-            <div className="d-flex mt-5">
-              <span className="recent-events-nav-btn mx-auto fs-5">Fine dei risultati</span>
-            </div>
-          )}
-        </>
-      )}
+        {!isLastPage ? (
+          <div className="d-flex mt-5">
+            <Button
+              className="recent-events-nav-btn mx-auto fs-5"
+              variant="link"
+              onClick={() => {
+                setFetchPage(fetchPage + 1);
+              }}
+            >
+              Carica altro
+            </Button>
+          </div>
+        ) : (
+          <div className="d-flex mt-5">
+            <span className="recent-events-nav-btn mx-auto fs-5">Fine dei risultati</span>
+          </div>
+        )}
+      </>
     </Col>
   );
 }

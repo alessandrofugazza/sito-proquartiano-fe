@@ -12,6 +12,7 @@ export default function ArticleCardPlaceholder() {
       <Card.Body className="d-flex flex-column">
         <ArticleCategoriesPlaceholder />
         <Placeholder as={Card.Title} className="my-2" animation="glow">
+          {/* // ^ tf are all these xs, are they necessary? */}
           <Placeholder xs={6} />
         </Placeholder>
         <ArticleDateAuthorTagPlaceholder />

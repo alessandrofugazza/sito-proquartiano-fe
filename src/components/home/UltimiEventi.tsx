@@ -5,14 +5,13 @@ import { IArticleApiResponse, IArticlesApiResponse } from "../../interfaces/IArt
 import { useLocation, useParams } from "react-router-dom";
 import HomePagination from "./HomePagination";
 import ArticleCardPlaceholder from "../shared-components/ArticleCardPlaceholder";
+import { IWithGetProps } from "../../interfaces/IWithGetProps";
+import withGet from "../helpers/withGet";
+import GenericErrorAlert from "../shared-components/GenericErrorAlert";
 
-function UltimiEventi() {
+function UltimiEventi({ isLoading, setIsLoading, error, setError }: IWithGetProps) {
   const [articlesData, setArticlesData] = useState<IArticleApiResponse[] | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState({
-    hasError: false,
-    errorMessage: "",
-  });
+
   const ultimiEventiRef = useRef<HTMLDivElement>(null);
   const [fetchPage, setFetchPage] = useState(0);
   const [isLastPage, setIsLastPage] = useState(false);
@@ -42,6 +41,7 @@ function UltimiEventi() {
         });
       }
     } catch (error) {
+      // todo is this right?
       setError({
         hasError: true,
         errorMessage: "Errore nel reperimento dati.",
@@ -71,6 +71,8 @@ function UltimiEventi() {
           <Col className="big-card">
             {isLoading ? (
               <ArticleCardPlaceholder />
+            ) : error.hasError ? (
+              <GenericErrorAlert />
             ) : (
               articlesData && (
                 <ArticleCard
@@ -88,41 +90,45 @@ function UltimiEventi() {
           </Col>
         </Row>
         <Row xs={1} md={2} className="gy-4">
-          {isLoading
-            ? placeholderCounter.map((_, index) => (
-                <Col key={index} className={`small-card`}>
-                  <ArticleCardPlaceholder />
+          {isLoading ? (
+            placeholderCounter.map((_, index) => (
+              <Col key={index} className={`small-card`}>
+                <ArticleCardPlaceholder />
+              </Col>
+            ))
+          ) : error.hasError ? (
+            <></>
+          ) : (
+            articlesData &&
+            articlesData.slice(1).map((article, index) => {
+              return (
+                <Col
+                  key={article.id}
+                  // * terrible hack. implement offset in get
+                  className={`small-card ${
+                    // ^ smarter conditions
+                    articlesData.length > 11 &&
+                    index === articlesData.length - 2 &&
+                    !(articlesData.length % 2) &&
+                    !isLastPage
+                      ? "d-none"
+                      : ""
+                  }`}
+                >
+                  <ArticleCard
+                    imgSrc={article.img?.[0] || ""}
+                    date={article.date}
+                    author={article.author.signature}
+                    tags={article.tags.map(tag => tag.name)}
+                    categories={article.categories.map(category => category.name)}
+                    title={article.title}
+                    content={article.content}
+                    articleId={article.id}
+                  />
                 </Col>
-              ))
-            : articlesData &&
-              articlesData.slice(1).map((article, index) => {
-                return (
-                  <Col
-                    key={article.id}
-                    // * terrible hack. implement offset in get
-                    className={`small-card ${
-                      // ^ smarter conditions
-                      articlesData.length > 11 &&
-                      index === articlesData.length - 2 &&
-                      !(articlesData.length % 2) &&
-                      !isLastPage
-                        ? "d-none"
-                        : ""
-                    }`}
-                  >
-                    <ArticleCard
-                      imgSrc={article.img?.[0] || ""}
-                      date={article.date}
-                      author={article.author.signature}
-                      tags={article.tags.map(tag => tag.name)}
-                      categories={article.categories.map(category => category.name)}
-                      title={article.title}
-                      content={article.content}
-                      articleId={article.id}
-                    />
-                  </Col>
-                );
-              })}
+              );
+            })
+          )}
         </Row>
 
         {!isLastPage ? (
@@ -147,4 +153,4 @@ function UltimiEventi() {
   );
 }
 
-export default UltimiEventi;
+export default withGet(UltimiEventi);

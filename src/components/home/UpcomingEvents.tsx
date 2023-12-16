@@ -8,12 +8,15 @@ import { Link, useNavigate } from "react-router-dom";
 import { differenceInCalendarDays } from "date-fns";
 import { hr } from "date-fns/locale";
 import { Placement } from "react-bootstrap/esm/types";
+import { IWithGetProps } from "../../interfaces/IWithGetProps";
+import withGet from "../helpers/withGet";
+import GenericErrorAlert from "../shared-components/GenericErrorAlert";
 
 type ValuePiece = Date | null;
 
 type Value = ValuePiece | [ValuePiece, ValuePiece];
 
-export default function UpcomingEvents() {
+function UpcomingEvents({ isLoading, setIsLoading, error, setError }: IWithGetProps) {
   // todo organize this clusterfuck of a component
   const [comingUpData, setComingUpData] = useState<IArticleApiResponse[] | null>(null);
   const navigate = useNavigate();
@@ -23,9 +26,25 @@ export default function UpcomingEvents() {
 
   const [value, onChange] = useState<Value>(new Date());
   const fetchComingUp = async () => {
-    const re = await fetch(`${process.env.REACT_APP_API_URL}/articoli/coming-up/all`);
-    const data = await re.json();
-    setComingUpData(data);
+    try {
+      const re = await fetch(`${process.env.REACT_APP_API_URL}/articoli/coming-up/all`);
+      if (re.ok) {
+        const data = await re.json();
+        setComingUpData(data);
+      } else {
+        setError({
+          hasError: true,
+          errorMessage: `Error ${re.status}: ${re.statusText}`,
+        });
+      }
+    } catch (error) {
+      setError({
+        hasError: true,
+        errorMessage: "Errore nel reperimento dati.",
+      });
+    } finally {
+      setIsLoading(false);
+    }
   };
   useEffect(() => {
     fetchComingUp();
@@ -132,25 +151,33 @@ export default function UpcomingEvents() {
           className="d-flex flex-column gap-3 my-2 flex-grow-1 "
           style={{ maxHeight: "234px", overflowY: "auto" }}
         >
-          {comingUpData?.map(event => (
-            <ListGroup.Item
-              onClick={() => navigate(`articoli/${event.id}`)}
-              key={event.id}
-              className="d-flex justify-content-between align-items-start "
-              style={{ borderTopWidth: "1px" }}
-            >
-              <div className="ms-2 me-auto">
-                <div className="d-flex gap-2">
-                  <i className="bi bi-calendar-event"></i>
-                  <span className="fw-semibold">{formatDate(event.eventDate)}</span>
+          {isLoading ? (
+            <p>yo</p>
+          ) : error.hasError ? (
+            <GenericErrorAlert />
+          ) : (
+            comingUpData?.map(event => (
+              <ListGroup.Item
+                onClick={() => navigate(`articoli/${event.id}`)}
+                key={event.id}
+                className="d-flex justify-content-between align-items-start "
+                style={{ borderTopWidth: "1px" }}
+              >
+                <div className="ms-2 me-auto">
+                  <div className="d-flex gap-2">
+                    <i className="bi bi-calendar-event"></i>
+                    <span className="fw-semibold">{formatDate(event.eventDate)}</span>
+                  </div>
+                  {/* // todo fix overflow */}
+                  <span className="upcoming-event-title">{event.title}</span>
                 </div>
-                {/* // todo fix overflow */}
-                <span className="upcoming-event-title">{event.title}</span>
-              </div>
-            </ListGroup.Item>
-          ))}
+              </ListGroup.Item>
+            ))
+          )}
         </ListGroup>
       </Col>
     </Row>
   );
 }
+
+export default withGet(UpcomingEvents);

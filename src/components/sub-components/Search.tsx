@@ -21,6 +21,9 @@ export default function Search() {
   };
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!query) {
+      return;
+    }
     setIsLoading(true);
     setSearch(query);
     const fetchUrl = `${process.env.REACT_APP_API_URL}/articoli/search?q=${query}`;

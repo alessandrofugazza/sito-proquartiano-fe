@@ -6,10 +6,10 @@ import { Collapse, InputGroup, ListGroup, Modal } from "react-bootstrap";
 import { IArticlesApiResponse } from "../../interfaces/IArticleApi";
 import SingleFilteredResult from "../filtered-results/SingleFilteredResult";
 import { useLocation, useNavigate } from "react-router";
+import withGet from "../helpers/withGet";
+import { IWithGetProps } from "../../interfaces/IWithGetProps";
 
-export default function Search() {
-  const [isLoading, setIsLoading] = useState(false);
-  const [hasError, setHasError] = useState(false);
+function Search({ isLoading, setIsLoading, error, setError }: IWithGetProps) {
   const [query, setQuery] = useState("");
   const [search, setSearch] = useState("");
   const [foundArticles, setFoundArticles] = useState<IArticlesApiResponse | null>(null);
@@ -34,10 +34,16 @@ export default function Search() {
         setFoundArticles(data);
         setLgShow(true);
       } else {
-        setHasError(true);
+        setError({
+          hasError: true,
+          errorMessage: `Error ${re.status}: ${re.statusText}`,
+        });
       }
     } catch (error) {
-      setHasError(true);
+      setError({
+        hasError: true,
+        errorMessage: "Errore nel reperimento dati.",
+      });
     } finally {
       setQuery("");
       setIsLoading(false);
@@ -113,3 +119,5 @@ export default function Search() {
     </>
   );
 }
+
+export default withGet(Search);

@@ -3,18 +3,24 @@ import { useEffect, useRef, useState } from "react";
 import { IArticleApiResponse, IArticlesApiResponse } from "../../interfaces/IArticleApi";
 import { useLocation, useParams } from "react-router-dom";
 import SingleFilteredResult from "./SingleFilteredResult";
+import withGet from "../helpers/withGet";
+import { IWithGetProps } from "../../interfaces/IWithGetProps";
+import SingleFilteredResultPlaceholder from "./SingleFilteredResultPlaceholder";
+import GenericErrorAlert from "../shared-components/GenericErrorAlert";
 
 interface IFilteredResultsProps {
   title?: string;
 }
+
+// learn
+type FilteredResultsProps = IFilteredResultsProps & IWithGetProps;
+
 // ? usestate
 // learn difference
 let fetchPage = 0;
 
-export default function FilteredResults({ title = "" }: IFilteredResultsProps) {
+function FilteredResults({ title = "", isLoading, setIsLoading, error, setError }: FilteredResultsProps) {
   const [articlesData, setArticlesData] = useState<IArticleApiResponse[] | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
-  const [hasError, setHasError] = useState(false);
   const location = useLocation();
   const [isLastPage, setIsLastPage] = useState(false);
   const queryParams = new URLSearchParams(location.search);
@@ -51,10 +57,16 @@ export default function FilteredResults({ title = "" }: IFilteredResultsProps) {
         }
         setArticlesData(oldData => [...(oldData || []), ...newData.content]);
       } else {
-        setHasError(true);
+        setError({
+          hasError: true,
+          errorMessage: `Error ${re.status}: ${re.statusText}`,
+        });
       }
     } catch (error) {
-      setHasError(true);
+      setError({
+        hasError: true,
+        errorMessage: "Errore nel reperimento dati.",
+      });
     } finally {
       setIsLoading(false);
     }
@@ -69,15 +81,20 @@ export default function FilteredResults({ title = "" }: IFilteredResultsProps) {
     setArticlesData(null);
     fetchArticlesData();
   }, [location.search]);
+  const placeholderCounter = Array.from({ length: 5 });
   return (
     <>
       <div className="d-flex justify-content-center mt-3">
         {title ? <h1>{title}</h1> : <h1 className="h2 mb-5">{queryParamTitle}</h1>}
       </div>
       <Row className="gy-4">
-        {articlesData &&
-          !isLoading &&
-          articlesData.map(article => {
+        {/* // todo i dont even know if this is working or not and for some reason cant test it */}
+        {isLoading ? (
+          placeholderCounter.map((_, index) => <SingleFilteredResultPlaceholder key={index} />)
+        ) : error.hasError ? (
+          <GenericErrorAlert />
+        ) : (
+          articlesData?.map(article => {
             return (
               <SingleFilteredResult
                 key={article.id}
@@ -91,7 +108,8 @@ export default function FilteredResults({ title = "" }: IFilteredResultsProps) {
                 articleId={article.id}
               />
             );
-          })}
+          })
+        )}
       </Row>
       {!isLastPage ? (
         <div className="d-flex mt-5">
@@ -114,3 +132,5 @@ export default function FilteredResults({ title = "" }: IFilteredResultsProps) {
     </>
   );
 }
+
+export default withGet(FilteredResults);

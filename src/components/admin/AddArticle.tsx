@@ -70,6 +70,7 @@ export default function AddArticle() {
 
   // let hasAttemptedSubmit = false;
   const params = useParams();
+  const [newArticleId, setNewArticleId] = useState("");
   const [hasError, setHasError] = useState(false);
   const [incomingArticle, setIncomingArticle] = useState<IArticlePostBodyAndFiles>({
     title: "",
@@ -375,7 +376,8 @@ export default function AddArticle() {
         body: formData,
       });
       if (re.ok) {
-        console.log("done");
+        const data = await re.json();
+        setNewArticleId(data.id);
         // setShowOutcomeToast(true);
         // setTimeout(() => setShowOutcomeToast(false), 3000);
         // todo fix form reset. I HATE THIS
@@ -890,8 +892,7 @@ export default function AddArticle() {
             </div>
           </Form.Group>
         </Row>
-        {/* // todo */}
-        <FacebookShare />
+
         <div className="mt-3 d-flex gap-2">
           <Button
             variant="danger"
@@ -926,18 +927,26 @@ export default function AddArticle() {
       )} */}
       {/* // todo add placeholder */}
       {showOutcome && (
-        <Alert
-          variant={`${error.hasError ? "danger" : "success"}`}
-          className="mt-5"
-          onClose={() => setShowOutcome(false)}
-          dismissible
-        >
-          <Alert.Heading className="d-flex align-items-center">
-            <i className={`bi ${error.hasError ? "bi-x" : "bi-check2"} fs-1 me-3`}></i>
-            <span>{error.hasError ? "Errore!" : "Successo!"}</span>
-          </Alert.Heading>
-          <p>{error.hasError ? "L'operazione non è andata a buon fine" : "Operazione effettuata con successo."}</p>
-        </Alert>
+        <>
+          <Alert
+            variant={`${error.hasError ? "danger" : "success"}`}
+            className="mt-5"
+            onClose={() => setShowOutcome(false)}
+            dismissible
+          >
+            <Alert.Heading className="d-flex align-items-center">
+              <i className={`bi ${error.hasError ? "bi-x" : "bi-check2"} fs-1 me-3`}></i>
+              <span>{error.hasError ? "Errore!" : "Successo!"}</span>
+            </Alert.Heading>
+            <p>{error.hasError ? "L'operazione non è andata a buon fine" : "Operazione effettuata con successo."}</p>
+          </Alert>
+          {!error.hasError && (
+            <div className="text-center">
+              {/* // todo is this even working */}
+              <FacebookShare shareUrl={`${process.env.REACT_APP_API_URL}/articoli/${newArticleId}`} />
+            </div>
+          )}
+        </>
       )}
       {/* <OutcomeToast showToast={showOutcomeToast} isSuccess={true} /> */}
     </>

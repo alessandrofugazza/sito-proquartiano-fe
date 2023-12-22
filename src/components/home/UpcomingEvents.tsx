@@ -11,6 +11,7 @@ import { Placement } from "react-bootstrap/esm/types";
 import { IWithGetProps } from "../../interfaces/IWithGetProps";
 import withGet from "../helpers/withGet";
 import GenericErrorAlert from "../shared-components/GenericErrorAlert";
+import UpcomingEventPlaceholder from "./UpcomingEventPlaceholder";
 
 type ValuePiece = Date | null;
 
@@ -94,7 +95,7 @@ function UpcomingEvents({ isLoading, setIsLoading, error, setError }: IWithGetPr
   }
 
   const [selectedDayEvents, setSelectedDayEvents] = useState<IArticleApiResponse[]>([]);
-
+  const placeholderCounter = Array.from({ length: 4 });
   const popover = (
     <Popover id="popover-basic" ref={popoverRef}>
       <Popover.Header as="h3">Dettagli evento</Popover.Header>
@@ -153,7 +154,7 @@ function UpcomingEvents({ isLoading, setIsLoading, error, setError }: IWithGetPr
           style={{ maxHeight: "234px", overflowY: "auto" }}
         >
           {isLoading ? (
-            <p>yo</p>
+            placeholderCounter.map((_, index) => <UpcomingEventPlaceholder key={index} />)
           ) : error.hasError ? (
             <GenericErrorAlert />
           ) : (

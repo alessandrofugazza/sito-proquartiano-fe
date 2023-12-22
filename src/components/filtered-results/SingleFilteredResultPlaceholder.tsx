@@ -15,7 +15,7 @@ export default function SingleFilteredResultPlaceholder() {
       <Card className="flex-row shadow single-filtered-result" style={{ height: "210px" }}>
         <Col className="d-flex" xs={2}>
           <Placeholder animation="glow" className="img-fluid p-2 border-bottom" style={{ padding: "10px" }}>
-            <Placeholder xs={12} />
+            <Placeholder xs={12} className="placeholder-img" />
           </Placeholder>
         </Col>
         <Col xs={10} className="d-flex">

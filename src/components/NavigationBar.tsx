@@ -121,7 +121,12 @@ function NavigationBar() {
                 <div
                   className=" mt-auto d-flex align-items-center justify-content-end"
                   style={{ cursor: "pointer" }}
-                  onClick={() => alert("lazy as fuck")}
+                  onClick={() => {
+                    localStorage.setItem("loginToken", "");
+                    setTimeout(() => {
+                      navigate("/");
+                    }, 2000);
+                  }}
                 >
                   <Button variant="link">Logout</Button>
                   <i className="bi bi-box-arrow-right text-danger"></i>

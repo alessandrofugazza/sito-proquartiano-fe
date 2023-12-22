@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Alert, Button, Form, Spinner } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 export default function AdminLogin() {
   const [validated, setValidated] = useState(false);
@@ -8,6 +9,7 @@ export default function AdminLogin() {
     email: "",
     password: "",
   });
+  const navigate = useNavigate();
   const [hasError, setHasError] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const handleChange = (propertyName: string, propertyValue: string) => {
@@ -37,6 +39,9 @@ export default function AdminLogin() {
         const rePayload = await re.json();
         localStorage.setItem("loginToken", rePayload.accessToken);
         localStorage.setItem("username", rePayload.username);
+        setTimeout(() => {
+          navigate("/");
+        }, 2000);
       } else {
         setHasError(true);
       }

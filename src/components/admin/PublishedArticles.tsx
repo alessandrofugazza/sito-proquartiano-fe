@@ -6,6 +6,7 @@ import "../../styles/PublishedArticles.scss";
 
 export default function PublishedArticles() {
   const [articlesData, setArticlesData] = useState<IArticleApiResponse[] | null>(null);
+  const [fetchPage, setFetchPage] = useState(0);
   const [isLastPage, setIsLastPage] = useState(false);
   const navigate = useNavigate();
   const deleteArticle = async () => {
@@ -22,24 +23,25 @@ export default function PublishedArticles() {
     }
   };
   const fetchArticles = async () => {
-    const re = await fetch(
-      `${process.env.REACT_APP_API_URL}/articoli?autore=${localStorage.getItem("username")}&page=0`,
-      {
-        method: "GET",
-        headers: {
-          Authorization: `Bearer ${localStorage.getItem("loginToken")}`,
-        },
-      }
-    );
+    let fetchUrl = `${process.env.REACT_APP_API_URL}/articoli?autore=${localStorage.getItem(
+      "username"
+    )}&page=${fetchPage}`;
+
+    const re = await fetch(fetchUrl, {
+      method: "GET",
+      headers: {
+        Authorization: `Bearer ${localStorage.getItem("loginToken")}`,
+      },
+    });
     const newData = await re.json();
     if (newData.last === true) {
       setIsLastPage(true);
     }
     setArticlesData(oldData => [...(oldData || []), ...newData.content]);
   };
-  useEffect(() => {
-    fetchArticles();
-  }, []);
+  // useEffect(() => {
+  //   fetchArticles();
+  // }, []);
   const [selectedArticle, setSelectedArticle] = useState("");
   function MyVerticallyCenteredModal(props: ModalProps) {
     return (
@@ -70,7 +72,9 @@ export default function PublishedArticles() {
     );
   }
   const [modalShow, setModalShow] = useState(false);
-
+  useEffect(() => {
+    fetchArticles();
+  }, [fetchPage]);
   return (
     <>
       <ButtonGroup className="flex-column">
@@ -104,6 +108,23 @@ export default function PublishedArticles() {
           </Button>
         ))}
       </ButtonGroup>
+      {!isLastPage ? (
+        <div className="d-flex mt-5">
+          <Button
+            className="recent-events-nav-btn mx-auto fs-5"
+            variant="link"
+            onClick={() => {
+              setFetchPage(fetchPage + 1);
+            }}
+          >
+            Carica altro
+          </Button>
+        </div>
+      ) : (
+        <div className="d-flex mt-5">
+          <span className="recent-events-nav-btn mx-auto fs-5">Fine dei risultati</span>
+        </div>
+      )}
       <MyVerticallyCenteredModal show={modalShow} onHide={() => setModalShow(false)} />
     </>
   );

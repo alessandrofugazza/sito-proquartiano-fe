@@ -3,7 +3,7 @@ import "../../styles/UpcomingEvents.scss";
 import { useEffect, useRef, useState } from "react";
 import Calendar from "react-calendar";
 import { IArticleApiResponse } from "../../interfaces/IArticleApi";
-import { Col, ListGroup, Overlay, Popover, Row } from "react-bootstrap";
+import { Alert, Col, ListGroup, Overlay, Popover, Row } from "react-bootstrap";
 import { Link, useNavigate } from "react-router-dom";
 import { differenceInCalendarDays } from "date-fns";
 import { hr } from "date-fns/locale";
@@ -95,7 +95,7 @@ function UpcomingEvents({ isLoading, setIsLoading, error, setError }: IWithGetPr
   }
 
   const [selectedDayEvents, setSelectedDayEvents] = useState<IArticleApiResponse[]>([]);
-  const placeholderCounter = Array.from({ length: 4 });
+  const placeholderCounter = Array.from({ length: 3 });
   const popover = (
     <Popover id="popover-basic" ref={popoverRef}>
       <Popover.Header as="h3">Dettagli evento</Popover.Header>
@@ -157,8 +157,8 @@ function UpcomingEvents({ isLoading, setIsLoading, error, setError }: IWithGetPr
             placeholderCounter.map((_, index) => <UpcomingEventPlaceholder key={index} />)
           ) : error.hasError ? (
             <GenericErrorAlert />
-          ) : (
-            comingUpData?.map(event => (
+          ) : comingUpData?.[0] ? (
+            comingUpData.map(event => (
               <ListGroup.Item
                 onClick={() => navigate(`articoli/${event.id}`)}
                 key={event.id}
@@ -175,6 +175,8 @@ function UpcomingEvents({ isLoading, setIsLoading, error, setError }: IWithGetPr
                 </div>
               </ListGroup.Item>
             ))
+          ) : (
+            <Alert variant="light">Nessun evento in programma</Alert>
           )}
         </ListGroup>
       </Col>

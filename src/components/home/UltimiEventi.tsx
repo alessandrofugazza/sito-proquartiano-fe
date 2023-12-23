@@ -74,7 +74,8 @@ function UltimiEventi({ isLoading, setIsLoading, error, setError }: IWithGetProp
             ) : error.hasError ? (
               <GenericErrorAlert />
             ) : (
-              articlesData && (
+              articlesData &&
+              articlesData[0] && (
                 <ArticleCard
                   imgSrc={articlesData[0].img?.[0] || ""} // todo bad hack but will do for now, check api response
                   date={articlesData[0].date}

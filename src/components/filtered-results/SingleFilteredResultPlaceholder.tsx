@@ -11,13 +11,11 @@ import ArticleDateAuthorTagPlaceholder from "../shared-components/ArticleDateAut
 
 export default function SingleFilteredResultPlaceholder() {
   return (
-    <Col xs={12}>
+    <Col xs={12} className="placeholder-container">
       <Card className="flex-row shadow single-filtered-result" style={{ height: "210px" }}>
-        <Col className="d-flex" xs={2}>
-          <Placeholder animation="glow" className="img-fluid p-2 border-bottom" style={{ padding: "10px" }}>
-            <Placeholder xs={12} className="placeholder-img" />
-          </Placeholder>
-        </Col>
+        <Placeholder xs={2} animation="glow" className="img-fluid p-2 border-bottom" style={{ padding: "10px" }}>
+          <Placeholder xs={12} className="placeholder-img h-100" />
+        </Placeholder>
         <Col xs={10} className="d-flex">
           <Card.Body className="d-flex flex-column ">
             <Placeholder as={Card.Title} animation="glow">

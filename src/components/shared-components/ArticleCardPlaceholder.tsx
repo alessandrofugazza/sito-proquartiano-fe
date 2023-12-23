@@ -5,7 +5,7 @@ import ArticleDateAuthorTagPlaceholder from "./ArticleDateAuthorTagPlaceholder";
 
 export default function ArticleCardPlaceholder() {
   return (
-    <Card className={`shadow h-100 article-card `}>
+    <Card className="shadow h-100 article-card placeholder-container">
       <Placeholder animation="glow" className="img-fluid p-2 border-bottom">
         <Placeholder xs={12} className=" placeholder-img" />
       </Placeholder>

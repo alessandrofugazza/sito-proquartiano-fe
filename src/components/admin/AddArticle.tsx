@@ -773,6 +773,7 @@ export default function AddArticle() {
               <Form.Label className="fw-semibold">Contenuto</Form.Label>
               <div className="w-100">
                 {/* // ? semibold? */}
+                {/* // todo fix rendering of text */}
                 <ReactQuill
                   value={article.content}
                   onChange={content => {

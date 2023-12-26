@@ -9,17 +9,24 @@ export default function ArticleContent() {
   const previewData = useSelector((state: RootState) => state.previewData.content);
   const params = useParams();
   return (
+    // todo fix this monstrosity
     <div>
       {params.id === "preview"
         ? previewData.img?.length > 0 &&
           previewData.img.map(img => {
             return (
-              <img src={img} key={img} alt="" className="img-fluid d-block mx-auto" style={{ maxHeight: "100vh" }} />
+              <img
+                src={img}
+                key={img}
+                alt=""
+                className="img-fluid d-block mx-auto mb-4"
+                style={{ maxHeight: "100vh" }}
+              />
             );
           })
         : selectedArticle.img?.length > 0 &&
           selectedArticle.img.map(img => (
-            <img src={img} key={img} alt="" className="img-fluid d-block mx-auto" style={{ maxHeight: "100vh" }} />
+            <img src={img} key={img} alt="" className="img-fluid d-block mx-auto mb-4" style={{ maxHeight: "100vh" }} />
           ))}
       {params.id === "preview" ? (
         <div
@@ -36,7 +43,7 @@ export default function ArticleContent() {
       )}
       {params.id === "preview"
         ? previewData.pdf?.length > 0 && (
-            <div style={{ maxWidth: "70%", margin: "auto" }}>
+            <div style={{ maxWidth: "70%", margin: "auto" }} className="mb-4">
               {previewData.pdf.map(pdf => {
                 return (
                   <embed
@@ -52,7 +59,7 @@ export default function ArticleContent() {
             </div>
           )
         : selectedArticle.pdf?.length > 0 && (
-            <div style={{ maxWidth: "70%", margin: "auto" }}>
+            <div style={{ maxWidth: "70%", margin: "auto" }} className="mb-4">
               {selectedArticle.pdf.map(pdf => (
                 <embed
                   key={pdf}

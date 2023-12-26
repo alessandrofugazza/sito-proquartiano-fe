@@ -18,6 +18,7 @@ import { pdfjs } from "react-pdf";
 import DatePicker from "react-datepicker";
 import { registerLocale, setDefaultLocale } from "react-datepicker";
 import it from "date-fns/locale/it";
+import Compressor from "compressorjs";
 
 import "react-datepicker/dist/react-datepicker.css";
 import FacebookShare from "./FacebookShare";
@@ -58,7 +59,6 @@ export default function AddArticle() {
   //   setImg(updatedFiles);
   // };
   const [startDate, setStartDate] = useState<Date | null>(new Date());
-
   const handleRemoveImg = (index: number) => {
     const updatedImages = img.filter((_, i) => i !== index);
     setImg(updatedImages);
@@ -326,7 +326,6 @@ export default function AddArticle() {
   useEffect(() => {
     fetchMostUsedTags();
   }, []);
-
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
@@ -352,22 +351,59 @@ export default function AddArticle() {
 
     const formData = new FormData();
     formData.append("article", JSON.stringify(article));
-    if (img && img.length > 0) {
-      img.forEach(file => {
-        formData.append("img", file);
+
+    // learn
+    // todo dont compress if editing article. is it even worth it tho.
+    const compressImage = (file: File): Promise<void> => {
+      return new Promise((resolve, reject) => {
+        new Compressor(file, {
+          quality: 0.8,
+          success: compressedResult => {
+            formData.append("img", compressedResult);
+            resolve();
+          },
+          error: reject,
+        });
       });
+    };
+    const method = params.id ? "PUT" : "POST";
+
+    if (img && img.length > 0) {
+      await Promise.all(img.map(file => compressImage(file)));
     }
+
+    // if (img && img.length > 0) {
+    //   img.forEach(file => {
+    //     // learn
+    //     new Compressor(file, {
+    //       quality: 0.8,
+    //       // convertSize: 0,
+    //       success: compressedResult => {
+    //         // console.log(img);
+    //         // todo handle error?
+    //         // setCompressedFile(compressedResult);
+    //         formData.append("img", compressedResult);
+    //         console.log(compressedResult);
+    //       },
+    //     });
+    //   });
+    // }
     if (pdf && pdf.length > 0) {
       pdf.forEach(file => {
         formData.append("pdf", file);
       });
     }
+
     setShowOutcome(false);
     setIsLoading(true);
     setError({ hasError: false, errorMessage: "" });
-    const method = params.id ? "PUT" : "POST";
     const fetchUrl = `${process.env.REACT_APP_API_URL}/articoli${params.id ? `/${params.id}` : ""}`;
     try {
+      // console.log(formData);
+      formData.forEach((value, key) => {
+        console.log(key, value);
+      });
+
       const re = await fetch(fetchUrl, {
         method: `${method}`,
         headers: {

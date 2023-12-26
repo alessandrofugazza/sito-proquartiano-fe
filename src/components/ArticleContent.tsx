@@ -20,13 +20,13 @@ export default function ArticleContent() {
                 key={img}
                 alt=""
                 className="img-fluid d-block mx-auto mb-4"
-                style={{ maxHeight: "100vh" }}
+                style={{ maxHeight: "80vh" }}
               />
             );
           })
         : selectedArticle.img?.length > 0 &&
           selectedArticle.img.map(img => (
-            <img src={img} key={img} alt="" className="img-fluid d-block mx-auto mb-4" style={{ maxHeight: "100vh" }} />
+            <img src={img} key={img} alt="" className="img-fluid d-block mx-auto mb-4" style={{ maxHeight: "80vh" }} />
           ))}
       {params.id === "preview" ? (
         <div

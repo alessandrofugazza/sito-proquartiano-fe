@@ -96,6 +96,10 @@ function App() {
               />
             }
           />
+          <Route
+            path="/news/archivio-news/:year/:month"
+            element={<RouteWrapper title="" breadcrumb={false} content={<FilteredResults />} />}
+          />
           <Route path="/chi-siamo" element={<RouteWrapper title="Chi siamo" content={<ChiSiamo />} />} />
           <Route path="/chi-siamo/mangiacucù" element={<RouteWrapper title="Mangiacucù" content={<Mangiacucu />} />} />
           <Route path="/chi-siamo/statuto" element={<RouteWrapper title="Statuto" content={<Statuto />} />} />

@@ -122,6 +122,7 @@ function UpcomingEvents({ isLoading, setIsLoading, error, setError }: IWithGetPr
       <h3 className="d-lg-none text-center">Eventi in arrivo</h3>
       <Col xs="auto" className="mx-auto mx-lg-0 d-none d-lg-block">
         {/* // todo implement only after having figured out how to position popover */}
+        {/* // todo start from current date */}
         {/* <Col xs="auto" className="mx-auto mx-lg-0 "> */}
         <Calendar
           onChange={onChange}
